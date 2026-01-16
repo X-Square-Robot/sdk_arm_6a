@@ -1,0 +1,27 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/HardwareStatus.msg
+// generated code does not contain a copyright notice
+
+#include "control_msgs/msg/HardwareDeviceStatus.idl"
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "This message presents current hardware component status information")
+    struct HardwareStatus {
+      @verbatim (language="comment", text=
+        "Header timestamp should be update time of hardware status")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Unique identifier per hardware component, ideally the name of the hardware derived from HardwareInfo e.g. \"pal_arm\"")
+      string hardware_id;
+
+      @verbatim (language="comment", text=
+        "--- Device Status Aggregation ---------------------------------" "\n"
+        "An array containing the status of individual devices in the hardware component")
+      sequence<control_msgs::msg::HardwareDeviceStatus> hardware_device_states;
+    };
+  };
+};

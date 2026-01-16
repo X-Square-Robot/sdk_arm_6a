@@ -1,0 +1,14 @@
+source;share/x2robot_msgs/hook/cmake_prefix_path.ps1
+source;share/x2robot_msgs/hook/cmake_prefix_path.dsv
+source;share/x2robot_msgs/hook/cmake_prefix_path.sh
+source;share/x2robot_msgs/hook/ld_library_path_lib.ps1
+source;share/x2robot_msgs/hook/ld_library_path_lib.dsv
+source;share/x2robot_msgs/hook/ld_library_path_lib.sh
+source;share/x2robot_msgs/hook/pythonpath.ps1
+source;share/x2robot_msgs/hook/pythonpath.dsv
+source;share/x2robot_msgs/hook/pythonpath.sh
+source;share/x2robot_msgs/local_setup.bash
+source;share/x2robot_msgs/local_setup.dsv
+source;share/x2robot_msgs/local_setup.ps1
+source;share/x2robot_msgs/local_setup.sh
+source;share/x2robot_msgs/local_setup.zsh

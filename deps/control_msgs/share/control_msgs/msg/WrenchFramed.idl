@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/WrenchFramed.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Wrench.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "This message represents a wrench (force and torque) expressed in a specific reference frame.")
+    struct WrenchFramed {
+      @verbatim (language="comment", text=
+        "The reference frame in which the wrench is expressed.")
+      string frame_id;
+
+      @verbatim (language="comment", text=
+        "The wrench applied.")
+      geometry_msgs::msg::Wrench wrench;
+    };
+  };
+};

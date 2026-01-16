@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/JointWrenchTrajectoryPoint.msg
+// generated code does not contain a copyright notice
+
+#include "control_msgs/msg/WrenchFramed.idl"
+#include "trajectory_msgs/msg/JointTrajectoryPoint.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "A joint-wrench trajectory point defines joint positions, joint velocities, joint accelerations, joint efforts, and a task space wrench, typically used by controllers." "\n"
+      "Note: The time_from_start field is included in the JointTrajectoryPoint.")
+    struct JointWrenchTrajectoryPoint {
+      trajectory_msgs::msg::JointTrajectoryPoint point;
+
+      @verbatim (language="comment", text=
+        "The task-space wrench to apply at this trajectory point.")
+      control_msgs::msg::WrenchFramed wrench;
+    };
+  };
+};

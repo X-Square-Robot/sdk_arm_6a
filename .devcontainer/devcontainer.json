@@ -1,0 +1,37 @@
+{
+	"name": "X2Robot ARM 6A SDK Development Container",
+	"dockerComposeFile": [
+		"docker-compose.yml"
+	],
+	"service": "devcontainer",
+	"workspaceFolder": "/home/xr/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-vscode.cpptools",
+				"ms-vscode.cmake-tools",
+				"ms-iot.vscode-ros",
+				"donjayamanne.githistory",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"streetsidesoftware.code-spell-checker",
+				"bierner.markdown-mermaid",
+				"yzhang.markdown-all-in-one"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/bin/python3",
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"files.associations": {
+					"*.repos": "yaml",
+					"*.world": "xml",
+					"*.xacro": "xml"
+				}
+			}
+		}
+	},
+	"postCreateCommand": "source /opt/ros/${ROS2_DISTRO}/setup.bash && source /opt/xr/core/install/setup.bash && echo 'Development environment ready!'",
+	"remoteUser": "xr"
+}
+

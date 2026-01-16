@@ -1,0 +1,44 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/HardwareDeviceStatus.msg
+// generated code does not contain a copyright notice
+
+#include "control_msgs/msg/CANopenState.idl"
+#include "control_msgs/msg/EtherCATState.idl"
+#include "control_msgs/msg/GenericHardwareState.idl"
+#include "control_msgs/msg/VDA5050State.idl"
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "This message presents current hardware device status information")
+    struct HardwareDeviceStatus {
+      @verbatim (language="comment", text=
+        "Header timestamp should be update time of device status")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Unique identifier for the device, e.g. \"base_motor\", \"gripper_joint_1\"")
+      string device_id;
+
+      @verbatim (language="comment", text=
+        "--- Standard-Specific States --------------------------------------" "\n"
+        "States populated based on the standards relevant to this device." "\n"
+        "A device will only fill the arrays for the standards it implements, rest will be empty" "\n"
+        "Generic hardware status information applicable to any device, it is suggested to fill this for all devices")
+      sequence<control_msgs::msg::GenericHardwareState> hardware_status;
+
+      @verbatim (language="comment", text=
+        "CANopen-specific device states (DS-301/DS-402 compliant devices)")
+      sequence<control_msgs::msg::CANopenState> canopen_states;
+
+      @verbatim (language="comment", text=
+        "EtherCAT-specific device states (CoE, FoE, etc.)")
+      sequence<control_msgs::msg::EtherCATState> ethercat_states;
+
+      @verbatim (language="comment", text=
+        "VDA5050-specific states for AGV/mobile robot devices")
+      sequence<control_msgs::msg::VDA5050State> vda5050_states;
+    };
+  };
+};

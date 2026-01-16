@@ -1,0 +1,27 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/HardwareDiagnostics.msg
+// generated code does not contain a copyright notice
+
+#include "control_msgs/msg/HardwareDeviceDiagnostics.idl"
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "This message presents current hardware diagnostics")
+    struct HardwareDiagnostics {
+      @verbatim (language="comment", text=
+        "Header timestamp should be update time of device diagnostics")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Unique identifier per hardware component, ideally the name of the hardware derived from HardwareInfo e.g. \"pal_arm\"")
+      string hardware_id;
+
+      @verbatim (language="comment", text=
+        "--- Device Diagnostics Aggregation ---------------------------------" "\n"
+        "Diagnostics for individual devices within this hardware set")
+      sequence<control_msgs::msg::HardwareDeviceDiagnostics> hardware_device_diagnostics;
+    };
+  };
+};

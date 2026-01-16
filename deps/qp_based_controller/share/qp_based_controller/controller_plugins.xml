@@ -1,0 +1,29 @@
+<library path="qp_ik_controller">
+  <class name="x2robot_controllers/QPIKController"
+         type="x2robot_controllers::QPIKController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      QP-based Inverse Kinematics controller
+    </description>
+  </class>
+</library>
+
+<library path="robot_whole_body_control_controller">
+  <class name="x2robot_controllers/RobotWholeBodyControlController"
+         type="x2robot_controllers::RobotWholeBodyControlController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      robot whole body endpose controller
+    </description>
+  </class>
+</library>
+
+<library path="robot_whole_body_joint_controller">
+  <class name="x2robot_controllers/RobotWholeBodyJointController"
+         type="x2robot_controllers::RobotWholeBodyJointController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      robot whole body joint controller
+    </description>
+  </class>
+</library>

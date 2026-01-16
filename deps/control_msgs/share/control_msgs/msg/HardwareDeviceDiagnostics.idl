@@ -1,0 +1,27 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/HardwareDeviceDiagnostics.msg
+// generated code does not contain a copyright notice
+
+#include "diagnostic_msgs/msg/KeyValue.idl"
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "This message presents current hardware device status information")
+    struct HardwareDeviceDiagnostics {
+      @verbatim (language="comment", text=
+        "Header timestamp should be update time of device diagnostics")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Unique identifier for the device, e.g. \"base_motor\", \"gripper_joint_1\"")
+      string device_id;
+
+      @verbatim (language="comment", text=
+        "--- Diagnostic Entries --------------------------------------------" "\n"
+        "Key-value pairs representing diagnostic information for the device.")
+      sequence<diagnostic_msgs::msg::KeyValue> entries;
+    };
+  };
+};

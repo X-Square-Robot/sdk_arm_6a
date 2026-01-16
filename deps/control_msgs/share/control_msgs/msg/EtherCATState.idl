@@ -1,0 +1,55 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/EtherCATState.msg
+// generated code does not contain a copyright notice
+
+
+module control_msgs {
+  module msg {
+    module EtherCATState_Constants {
+      @verbatim (language="comment", text=
+        "--- Application Layer State Constants -----------------------------" "\n"        "EtherCAT slave states according to ETG.1000" "\n"        "INIT state - slave initialization")
+      const uint8 AL_STATE_INIT = 1;
+      @verbatim (language="comment", text=
+        "PREOP state - pre-operational, mailbox communication")
+      const uint8 AL_STATE_PREOP = 2;
+      @verbatim (language="comment", text=
+        "BOOTSTRAP state - firmware update mode")
+      const uint8 AL_STATE_BOOTSTRAP = 3;
+      @verbatim (language="comment", text=
+        "SAFEOP state - safe operational, inputs updated")
+      const uint8 AL_STATE_SAFEOP = 4;
+      @verbatim (language="comment", text=
+        "OP state - operational, full communication")
+      const uint8 AL_STATE_OP = 8;
+    };
+    @verbatim (language="comment", text=
+      "This message presents EtherCAT-specific device state information" "\n"
+      "Refer ETG.1000 EtherCAT Specification")
+    struct EtherCATState {
+      @verbatim (language="comment", text=
+        "Position of the slave on the bus (0, 1, 2...)")
+      uint16 slave_position;
+
+      @verbatim (language="comment", text=
+        "Unique vendor identifier from the device's ESI file")
+      string vendor_id;
+
+      @verbatim (language="comment", text=
+        "Unique product code for the device from the device's ESI file")
+      string product_code;
+
+      @verbatim (language="comment", text=
+        "--- EtherCAT State Machine (ESM) ----------------------------------" "\n"
+        "Application Layer state, see ALState constants below")
+      uint8 al_state;
+
+      @verbatim (language="comment", text=
+        "True if the slave is in an error state")
+      boolean has_error;
+
+      @verbatim (language="comment", text=
+        "AL Status Code indicating the reason for an error (0 = no error)")
+      uint16 al_status_code;
+    };
+  };
+};

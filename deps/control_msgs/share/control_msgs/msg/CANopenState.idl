@@ -1,0 +1,70 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/CANopenState.msg
+// generated code does not contain a copyright notice
+
+
+module control_msgs {
+  module msg {
+    module CANopenState_Constants {
+      @verbatim (language="comment", text=
+        "--- NMT State Constants -------------------------------------------" "\n"        "CiA 301 Network Management states" "\n"        "Device is initializing")
+      const uint8 NMT_INITIALISING = 0;
+      @verbatim (language="comment", text=
+        "Device is in pre-operational state")
+      const uint8 NMT_PRE_OPERATIONAL = 127;
+      @verbatim (language="comment", text=
+        "Device is operational")
+      const uint8 NMT_OPERATIONAL = 5;
+      @verbatim (language="comment", text=
+        "Device is stopped")
+      const uint8 NMT_STOPPED = 4;
+      @verbatim (language="comment", text=
+        "--- DSP 402 State Constants ---------------------------------------" "\n"        "CiA 402 Drive state machine states" "\n"        "Not ready to switch on")
+      const uint8 DSP402_NOT_READY_TO_SWITCH_ON = 0;
+      @verbatim (language="comment", text=
+        "Switch on disabled")
+      const uint8 DSP402_SWITCH_ON_DISABLED = 1;
+      @verbatim (language="comment", text=
+        "Ready to switch on")
+      const uint8 DSP402_READY_TO_SWITCH_ON = 2;
+      @verbatim (language="comment", text=
+        "Switched on")
+      const uint8 DSP402_SWITCHED_ON = 3;
+      @verbatim (language="comment", text=
+        "Operation enabled")
+      const uint8 DSP402_OPERATION_ENABLED = 4;
+      @verbatim (language="comment", text=
+        "Quick stop active")
+      const uint8 DSP402_QUICK_STOP_ACTIVE = 5;
+      @verbatim (language="comment", text=
+        "Fault reaction active")
+      const uint8 DSP402_FAULT_REACTION_ACTIVE = 6;
+      @verbatim (language="comment", text=
+        "Fault state")
+      const uint8 DSP402_FAULT = 7;
+    };
+    @verbatim (language="comment", text=
+      "This message presents CANopen-specific device state information" "\n"
+      "Refer CiA 301 and CiA 402 application layer documentation")
+    struct CANopenState {
+      @verbatim (language="comment", text=
+        "The CANopen node ID of the device (1-127)")
+      uint8 node_id;
+
+      @verbatim (language="comment", text=
+        "--- CiA 301 State -------------------------------------------------" "\n"
+        "Network Management state, see NMTState constants below")
+      uint8 nmt_state;
+
+      @verbatim (language="comment", text=
+        "--- CiA 402 State (for drives) ------------------------------------" "\n"
+        "Drive state machine state for motion control devices, see DSP402State constants below")
+      uint8 dsp_402_state;
+
+      @verbatim (language="comment", text=
+        "--- Error Reporting -----------------------------------------------" "\n"
+        "Last Emergency (EMCY) error code received from the device")
+      uint32 last_emcy_code;
+    };
+  };
+};

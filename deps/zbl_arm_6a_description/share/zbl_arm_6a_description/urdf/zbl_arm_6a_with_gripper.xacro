@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="zbl_arm_6a">
+
+  <xacro:arg name="use_geometry_collision"
+             default="false" />
+
+  <!-- Add base link -->
+  <link name="base_link" />
+
+  <xacro:arg name="mock_robot"
+             default="True" />
+
+  <!-- Add arx r5 arm -->
+  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a.urdf.xacro" />
+  <xacro:zbl_arm_6a prefix=""
+                        use_geometry_collision="$(arg use_geometry_collision)" />
+  <joint name="zbl_arm_6a_connector"
+         type="fixed">
+    <parent link="base_link" />
+    <child link="arm_base_link" />
+    <origin xyz="0 0 0"
+            rpy="0 0 0" />
+  </joint>
+
+  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a.ros2_control.xacro" />
+  <xacro:zbl_arm_6a_ros2_control name="arm_control"
+                                     prefix=""
+                                     can_interface="can0"
+                                     use_ipc="1"
+                                     mock_robot="$(arg mock_robot)" />
+
+  <!-- gripper -->
+  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.urdf.xacro" />
+  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.ros2_control.xacro" />
+
+  <xacro:parallel_gripper prefix="arm_"
+                                use_geometry_collision="$(arg use_geometry_collision)" />
+  <joint name="gripper_connector"
+         type="fixed">
+    <parent link="arm_link6" />
+    <child link="arm_gripper_base_link" />
+    <origin xyz="0 0 0"
+            rpy="0 0 0" />
+  </joint>
+
+  <xacro:parallel_gripper_ros2_control name="arm_gripper"
+                                             prefix="arm_"
+                                             can_interface="can0"
+                                             use_ipc="1"
+                                             mock_robot="$(arg mock_robot)" />
+
+</robot>

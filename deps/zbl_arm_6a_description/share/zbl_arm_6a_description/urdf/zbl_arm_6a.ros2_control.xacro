@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="zbl_arm_6a_ros2_control"
+               params="name prefix can_interface use_ipc:=1 mock_robot">
+
+    <ros2_control name="${name}"
+                  type="system">
+      <hardware>
+        <xacro:if value="${mock_robot == True}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="${mock_robot == True}">
+          <plugin>x2robot_hardware_interface/CustomMotorSystemInterface</plugin>
+          <param name="can_interface">${can_interface}</param>
+          <param name="use_ipc">${use_ipc}</param>
+        </xacro:unless>
+      </hardware>
+      <joint name="${prefix}arm_joint1">
+        <param name="motor_id">1</param>
+        <param name="master_id">17</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM6248</param>
+        <param name="lower_limit">-2.792</param>
+        <param name="upper_limit">2.792</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${prefix}arm_joint2">
+        <param name="motor_id">2</param>
+        <param name="master_id">18</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM6248</param>
+        <param name="lower_limit">0.0</param>
+        <param name="upper_limit">3.44</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${prefix}arm_joint3">
+        <param name="motor_id">3</param>
+        <param name="master_id">19</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM6248</param>
+        <param name="direction">-1.0</param>
+        <param name="lower_limit">-3.14</param>
+        <param name="upper_limit">0.0</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${prefix}arm_joint4">
+        <param name="motor_id">4</param>
+        <param name="master_id">20</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM4340_48</param>
+        <param name="direction">-1.0</param>
+        <param name="lower_limit">-1.57</param>
+        <param name="upper_limit">1.57</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${prefix}arm_joint5">
+        <param name="motor_id">5</param>
+        <param name="master_id">21</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM4340_48</param>
+        <param name="direction">-1.0</param>
+        <param name="lower_limit">-1.4</param>
+        <param name="upper_limit">1.4</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+      <joint name="${prefix}arm_joint6">
+        <param name="motor_id">6</param>
+        <param name="master_id">22</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM4340_48</param>
+        <param name="lower_limit">-1.745</param>
+        <param name="upper_limit">1.745</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,32 @@
+services:
+  devcontainer:
+    container_name: zbl_arm_6a_sdk
+    image: zbl_arm_6a_sdk_image:v0.1.0
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.devcontainer
+    
+    privileged: true
+    network_mode: "host"
+    user: "xr"
+    tty: true
+    shm_size: 2g
+
+    volumes:
+      - ../examples:/home/xr/workspace/examples:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /dev:/dev
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+   
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - ROS2_DISTRO=jazzy
+    
+    security_opt:
+      - seccomp:unconfined
+    
+    command: >
+      bash -i -c "echo 'Development environment ready!' &&
+      while sleep 1000; do :; done"

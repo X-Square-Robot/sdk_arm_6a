@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/JointWrenchTrajectory.msg
+// generated code does not contain a copyright notice
+
+#include "control_msgs/msg/JointWrenchTrajectoryPoint.idl"
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "The header is used to specify the reference time for the trajectory durations")
+    struct JointWrenchTrajectory {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "The names of the active joints in each trajectory point. These names are" "\n"
+        "ordered and must correspond to the values in each trajectory point.")
+      sequence<string> joint_names;
+
+      @verbatim (language="comment", text=
+        "Array of trajectory points, which describe the joint positions, velocities," "\n"
+        "accelerations and/or efforts, and task space wrenches at each time point.")
+      sequence<control_msgs::msg::JointWrenchTrajectoryPoint> points;
+    };
+  };
+};

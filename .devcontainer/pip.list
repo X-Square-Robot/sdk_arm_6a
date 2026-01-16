@@ -1,0 +1,10 @@
+# Python packages for examples (optional, can be installed by users as needed)
+# Uncomment if you want to pre-install these packages:
+numpy
+scipy
+matplotlib
+pyyaml
+transforms3d
+toppra
+opencv-python
+

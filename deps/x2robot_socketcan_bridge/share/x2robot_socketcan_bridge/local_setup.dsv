@@ -1,0 +1,3 @@
+source;share/x2robot_socketcan_bridge/environment/ament_prefix_path.sh
+source;share/x2robot_socketcan_bridge/environment/library_path.sh
+source;share/x2robot_socketcan_bridge/environment/path.sh

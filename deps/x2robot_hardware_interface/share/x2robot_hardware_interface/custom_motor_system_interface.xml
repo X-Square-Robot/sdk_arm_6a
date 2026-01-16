@@ -1,0 +1,9 @@
+<library path="custom_robot_interface">
+<class name="x2robot_hardware_interface/CustomMotorSystemInterface"
+       type="x2robot_hardware_interface::CustomMotorSystemInterface"
+       base_class_type="hardware_interface::SystemInterface">
+  <description>
+    The ros2_control x2robot custom motor interface
+  </description>
+</class>
+</library>

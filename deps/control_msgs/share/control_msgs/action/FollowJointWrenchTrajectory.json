@@ -1,0 +1,943 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory",
+      "fields": [
+        {
+          "name": "goal",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Goal"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "result",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Result"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "feedback",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Feedback"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "send_goal_service",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "get_result_service",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult"
+          },
+          "default_value": ""
+        },
+        {
+          "name": "feedback_message",
+          "type": {
+            "type_id": 1,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_FeedbackMessage"
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": [
+      {
+        "type_name": "builtin_interfaces/msg/Duration",
+        "fields": [
+          {
+            "name": "sec",
+            "type": {
+              "type_id": 6,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "nanosec",
+            "type": {
+              "type_id": 7,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "builtin_interfaces/msg/Time",
+        "fields": [
+          {
+            "name": "sec",
+            "type": {
+              "type_id": 6,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "nanosec",
+            "type": {
+              "type_id": 7,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Feedback",
+        "fields": [
+          {
+            "name": "header",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "std_msgs/msg/Header"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "joint_names",
+            "type": {
+              "type_id": 161,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "desired",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointWrenchTrajectoryPoint"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "actual",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointWrenchTrajectoryPoint"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "error",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointWrenchTrajectoryPoint"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "index",
+            "type": {
+              "type_id": 6,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_FeedbackMessage",
+        "fields": [
+          {
+            "name": "goal_id",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "unique_identifier_msgs/msg/UUID"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "feedback",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Feedback"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult",
+        "fields": [
+          {
+            "name": "request_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Request"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "response_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Response"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "event_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Event"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Event",
+        "fields": [
+          {
+            "name": "info",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "service_msgs/msg/ServiceEventInfo"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "request",
+            "type": {
+              "type_id": 97,
+              "capacity": 1,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Request"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "response",
+            "type": {
+              "type_id": 97,
+              "capacity": 1,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Response"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Request",
+        "fields": [
+          {
+            "name": "goal_id",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "unique_identifier_msgs/msg/UUID"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Response",
+        "fields": [
+          {
+            "name": "status",
+            "type": {
+              "type_id": 2,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "result",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Result"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Goal",
+        "fields": [
+          {
+            "name": "trajectory",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointWrenchTrajectory"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "path_tolerance",
+            "type": {
+              "type_id": 145,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointTolerance"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "goal_tolerance",
+            "type": {
+              "type_id": 145,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointTolerance"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "goal_time_tolerance",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "builtin_interfaces/msg/Duration"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Result",
+        "fields": [
+          {
+            "name": "error_code",
+            "type": {
+              "type_id": 6,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "error_string",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal",
+        "fields": [
+          {
+            "name": "request_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Request"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "response_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Response"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "event_message",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Event"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Event",
+        "fields": [
+          {
+            "name": "info",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "service_msgs/msg/ServiceEventInfo"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "request",
+            "type": {
+              "type_id": 97,
+              "capacity": 1,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Request"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "response",
+            "type": {
+              "type_id": 97,
+              "capacity": 1,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Response"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Request",
+        "fields": [
+          {
+            "name": "goal_id",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "unique_identifier_msgs/msg/UUID"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "goal",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/action/FollowJointWrenchTrajectory_Goal"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Response",
+        "fields": [
+          {
+            "name": "accepted",
+            "type": {
+              "type_id": 15,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "stamp",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "builtin_interfaces/msg/Time"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/msg/JointTolerance",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "position",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "velocity",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "acceleration",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/msg/JointWrenchTrajectory",
+        "fields": [
+          {
+            "name": "header",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "std_msgs/msg/Header"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "joint_names",
+            "type": {
+              "type_id": 161,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "points",
+            "type": {
+              "type_id": 145,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/JointWrenchTrajectoryPoint"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/msg/JointWrenchTrajectoryPoint",
+        "fields": [
+          {
+            "name": "point",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "trajectory_msgs/msg/JointTrajectoryPoint"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "wrench",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "control_msgs/msg/WrenchFramed"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "control_msgs/msg/WrenchFramed",
+        "fields": [
+          {
+            "name": "frame_id",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "wrench",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "geometry_msgs/msg/Wrench"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "geometry_msgs/msg/Vector3",
+        "fields": [
+          {
+            "name": "x",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "y",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "z",
+            "type": {
+              "type_id": 11,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "geometry_msgs/msg/Wrench",
+        "fields": [
+          {
+            "name": "force",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "geometry_msgs/msg/Vector3"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "torque",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "geometry_msgs/msg/Vector3"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "service_msgs/msg/ServiceEventInfo",
+        "fields": [
+          {
+            "name": "event_type",
+            "type": {
+              "type_id": 3,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "stamp",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "builtin_interfaces/msg/Time"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "client_gid",
+            "type": {
+              "type_id": 51,
+              "capacity": 16,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "sequence_number",
+            "type": {
+              "type_id": 8,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "std_msgs/msg/Header",
+        "fields": [
+          {
+            "name": "stamp",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "builtin_interfaces/msg/Time"
+            },
+            "default_value": ""
+          },
+          {
+            "name": "frame_id",
+            "type": {
+              "type_id": 17,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "trajectory_msgs/msg/JointTrajectoryPoint",
+        "fields": [
+          {
+            "name": "positions",
+            "type": {
+              "type_id": 155,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "velocities",
+            "type": {
+              "type_id": 155,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "accelerations",
+            "type": {
+              "type_id": 155,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "effort",
+            "type": {
+              "type_id": 155,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          },
+          {
+            "name": "time_from_start",
+            "type": {
+              "type_id": 1,
+              "capacity": 0,
+              "string_capacity": 0,
+              "nested_type_name": "builtin_interfaces/msg/Duration"
+            },
+            "default_value": ""
+          }
+        ]
+      },
+      {
+        "type_name": "unique_identifier_msgs/msg/UUID",
+        "fields": [
+          {
+            "name": "uuid",
+            "type": {
+              "type_id": 51,
+              "capacity": 16,
+              "string_capacity": 0,
+              "nested_type_name": ""
+            },
+            "default_value": ""
+          }
+        ]
+      }
+    ]
+  },
+  "type_hashes": [
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory",
+      "hash_string": "RIHS01_68bdc50dd95a2dac9c91b6cb38a6868a945c03c0775f851f0b20a5e3bd02f923"
+    },
+    {
+      "type_name": "builtin_interfaces/msg/Duration",
+      "hash_string": "RIHS01_e8d009f659816f758b75334ee1a9ca5b5c0b859843261f14c7f937349599d93b"
+    },
+    {
+      "type_name": "builtin_interfaces/msg/Time",
+      "hash_string": "RIHS01_b106235e25a4c5ed35098aa0a61a3ee9c9b18d197f398b0e4206cea9acf9c197"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Feedback",
+      "hash_string": "RIHS01_3954b464e90ab18be3851ccd9a04a08781ee336c832480da83b5fbf81ab5a9fa"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_FeedbackMessage",
+      "hash_string": "RIHS01_7640a5d3416e7df7fd1d3db0e0c238cdc2c47fee99af16d56fba6ce3401c769f"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult",
+      "hash_string": "RIHS01_324c18298e21948bb0447e218c5c58f34be4167fb1a1fc3757ab9a50acb45d98"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Event",
+      "hash_string": "RIHS01_949915a20249dac086a223a8420f9015cb0359ddf16776381d9583516a067679"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Request",
+      "hash_string": "RIHS01_d6a9ce80658bb8356ae60f929ad1c435defed9f3eed1b264235cf481d6e8f437"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_GetResult_Response",
+      "hash_string": "RIHS01_cd45fc568ab1530717c256ac1075825c14a56ce4aa5387793065d71c62d5564f"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Goal",
+      "hash_string": "RIHS01_a88265e40054c97429e5905c39ebfbbfaba5054674030bd9712a4b2a98dc67c2"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_Result",
+      "hash_string": "RIHS01_58e5ccf89d8cbea853f9af6b1a391466b4ac02c42c6a0b2810610b88d93a0ade"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal",
+      "hash_string": "RIHS01_eeb781fdebdce2b4f2e2844579842ac6692df68cdbc2328ac8865402b48cb850"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Event",
+      "hash_string": "RIHS01_2f47abea63efc3e8ae382a0df0ea06f17aa1ff197799cc22c9bf0ac7ef4eb77b"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Request",
+      "hash_string": "RIHS01_f6691d5cf3b1d7a69886b8e7bd406672f82bcd75d730f377bf20b75d950ded0e"
+    },
+    {
+      "type_name": "control_msgs/action/FollowJointWrenchTrajectory_SendGoal_Response",
+      "hash_string": "RIHS01_8121d63781e9555384b4ca570703c5fda1fbffeeeafa6892bffdf372ff071223"
+    },
+    {
+      "type_name": "control_msgs/msg/JointTolerance",
+      "hash_string": "RIHS01_c254f9cece0f3b733017b6990fd46d1326e25242d6b8844398c97d9a88e7d648"
+    },
+    {
+      "type_name": "control_msgs/msg/JointWrenchTrajectory",
+      "hash_string": "RIHS01_5534591b14e9605ce8e3d6858adb3249d2e46e33122f9b84c09b84bedddd0a25"
+    },
+    {
+      "type_name": "control_msgs/msg/JointWrenchTrajectoryPoint",
+      "hash_string": "RIHS01_777b7eb05a00f3bd497edefabc06fb8273fa37b228d23d65ade484ccc70ac613"
+    },
+    {
+      "type_name": "control_msgs/msg/WrenchFramed",
+      "hash_string": "RIHS01_c3154e85334ede6531b15c0f847b0afeaad2fc69061ec12cebd826cfa0e27764"
+    },
+    {
+      "type_name": "geometry_msgs/msg/Vector3",
+      "hash_string": "RIHS01_cc12fe83e4c02719f1ce8070bfd14aecd40f75a96696a67a2a1f37f7dbb0765d"
+    },
+    {
+      "type_name": "geometry_msgs/msg/Wrench",
+      "hash_string": "RIHS01_018e8519d57c16adbe97c9fe1460ef21fec7e31bc541de3d653a35895677ce52"
+    },
+    {
+      "type_name": "service_msgs/msg/ServiceEventInfo",
+      "hash_string": "RIHS01_41bcbbe07a75c9b52bc96bfd5c24d7f0fc0a08c0cb7921b3373c5732345a6f45"
+    },
+    {
+      "type_name": "std_msgs/msg/Header",
+      "hash_string": "RIHS01_f49fb3ae2cf070f793645ff749683ac6b06203e41c891e17701b1cb597ce6a01"
+    },
+    {
+      "type_name": "trajectory_msgs/msg/JointTrajectoryPoint",
+      "hash_string": "RIHS01_de8907036d8bd45aac6f30cc9044a3d4a329c42cbf719aff7d95a584cfa532d7"
+    },
+    {
+      "type_name": "unique_identifier_msgs/msg/UUID",
+      "hash_string": "RIHS01_1b8e8aca958cbea28fe6ef60bf6c19b683c97a9ef60bb34752067d0f2f7ab437"
+    }
+  ]
+}

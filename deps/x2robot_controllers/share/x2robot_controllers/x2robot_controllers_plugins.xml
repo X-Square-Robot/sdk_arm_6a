@@ -1,0 +1,29 @@
+<library path="gravity_compensate_controller">
+  <class name="x2robot_controllers/GravityCompensateController"
+         type="x2robot_controllers::GravityCompensateController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      gravity compensation controller
+    </description>
+  </class>
+</library>
+
+<library path="endpose_broadcaster">
+  <class name="x2robot_controllers/EndposeBroadcaster"
+         type="x2robot_controllers::EndposeBroadcaster"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Select a base frame and endpose frame, broadcast transform between them.
+    </description>
+  </class>
+</library>
+
+<library path="joint_impedance_controller">
+  <class name="x2robot_controllers/JointImpedanceController"
+         type="x2robot_controllers::JointImpedanceController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      joint impedance controller
+    </description>
+  </class>
+</library>

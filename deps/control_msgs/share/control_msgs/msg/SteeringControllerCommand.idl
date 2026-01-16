@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from control_msgs/msg/SteeringControllerCommand.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module control_msgs {
+  module msg {
+    struct SteeringControllerCommand {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "in rad")
+      double steering_angle;
+
+      @verbatim (language="comment", text=
+        "in m/s")
+      double linear_velocity;
+    };
+  };
+};

@@ -1,0 +1,9 @@
+builtin_interfaces/Time stamp
+uint32 can_id
+uint8 dlc
+uint8[64] data
+uint8 err
+uint8 rtr
+uint8 eff
+uint8 fd
+uint8 brs

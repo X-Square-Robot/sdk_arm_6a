@@ -1,0 +1,122 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 200 # Hz
+    enforce_command_limits: false
+    # hardware_components_initial_state:
+    #   inactive:
+
+    zero_force_dragging_controller:
+      type: x2robot_controllers/GravityCompensateController
+
+    joint_position_controller:
+      type: x2robot_controllers/JointImpedanceController
+
+    cart_pose_controller:
+      type: x2robot_controllers/QPIKController
+
+    sim_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    gripper_controller:
+      type: x2robot_controllers/JointImpedanceController
+
+    endpose_broadcaster:
+      type: x2robot_controllers/EndposeBroadcaster
+
+zero_force_dragging_controller:
+  ros__parameters:
+    robot_joint_names:
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+      - arm_joint6
+    joint_compensation_ratio: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    a_1: [0.6, 0.4, 0.6, 0.4, 0.4, 0.4]
+    a_2: [7.0, 7.0, 7.0, 10.0, 10.0, 10.0]
+    a_3: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    a_4: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+joint_position_controller:
+  ros__parameters:
+    robot_type: arx
+    robot_joint_names:
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+      - arm_joint6
+    mit_mode: true
+    joint_compensation_ratio: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    joint_damping: [20.0, 20.0, 20.0, 0.8, 0.8, 1.0]
+    joint_stiffness: [400.0, 400.0, 400.0, 66.0, 33.0, 30.0]
+    joint_position_input_shaper_f_n: [10.0, 5.0, 5.0, 10.0, 10.0, 10.0]
+    joint_position_input_shaper_zeta: [0.7, 0.5, 0.5, 0.7, 0.7, 0.7]
+
+cart_pose_controller:
+  ros__parameters:
+    joint_names:
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+      - arm_joint6
+    joint_damping: [20.0, 20.0, 20.0, 0.8, 0.8, 1.0]
+    joint_stiffness: [400.0, 400.0, 400.0, 66.0, 33.0, 30.0]
+    arm_ee_frame_name: arm_joint6
+    enable_input_shaper: true
+    orientation_cost: [0.75, 0.75, 0.75]
+    joint_limit_scale: 0.8
+    joint_position_input_shaper_f_n: [10.0, 5.0, 5.0, 10.0, 10.0, 10.0]
+    joint_position_input_shaper_zeta: [0.7, 0.5, 0.5, 0.7, 0.7, 0.7]
+    joint_position_input_shaper_dt: 0.005
+
+sim_arm_controller:
+  ros__parameters:
+    joints:
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+      - arm_joint6
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+
+endpose_broadcaster:
+  ros__parameters:
+    joint_names:
+      - arm_joint1
+      - arm_joint2
+      - arm_joint3
+      - arm_joint4
+      - arm_joint5
+      - arm_joint6
+    topic_prefix: arm/
+    base_frame_id: arm_base_link
+    pub_pose_frame_id: arm_base_link
+    ee_frame_id: arm_link6
+    base_offset: [0.1185, 0.0025, 0.181] # Offset between arx origin to base_link
+
+gripper_controller:
+  ros__parameters:
+    robot_type: arx
+    robot_joint_names:
+      - arm_gripper
+    mit_mode: true
+    joint_compensation_ratio: [1.0]
+    joint_damping: [0.1]
+    joint_stiffness: [6.0]
+    joint_position_filter_size: [1]
+    joint_velocity_filter_size: [1]
+    joint_position_input_shaper_f_n: [10.0]
+    joint_position_input_shaper_zeta: [0.7]
