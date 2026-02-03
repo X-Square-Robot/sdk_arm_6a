@@ -24,6 +24,7 @@ class GripperControl(Node):
 def main(args=None):
     rclpy.init(args=args)
     gripper_control = GripperControl()
+    time.sleep(0.5)
     gripper_control.open_gripper()
     time.sleep(1)
     gripper_control.close_gripper()
