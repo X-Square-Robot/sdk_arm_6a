@@ -10,7 +10,10 @@
   - `/joint_states` - 关节状态（位置、速度、力矩）
   - `/end_pose` - 末端执行器位姿
 - **用途**: 用于调试和监控，了解机械臂当前状态
-- **特点**: 简单易用，适合初学者了解系统状态
+- **特点**: 
+  - 简单易用，适合初学者了解系统状态
+  - 显示关节位置（同时显示弧度和角度）
+  - 打印末端执行器位姿信息
 
 ### 2. **controller_manager.py** - 控制器管理
 - **功能**: 管理和切换机械臂控制器
@@ -41,6 +44,7 @@
   - 关节限位检查
   - 运动完成检测
   - 在运动前检查 `joint_position_controller` 是否已激活（必要时自动切换）
+  - 使用锁进行线程安全的状态监控
 - **演示内容**:
   - 移动到零位
   - 移动到指定关节角度
@@ -48,7 +52,8 @@
 - **控制参数**:
   - 最大关节速度: 0.8 rad/s
   - 最大关节加速度: 2.5 rad/s²
-  - 控制频率: 500 Hz (dt=0.002s)
+  - 控制频率: 200 Hz (dt=0.005s)
+  - 可选的 `wait_for_completion` 参数用于运动完成检测
 
 ### 4. **cartesian_control.py** - 任务空间控制
 - **功能**: 末端执行器位姿控制，带平滑轨迹规划
@@ -57,13 +62,14 @@
   - 使用 SLERP 插值四元数方向
   - 平滑的加速度曲线
   - 精确的时间控制
+  - 使用锁进行线程安全的状态监控
 - **演示内容**:
   - 移动到零位
   - 移动到指定任务位姿
   - 返回零位
 - **控制参数**:
-  - 最大线速度: 0.8 m/s
-  - 最大线加速度: 0.3 m/s²
+  - 最大线速度: 1.5 m/s
+  - 最大线加速度: 2.0 m/s²
   - 控制频率: 200 Hz (interval=0.005s)
 
 ### 5. **round_demo.py** - 圆周运动演示
@@ -72,13 +78,14 @@
   - 基于任务空间控制
   - 可配置圆周半径和圈数
   - 保持末端姿态不变
+  - 使用锁进行线程安全的状态监控
 - **使用方法**:
   ```bash
   # 默认运行 3 圈
-  python3 05_round_demo.py
+  python3 round_demo.py
   
   # 自定义圈数
-  python3 05_round_demo.py --times 5
+  python3 round_demo.py --times 5
   ```
 - **演示内容**:
   - 移动到圆周起点
@@ -92,28 +99,32 @@
   - 使用 OpenCV 显示图像
   - 支持压缩图像解码
   - 支持无头模式（headless mode），适用于 SSH 远程连接
-  - 自动检测显示环境
-  - 按 'q' 键退出
+  - 自动检测显示环境（检查 DISPLAY 和 xdpyinfo）
+  - 自动检测 DISPLAY 环境变量
+  - 在图像窗口中按 'q' 键退出
+  - 优雅的错误处理，应对显示问题
 - **使用方法**:
   ```bash
   # 本地运行（需要图形界面）
-  python3 06_arm_camera.py
+  python3 arm_camera.py
   
   # SSH 远程运行（需要 X11 转发）
   ssh -X user@host
-  python3 06_arm_camera.py
+  python3 arm_camera.py
   ```
 - **注意事项**:
   - 需要安装 OpenCV: `pip3 install opencv-python`
   - 如果无显示环境，程序会在无头模式下运行（仅打印图像信息）
+  - 如果未设置 DISPLAY，会自动尝试常见的 DISPLAY 值（`:0`, `:0.0`, `:1`, `:1.0`）
 
 ### 7. **gripper_control.py** - 夹爪控制
 - **功能**: 控制机械臂夹爪开合
 - **发布话题**:
   - `/gripper_controller/commands` - 夹爪命令 (`std_msgs/Float64MultiArray`)
 - **特性**:
-  - 简单的夹爪控制接口
+  - 使用 `GripperControl` 类的简单夹爪控制接口
   - 支持打开和关闭操作
+  - 提供 `open_gripper()` 和 `close_gripper()` 方法的简洁 API
 - **控制值**:
   - `0.0` - 关闭夹爪
   - `1.0` - 打开夹爪
@@ -123,7 +134,7 @@
   - 关闭夹爪
 - **使用方法**:
   ```bash
-  python3 07_gripper_control.py
+  python3 gripper_control.py
   ```
 
 ## 运行示例
@@ -140,7 +151,7 @@
    # 基础依赖（所有示例需要）
    pip3 install numpy scipy toppra
    
-   # 相机查看器需要（仅 06_arm_camera.py）
+   # 相机查看器需要（仅 arm_camera.py）
    pip3 install opencv-python
    ```
 
@@ -183,17 +194,29 @@ python3 gripper_control.py
   - 位置使用线性插值 + TOPP-RA 速度规划
   - 方向使用 SLERP (Spherical Linear Interpolation) 进行四元数插值
 
+### 线程安全
+
+控制示例（`joint_control.py`, `cartesian_control.py`, `round_demo.py`）使用线程安全的状态监控：
+
+- **使用两个独立的锁**来保护不同的数据：
+  - `_joint_state_lock`: 保护关节状态数据（`_joint_state`, `_joint_state_received`）
+  - `_end_pose_lock`: 保护末端执行器位姿数据（`_end_pose`, `_end_pose_received`）
+- **无死锁风险**: 锁是独立的，永远不会同时获取
+- **线程安全的属性访问**: `arm_joint_position` 和 `end_pose` 属性始终安全地返回最新值
+- **ROS 回调安全**: 订阅回调在 executor 线程中运行，安全地更新共享状态
+
 ### 安全参数
 
-**关节空间控制** (`03_joint_control.py`):
+**关节空间控制** (`joint_control.py`):
 - 最大关节速度: 0.8 rad/s (约 46°/s)
 - 最大关节加速度: 2.5 rad/s²
+- 控制频率: 200 Hz (dt=0.005s)
 - 关节限位: 自动检查并限制在安全范围内
 
-**任务空间控制** (`04_cartesian_control.py`, `05_round_demo.py`):
-- 最大线速度: 0.8 m/s
-- 最大线加速度: 0.3 m/s²
-- 控制频率: 200 Hz
+**任务空间控制** (`cartesian_control.py`, `round_demo.py`):
+- 最大线速度: 1.5 m/s (cartesian_control.py), 0.8 m/s (round_demo.py)
+- 最大线加速度: 2.0 m/s² (cartesian_control.py), 0.2-1.0 m/s² (round_demo.py)
+- 控制频率: 200 Hz (interval=0.005s)
 
 ⚠️ **注意**: 如需调整速度参数，请修改代码中的 `v_max` 和 `a_max` 参数。
 
@@ -250,7 +273,8 @@ if __name__ == '__main__':
 
 **订阅话题**:
 - `/joint_states` - 关节状态 (`sensor_msgs/JointState`)
-- `/arm/end_pose` - 末端位姿 (`geometry_msgs/PoseStamped`)
+- `/end_pose` - 末端位姿 (`geometry_msgs/PoseStamped`) - 用于 `state_monitor.py`
+- `/arm/end_pose` - 末端位姿 (`geometry_msgs/PoseStamped`) - 用于控制示例
 - `/eye_in_hand/eye_in_hand/image_raw/image_compressed` - 相机压缩图像 (`sensor_msgs/CompressedImage`)
 
 **发布话题**:
@@ -285,34 +309,42 @@ A: 按 `Ctrl+C` 可以中断程序。建议在实际应用中：
 - 实现安全状态机
 
 ### Q: 如何获取当前关节角度?
-A: 使用 `ArmStateMonitor` 类：
+A: 使用 `ArmStateMonitor` 类（在控制示例中可用）：
 ```python
 monitor = ArmStateMonitor()
 # 等待状态就绪
 monitor.get_joint_state(timeout=5.0)
-# 获取关节位置（包含所有关节）
-positions = monitor.joint_position
-# 获取机械臂关节位置（仅 arm_joint1-6）
-arm_positions = monitor.arm_joint_position
+# 获取机械臂关节位置（仅 arm_joint1-6，不包括夹爪）
+arm_positions = monitor.arm_joint_position  # 返回 numpy 数组
+# 获取完整关节状态消息
+joint_state = monitor.get_joint_state(timeout=5.0)  # 返回 JointState 消息
 ```
+注意：控制示例中的 `ArmStateMonitor` 类（`joint_control.py`, `cartesian_control.py`, `round_demo.py`）使用线程安全的锁来保护状态数据。
 
 ### Q: 如何获取当前末端位姿?
 A: 
 ```python
 monitor = ArmStateMonitor()
 # 等待状态就绪
-pose_msg = monitor.get_end_pose_msg(timeout=5.0)
+pose_msg = monitor.get_end_pose_msg(timeout=5.0)  # 返回 PoseStamped 消息
 pose = pose_msg.pose  # geometry_msgs/Pose
-# 或直接获取
+# 或直接获取（返回 Pose 对象）
 pose = monitor.end_pose
 ```
+注意：控制示例中的 `ArmStateMonitor` 类使用线程安全的锁。控制示例使用的话题是 `/arm/end_pose`，但 `state_monitor.py` 使用 `/end_pose`。
 
 ### Q: 如何控制夹爪?
 A: 使用 `GripperControl` 类或直接发布命令：
 ```python
-from std_msgs.msg import Float64MultiArray
+from gripper_control import GripperControl
 
-# 创建发布者
+# 使用 GripperControl 类（推荐）
+gripper = GripperControl()
+gripper.open_gripper()   # 打开夹爪（发送 1.0）
+gripper.close_gripper()  # 关闭夹爪（发送 0.0）
+
+# 或直接发布命令
+from std_msgs.msg import Float64MultiArray
 gripper_pub = node.create_publisher(Float64MultiArray, '/gripper_controller/commands', 10)
 
 # 打开夹爪 (1.0)
