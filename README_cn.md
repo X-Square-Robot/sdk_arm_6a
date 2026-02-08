@@ -268,7 +268,7 @@ target_pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
 
 ## 许可证
 
-[待定]
+本项目采用 Apache License 2.0 许可证 - 详情请参阅 [LICENSE](LICENSE) 文件。
 
 ## 联系方式
 
