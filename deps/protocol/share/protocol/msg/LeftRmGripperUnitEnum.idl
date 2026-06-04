@@ -1,0 +1,54 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/LeftRmGripperUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module LeftRmGripperUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "左夹爪电机正常")
+      const uint32 MOTOR_NORMAL = 16;
+      @verbatim (language="comment", text=
+        "左夹爪电机过压")
+      const uint32 OVER_VOLTAGE = 17;
+      @verbatim (language="comment", text=
+        "左夹爪电机欠压")
+      const uint32 UNDER_VOLTAGE = 18;
+      @verbatim (language="comment", text=
+        "左夹爪电机过流")
+      const uint32 OVER_CURRENT = 19;
+      @verbatim (language="comment", text=
+        "左夹爪电机MOS过温")
+      const uint32 MOS_OVER_TEMP = 20;
+      @verbatim (language="comment", text=
+        "左夹爪电机线圈过热")
+      const uint32 MOTOR_OVER_HEAT = 21;
+      @verbatim (language="comment", text=
+        "左夹爪电机通讯丢失")
+      const uint32 COMMUNICATION_LOST = 22;
+      @verbatim (language="comment", text=
+        "左夹爪电机过载")
+      const uint32 OVERLOAD = 23;
+      @verbatim (language="comment", text=
+        "左夹爪电机缺相")
+      const uint32 PHASE_LOSS = 24;
+      @verbatim (language="comment", text=
+        "左夹爪电机短路")
+      const uint32 MOTOR_SHORT_CIRCUIT = 25;
+      @verbatim (language="comment", text=
+        "左夹爪电机堵转")
+      const uint32 MOTOR_STALL = 26;
+      @verbatim (language="comment", text=
+        "左夹爪电机复位故障")
+      const uint32 RESET_FAULT = 27;
+    };
+    @verbatim (language="comment", text=
+      "Unit: LEFT_RM_GRIPPER" "\n"
+      "左 RM 夹爪获取状态超时")
+    struct LeftRmGripperUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

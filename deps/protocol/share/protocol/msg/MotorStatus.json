@@ -1,0 +1,36 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/MotorStatus",
+      "fields": [
+        {
+          "name": "state_code",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        },
+        {
+          "name": "error_bit_code",
+          "type": {
+            "type_id": 7,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/MotorStatus",
+      "hash_string": "RIHS01_016aa7270a66fe78f1e2fe8e105d4389e4892614219322f6411dd1b8fff286fa"
+    }
+  ]
+}

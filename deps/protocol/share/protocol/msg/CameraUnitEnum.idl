@@ -1,0 +1,69 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MEDIA/CameraUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module CameraUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "/dev/ArmCamLeft设备节点连接失败")
+      const uint32 CAMERA_TYPE_LEFT_HAND_DISCONNECT = 17;
+      @verbatim (language="comment", text=
+        "/dev/ArmCamRight设备节点连接失败")
+      const uint32 CAMERA_TYPE_RIGHT_HAND_DISCONNECT = 18;
+      @verbatim (language="comment", text=
+        "/dev/BackCamLeft设备节点连接失败")
+      const uint32 CAMERA_TYPE_CHEST_BACK_DISCONNECT = 19;
+      @verbatim (language="comment", text=
+        "/dev/HeadStereoRGB设备节点连接失败")
+      const uint32 CAMERA_TYPE_HEAD_STEREO_DISCONNECT = 20;
+      @verbatim (language="comment", text=
+        "/dev/BirdEyeViewCamLeft 设备节点连接失败")
+      const uint32 CAMERA_TYPE_SHOULDER_FISHEYE_LEFT_DISCONNECT = 21;
+      @verbatim (language="comment", text=
+        "/dev/BirdEyeViewCamRight设备节点连接失败")
+      const uint32 CAMERA_TYPE_SHOULDER_FISHEYE_RIGHT_DISCONNECT = 22;
+      @verbatim (language="comment", text=
+        "/dev/BellyCamRight设备节点连接失败")
+      const uint32 CAMERA_TYPE_CHEST_FRONT_DISCONNECT = 23;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_LEFT_HAND 相机帧率异常")
+      const uint32 CAMERA_TYPE_LEFT_HAND_FRAME_RATE_ABNORMAL = 65;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_HEAD 相机帧率异常")
+      const uint32 CAMERA_TYPE_HEAD_FRAME_RATE_ABNORMAL = 66;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_RIGHT_HAND 相机帧率异常")
+      const uint32 CAMERA_TYPE_RIGHT_HAND_FRAME_RATE_ABNORMAL = 67;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_CHEST_BACK 相机帧率异常")
+      const uint32 CAMERA_TYPE_CHEST_BACK_FRAME_RATE_ABNORMAL = 68;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_CHASSIS_FRAME_RATE 相机帧率异常")
+      const uint32 CAMERA_TYPE_CHASSIS_FRAME_RATE_ABNORMAL = 69;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_HEAD_STEREO 相机帧率异常")
+      const uint32 CAMERA_TYPE_HEAD_STEREO_FRAME_RATE_ABNORMAL = 70;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_SHOULDER_FISHEYE_LEFT 相机帧率异常")
+      const uint32 CAMERA_TYPE_SHOULDER_FISHEYE_LEFT_FRAME_RATE_ABNORMAL = 71;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_SHOULDER_FISHEYE_RIGHT 相机帧率异常")
+      const uint32 CAMERA_TYPE_SHOULDER_FISHEYE_RIGHT_FRAME_RATE_ABNORMAL = 72;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_BEV 相机帧率异常")
+      const uint32 CAMERA_TYPE_BEV_FRAME_RATE_ABNORMAL = 73;
+      @verbatim (language="comment", text=
+        "CAMERA_TYPE_CHEST_FRONT 相机帧率异常")
+      const uint32 CAMERA_TYPE_CHEST_FRONT_FRAME_RATE_ABNORMAL = 74;
+    };
+    @verbatim (language="comment", text=
+      "Unit: CAMERA" "\n"
+      "相机节点获取状态超时")
+    struct CameraUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

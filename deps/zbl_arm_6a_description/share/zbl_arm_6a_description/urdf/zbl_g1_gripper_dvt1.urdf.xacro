@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="zbl_g1_gripper"
+               params="prefix use_geometry_collision:=false add_sensors:=true robot_type:=ex001">
+    <xacro:if value="${robot_type == 'ex001'}">
+      <link name="${prefix}gripper_base_link">
+        <inertial>
+          <origin xyz="0.0469926 -0.0035102 0.0123808"
+                  rpy="0 0 0" />
+          <mass value="0.6966364" />
+          <inertia ixx="0.000754217"
+                   ixy="0.000111933"
+                   ixz="-0.000419857"
+                   iyy="0.00234254"
+                   iyz="5.34721e-05"
+                   izz="0.002200253" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/gripper_base_link_ex001.STL" />
+          </geometry>
+          <material name="">
+            <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+          </material>
+        </visual>
+        <xacro:if value="${use_geometry_collision}">
+          <collision name="cylinder_0">
+            <origin xyz="0.05429313146741913 -1.5407439555097887e-33 0.012581756639668891"
+                    rpy="-5.473822126268817e-48 0.0 0.0" />
+            <geometry>
+              <cylinder radius="0.05220569154481382"
+                        length="0.085" />
+            </geometry>
+          </collision>
+        </xacro:if>
+        <xacro:unless value="${use_geometry_collision}">
+          <collision>
+            <origin xyz="0 0 0"
+                    rpy="0 0 0" />
+            <geometry>
+              <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/collision/gripper_base_link_ex001.STL" />
+            </geometry>
+          </collision>
+        </xacro:unless>
+      </link>
+    </xacro:if>
+    <xacro:if value="${robot_type == 'cx002'}">
+      <link name="${prefix}gripper_base_link">
+        <inertial>
+          <origin xyz="0.0455403600215281 -0.00350003126439239 0.0106581946769314"
+                  rpy="0 0 0" />
+          <mass value="0.242879737319609" />
+          <inertia ixx="0.00011131973867648"
+                   ixy="-9.27721480725397E-07"
+                   ixz="6.29305175459272E-06"
+                   iyy="9.86340212580608E-05"
+                   iyz="-4.43901815451491E-08"
+                   izz="0.000151202979894202" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/gripper_base_link_cx002.STL" />
+          </geometry>
+          <material name="">
+            <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+          </material>
+        </visual>
+        <xacro:if value="${use_geometry_collision}">
+          <collision name="cylinder_0">
+            <origin xyz="0.05429313146741913 -1.5407439555097887e-33 0.012581756639668891"
+                    rpy="-5.473822126268817e-48 0.0 0.0" />
+            <geometry>
+              <cylinder radius="0.05220569154481382"
+                        length="0.085" />
+            </geometry>
+          </collision>
+        </xacro:if>
+        <xacro:unless value="${use_geometry_collision}">
+          <collision>
+            <origin xyz="0 0 0"
+                    rpy="0 0 0" />
+            <geometry>
+              <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/collision/gripper_base_link_cx002.STL" />
+            </geometry>
+          </collision>
+        </xacro:unless>
+      </link>
+    </xacro:if>
+    <link name="${prefix}gripper_motor_link">
+      <inertial>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <mass value="0.001" />
+        <inertia ixx="1.6667e-10"
+                 ixy="0"
+                 ixz="0"
+                 iyy="1.6667e-10"
+                 iyz="0"
+                 izz="1.6667e-10" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" />
+        </geometry>
+        <material name="">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper"
+           type="revolute">
+      <parent link="${prefix}gripper_base_link" />
+      <child link="${prefix}gripper_motor_link" />
+      <origin xyz="0 0 0"
+              rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit effort="10"
+             velocity="23.0"
+             lower="0"
+             upper="1.89" />
+    </joint>
+    <link name="${prefix}gripper_left_link">
+      <inertial>
+        <origin xyz="0.036665851 -0.000568085 -0.001069344"
+                rpy="0 0 0" />
+        <mass value="0.12012255" />
+        <inertia ixx="1.32635e-05"
+                 ixy="9.68092e-06"
+                 ixz="-4.2476e-08"
+                 iyy="0.000347319"
+                 iyz="6.0925e-08"
+                 izz="0.000344721" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/gripper_left_link.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="box_1">
+          <origin xyz="0.05797121002123598 -0.002191156843745712 5.204170427930421e-18"
+                  rpy="1.249470806105767e-32 -2.6468290348902377e-33 -1.6535678039242273e-65" />
+          <geometry>
+            <box size="0.16852326150667832 0.02514961839201132 0.03409284269713024" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/collision/gripper_left_link.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <xacro:if value="${robot_type == 'ex001'}">
+      <joint name="${prefix}gripper_left_joint"
+             type="revolute">
+        <origin xyz="0.077 0.025 -0.01"
+                rpy="0 0 0" />
+        <parent link="${prefix}gripper_base_link" />
+        <child link="${prefix}gripper_left_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.073"
+               upper="0.872"
+               effort="20"
+               velocity="11.5" />
+        <mimic joint="${prefix}gripper"
+               multiplier="0.5"
+               offset="-0.073" />
+      </joint>
+    </xacro:if>
+    <xacro:if value="${robot_type == 'cx002'}">
+      <joint name="${prefix}gripper_left_joint"
+             type="revolute">
+        <origin xyz="0.076 0.025 -0.01"
+                rpy="0 0 0" />
+        <parent link="${prefix}gripper_base_link" />
+        <child link="${prefix}gripper_left_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.073"
+               upper="0.872"
+               effort="20"
+               velocity="11.5" />
+        <mimic joint="${prefix}gripper"
+               multiplier="0.5"
+               offset="-0.073" />
+      </joint>
+    </xacro:if>
+    <link name="${prefix}gripper_left_tip_link">
+      <inertial>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <mass value="0.001" />
+        <inertia ixx="1.6667e-10"
+                 ixy="0"
+                 ixz="0"
+                 iyy="1.6667e-10"
+                 iyz="0"
+                 izz="1.6667e-10" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" />
+        </geometry>
+        <material name="">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper_left_tip_joint"
+           type="fixed">
+      <origin xyz="0.14 -0.015 0"
+              rpy="0 0 0" />
+      <parent link="${prefix}gripper_left_link" />
+      <child link="${prefix}gripper_left_tip_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="${prefix}gripper_right_link">
+      <inertial>
+        <origin xyz="0.036721374 0.000656901 -0.001042862"
+                rpy="0 0 0" />
+        <mass value="0.12050578" />
+        <inertia ixx="1.32678e-05"
+                 ixy="-9.44644e-06"
+                 ixz="-2.3912e-07"
+                 iyy="0.000348608"
+                 iyz="-6.84e-08"
+                 izz="0.000345986" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/gripper_right_link.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="box_2">
+          <origin xyz="0.057534919266220064 0.002315414413947727 -1.0408340855860843e-17"
+                  rpy="2.3301851952321497e-33 -2.1174632279121756e-33 -1.6653345369377346e-16" />
+          <geometry>
+            <box size="0.16852326150667832 0.02514961839201132 0.03409284269713024" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/collision/gripper_right_link.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <xacro:if value="${robot_type == 'ex001'}">
+      <joint name="${prefix}gripper_right_joint"
+             type="revolute">
+        <origin xyz="0.077 -0.025 -0.01"
+                rpy="0 0 0" />
+        <parent link="${prefix}gripper_base_link" />
+        <child link="${prefix}gripper_right_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.872"
+               upper="0.073"
+               effort="20"
+               velocity="11.5" />
+        <mimic joint="${prefix}gripper"
+               multiplier="-0.5"
+               offset="0.073" />
+      </joint>
+    </xacro:if>
+    <xacro:if value="${robot_type == 'cx002'}">
+      <joint name="${prefix}gripper_right_joint"
+             type="revolute">
+        <origin xyz="0.076 -0.025 -0.01"
+                rpy="0 0 0" />
+        <parent link="${prefix}gripper_base_link" />
+        <child link="${prefix}gripper_right_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="-0.872"
+               upper="0.073"
+               effort="20"
+               velocity="11.5" />
+        <mimic joint="${prefix}gripper"
+               multiplier="-0.5"
+               offset="0.073" />
+      </joint>
+    </xacro:if>
+    <link name="${prefix}gripper_right_tip_link">
+      <inertial>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <mass value="0.001" />
+        <inertia ixx="1.6667e-10"
+                 ixy="0"
+                 ixz="0"
+                 iyy="1.6667e-10"
+                 iyz="0"
+                 izz="1.6667e-10" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <box size="0.001 0.001 0.001" />
+        </geometry>
+        <material name="">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper_right_tip_joint"
+           type="fixed">
+      <origin xyz="0.14 0.015 0"
+              rpy="0 0 0" />
+      <parent link="${prefix}gripper_right_link" />
+      <child link="${prefix}gripper_right_tip_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <!-- Add sensors -->
+    <xacro:if value="${add_sensors}">
+      <link name="${prefix}gripper_camera_base_link">
+        <inertial>
+          <origin xyz="0.00351840808574652 0.00056546524978039 -0.0011127807774954"
+                  rpy="0 0 0" />
+          <mass value="0.00396709017307626" />
+          <inertia ixx="3.13251043602662E-07"
+                   ixy="8.37598094620757E-09"
+                   ixz="-1.64848292968181E-08"
+                   iyy="2.37619068236578E-07"
+                   iyz="1.32533185977337E-08"
+                   izz="2.30235532759066E-07" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_g_gripper/zbl_g1_gripper_dvt1/gripper_camera_base_link.STL" />
+          </geometry>
+          <material name="">
+            <color rgba="1 1 1 1" />
+          </material>
+        </visual>
+      </link>
+      <xacro:if value="${robot_type == 'ex001'}">
+        <joint name="${prefix}gripper_camera_base_joint"
+               type="fixed">
+          <origin xyz="0.0889999999999694 0 0.0319999999999914"
+                  rpy="0 0.209439510239375 0" />
+          <parent link="${prefix}gripper_base_link" />
+          <child link="${prefix}gripper_camera_base_link" />
+          <axis xyz="0 0 0" />
+        </joint>
+      </xacro:if>
+      <xacro:if value="${robot_type == 'cx002'}">
+        <joint name="${prefix}gripper_camera_base_joint"
+               type="fixed">
+          <origin xyz="0.088 0 0.032"
+                  rpy="0 0.20944 0" />
+          <parent link="${prefix}gripper_base_link" />
+          <child link="${prefix}gripper_camera_base_link" />
+          <axis xyz="0 0 0" />
+        </joint>
+      </xacro:if>
+      <link name="${prefix}gripper_camera_color_frame">
+        <inertial>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <mass value="0.001" />
+          <inertia ixx="1.6667e-10"
+                   ixy="0"
+                   ixz="0"
+                   iyy="1.6667e-10"
+                   iyz="0"
+                   izz="1.6667e-10" />
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+          </geometry>
+          <material name="">
+            <color rgba="1 1 1 1" />
+          </material>
+        </visual>
+      </link>
+      <joint name="${prefix}gripper_camera_color_joint"
+             type="fixed">
+        <origin xyz="0.0148 0 0"
+                rpy="-1.5708 0 -1.5708" />
+        <parent link="${prefix}gripper_camera_base_link" />
+        <child link="${prefix}gripper_camera_color_frame" />
+        <axis xyz="0 0 0" />
+      </joint>
+    </xacro:if>
+  </xacro:macro>
+</robot>

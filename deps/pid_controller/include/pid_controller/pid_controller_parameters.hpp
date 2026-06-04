@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -96,10 +99,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -542,7 +543,7 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "dof_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "dof_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'dof_names': {}", validation_result.error()));
@@ -553,21 +554,21 @@ template <typename T, size_t capacity>
       }
       updated_params.dof_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "reference_and_state_dof_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "reference_and_state_dof_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'reference_and_state_dof_names': {}", validation_result.error()));
       }
       updated_params.reference_and_state_dof_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "command_interface");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "command_interface") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'command_interface': {}", validation_result.error()));
       }
       updated_params.command_interface = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "reference_and_state_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "reference_and_state_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'reference_and_state_interfaces': {}", validation_result.error()));
@@ -582,7 +583,7 @@ template <typename T, size_t capacity>
       }
       updated_params.reference_and_state_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "use_external_measured_states");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "use_external_measured_states") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.use_external_measured_states = param.as_bool();
 
 

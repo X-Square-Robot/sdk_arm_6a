@@ -23,10 +23,10 @@ controller_manager_msgs__msg__ControllerManagerActivity__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "lifecycle_msgs/msg/detail/state__functions.h"
 #include "builtin_interfaces/msg/detail/time__functions.h"
-#include "std_msgs/msg/detail/header__functions.h"
 #include "controller_manager_msgs/msg/detail/named_lifecycle_state__functions.h"
+#include "std_msgs/msg/detail/header__functions.h"
+#include "lifecycle_msgs/msg/detail/state__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

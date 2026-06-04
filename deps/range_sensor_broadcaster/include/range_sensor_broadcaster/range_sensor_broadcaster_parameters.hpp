@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -88,10 +91,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -278,25 +279,25 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "sensor_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "sensor_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.sensor_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "radiation_type");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "radiation_type") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.radiation_type = param.as_int();
       param = parameters_interface_->get_parameter(prefix_ + "field_of_view");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "field_of_view") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.field_of_view = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "min_range");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "min_range") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.min_range = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "max_range");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "max_range") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.max_range = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "variance");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "variance") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.variance = param.as_double();
 
 

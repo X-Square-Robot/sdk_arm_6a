@@ -1,0 +1,19 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/StateEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module StateEnum_Constants {
+      const uint8 STATE_UNINITIALIZED = 0;
+      const uint8 STATE_INITIALIZED = 1;
+      const uint8 STATE_RUNNING = 2;
+      const uint8 STATE_ERROR = 3;
+      const uint8 STATE_OFFLINE = 4;
+    };
+    struct StateEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

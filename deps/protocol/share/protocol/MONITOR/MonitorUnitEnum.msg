@@ -1,0 +1,2 @@
+uint8 SYSTEM_MONITOR = 0x01
+uint8 NET_MONITOR = 0x02

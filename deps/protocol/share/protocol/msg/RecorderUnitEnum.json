@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/RecorderUnitEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/RecorderUnitEnum",
+      "hash_string": "RIHS01_d679ac1bf464f687f74d3b9a137a9b66473f3ac150e7fb52e79933f988358a1d"
+    }
+  ]
+}

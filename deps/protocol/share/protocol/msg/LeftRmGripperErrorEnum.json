@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/LeftRmGripperErrorEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/LeftRmGripperErrorEnum",
+      "hash_string": "RIHS01_bca8e08d2440ae521a754674612eb6e16c7057ef63a4735ea0ec669905281a55"
+    }
+  ]
+}

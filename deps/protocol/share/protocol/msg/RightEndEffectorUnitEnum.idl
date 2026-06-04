@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/RightEndEffectorUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module RightEndEffectorUnitEnum_Constants {
+      const uint32 J1_OVERLOAD = 23;
+      const uint32 J1_MOTOR_NORMAL = 16;
+      const uint32 J1_OVER_VOLTAGE = 17;
+      const uint32 J1_UNDER_VOLTAGE = 18;
+      const uint32 J1_OVER_CURRENT = 19;
+      const uint32 J1_MOS_OVER_TEMP = 20;
+      const uint32 J1_MOTOR_OVER_HEAT = 21;
+      const uint32 J1_COMMUNICATION_LOST = 22;
+    };
+    @verbatim (language="comment", text=
+      "Unit: RIGHT_END_EFFECTOR")
+    struct RightEndEffectorUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

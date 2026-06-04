@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/KincoLiftWaistUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module KincoLiftWaistUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "升降腰正常")
+      const uint32 MOTOR_NORMAL = 16;
+      @verbatim (language="comment", text=
+        "升降腰不正常")
+      const uint32 MOTOR_ABNORMAL = 17;
+    };
+    @verbatim (language="comment", text=
+      "Unit: KINCO_LIFT_WAIST" "\n"
+      "EX001腰部步科电机获取状态超时")
+    struct KincoLiftWaistUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

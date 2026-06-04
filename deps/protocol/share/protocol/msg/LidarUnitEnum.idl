@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/HAL/LidarUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module LidarUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "连接失败")
+      const uint32 CONN_FAIL = 17;
+      @verbatim (language="comment", text=
+        "解析校验失败")
+      const uint32 PARSE_CRC_FAIL = 18;
+    };
+    @verbatim (language="comment", text=
+      "Unit: LIDAR" "\n"
+      "雷达获取状态超时")
+    struct LidarUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

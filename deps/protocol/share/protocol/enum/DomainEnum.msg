@@ -1,0 +1,6 @@
+uint8 HAL = 0x01
+uint8 MOTION = 0x04
+uint8 MONITOR = 0x05
+uint8 APPLICATION = 0x07
+uint8 MEDIA = 0x02
+uint8 EAI = 0x06

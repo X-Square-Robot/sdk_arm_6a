@@ -75,6 +75,7 @@ class RobotWholeBodyControlController : public controller_interface::ControllerI
     // Basic controller parameters
     // ================================================
     // Robot configuration
+    std::string cmd_interface_prefix_;
     size_t robot_dof_;
     std::vector<std::string> waist_joint_names_;
     std::vector<std::string> arm_joint_names_;
@@ -102,6 +103,7 @@ class RobotWholeBodyControlController : public controller_interface::ControllerI
     // Control state
     bool is_debug_;
     bool is_activated_;
+    bool is_use_relative_pose_command_;
 
     // ================================================
     // ROS 2 Publishers and Subscribers

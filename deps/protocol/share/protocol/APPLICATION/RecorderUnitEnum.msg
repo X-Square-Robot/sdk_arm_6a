@@ -1,0 +1,15 @@
+# Unit: RECORDER
+# topic频率过低
+uint32 TOPIC_FREQ_LOW = 0x01
+# 完全无数据
+uint32 TOPIC_NO_DATA = 0x02
+# 无法开始录制：正在打包
+uint32 RECORD_BLOCKED_COMPRESSING = 0x03
+# 无法开始录制：正在上传
+uint32 RECORD_BLOCKED_UPLOADING = 0x04
+# 录制时间过长
+uint32 RECORDING_TIME_TOO_LONG = 0x05
+# 磁盘空间不足
+uint32 DISK_SPACE_LOW_WARNING = 0x06
+# 磁盘空间严重不足
+uint32 DISK_SPACE_CRITICALLY_LOW = 0x07

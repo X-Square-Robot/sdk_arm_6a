@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -113,10 +116,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -483,87 +484,87 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "reference_timeout");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "reference_timeout") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.reference_timeout = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "front_left_wheel_command_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "front_left_wheel_command_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'front_left_wheel_command_joint_name': {}", validation_result.error()));
       }
       updated_params.front_left_wheel_command_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "front_right_wheel_command_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "front_right_wheel_command_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'front_right_wheel_command_joint_name': {}", validation_result.error()));
       }
       updated_params.front_right_wheel_command_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "rear_right_wheel_command_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "rear_right_wheel_command_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'rear_right_wheel_command_joint_name': {}", validation_result.error()));
       }
       updated_params.rear_right_wheel_command_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "rear_left_wheel_command_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "rear_left_wheel_command_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'rear_left_wheel_command_joint_name': {}", validation_result.error()));
       }
       updated_params.rear_left_wheel_command_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "front_left_wheel_state_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "front_left_wheel_state_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.front_left_wheel_state_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "front_right_wheel_state_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "front_right_wheel_state_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.front_right_wheel_state_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "rear_right_wheel_state_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "rear_right_wheel_state_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.rear_right_wheel_state_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "rear_left_wheel_state_joint_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "rear_left_wheel_state_joint_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.rear_left_wheel_state_joint_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.base_frame_offset.x");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.base_frame_offset.x") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.base_frame_offset.x = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.base_frame_offset.y");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.base_frame_offset.y") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.base_frame_offset.y = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.base_frame_offset.theta");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.base_frame_offset.theta") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.base_frame_offset.theta = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.wheels_radius");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.wheels_radius") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'kinematics.wheels_radius': {}", validation_result.error()));
       }
       updated_params.kinematics.wheels_radius = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.sum_of_robot_center_projection_on_X_Y_axis");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.sum_of_robot_center_projection_on_X_Y_axis") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.sum_of_robot_center_projection_on_X_Y_axis = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "tf_frame_prefix_enable");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "tf_frame_prefix_enable") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.tf_frame_prefix_enable = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "tf_frame_prefix");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "tf_frame_prefix") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.tf_frame_prefix = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "base_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "base_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.base_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "odom_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "odom_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.odom_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "enable_odom_tf");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "enable_odom_tf") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.enable_odom_tf = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "twist_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "twist_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.twist_covariance_diagonal = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "pose_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "pose_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.pose_covariance_diagonal = param.as_double_array();
 
 

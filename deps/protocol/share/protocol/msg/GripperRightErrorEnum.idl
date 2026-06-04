@@ -1,0 +1,39 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/HAL/GripperRightErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module GripperRightErrorEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "编码器数据解析异常")
+      const uint32 GRIPPER_ENCODER_FAIL = 17;
+      @verbatim (language="comment", text=
+        "指示灯配置异常")
+      const uint32 GRIPPER_LED_FAIL = 18;
+      @verbatim (language="comment", text=
+        "按键配置异常")
+      const uint32 GRIPPER_BUTTON_FAIL = 19;
+      @verbatim (language="comment", text=
+        "IMU配置异常")
+      const uint32 GRIPPER_IMU_FAIL = 20;
+      @verbatim (language="comment", text=
+        "补光灯配置异常")
+      const uint32 GRIPPER_FILL_LIGHT_FAIL = 21;
+      @verbatim (language="comment", text=
+        "电池电量配置异常")
+      const uint32 GRIPPER_BATTERY_FAIL = 22;
+      @verbatim (language="comment", text=
+        "触觉传感器异常")
+      const uint32 GRIPPER_TACTILE_FAIL = 23;
+    };
+    @verbatim (language="comment", text=
+      "Unit: GRIPPER_RIGHT" "\n"
+      "心跳超时")
+    struct GripperRightErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

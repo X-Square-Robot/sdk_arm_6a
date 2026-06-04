@@ -1,0 +1,27 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/MotionUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module MotionUnitEnum_Constants {
+      const uint8 REALTIME_CONTROLLER = 1;
+      const uint8 MOVEIT_SERVER = 2;
+      const uint8 LEFT_ARM = 17;
+      const uint8 RIGHT_ARM = 18;
+      const uint8 LEFT_TIANJI_ARM = 19;
+      const uint8 RIGHT_TIANJI_ARM = 20;
+      const uint8 LEFT_RM_GRIPPER = 81;
+      const uint8 RIGHT_RM_GRIPPER = 82;
+      const uint8 TI5_WAIST = 178;
+      const uint8 KINCO_LIFT_WAIST = 177;
+      const uint8 MASTER_LEFT_ARM = 33;
+      const uint8 MASTER_RIGHT_ARM = 34;
+      const uint8 QP_CONTROLLER = 21;
+    };
+    struct MotionUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

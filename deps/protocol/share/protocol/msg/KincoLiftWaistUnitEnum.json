@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/KincoLiftWaistUnitEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/KincoLiftWaistUnitEnum",
+      "hash_string": "RIHS01_ba9caf55571bc54a5b607f5820a7345360e8f54ad0cbbe9556f936a134586c37"
+    }
+  ]
+}

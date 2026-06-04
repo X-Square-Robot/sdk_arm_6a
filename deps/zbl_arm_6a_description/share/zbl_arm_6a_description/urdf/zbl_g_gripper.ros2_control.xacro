@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="zbl_g_gripper_ros2_control"
+               params="name prefix
+                       backend:=can
+                       can_interface:=can0
+                       serial_port:=right_xr_gripper
+                       timeout_retries:=5
+                       use_ipc:=1
+                       mock_robot:=False
+                       domain:=0x04
+                       unit:=0x00
+                       auto_enable:=True">
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${mock_robot == True}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+
+        <xacro:unless value="${mock_robot == True}">
+          <!-- Default: CAN direct drive (legacy) -->
+          <xacro:if value="${backend == 'can'}">
+            <plugin>x2robot_hardware_interface/CustomMotorSystemInterface</plugin>
+            <param name="can_interface">${can_interface}</param>
+            <param name="use_ipc">${use_ipc}</param>
+            <param name="domain">${domain}</param>
+            <param name="unit">${unit}</param>
+          </xacro:if>
+
+          <!-- MCU forwarding via serial: kp/kd set to 0 on MCU, accept feedforward torque -->
+          <xacro:if value="${backend == 'mcu_serial'}">
+            <plugin>x2robot_hardware_interface/TorqueGripperInterface</plugin>
+            <param name="serial_port_name">${serial_port}</param>
+            <param name="timeout_retries">${timeout_retries}</param>
+            <param name="use_ipc">${use_ipc}</param>
+          </xacro:if>
+        </xacro:unless>
+      </hardware>
+      <joint name="${prefix}gripper">
+        <param name="auto_enable">${auto_enable}</param>
+        <param name="motor_id">8</param>
+        <param name="master_id">0</param>
+        <param name="motor_type">dmmotor</param>
+        <param name="motor_hw_type">DM4310</param>
+        <param name="direction">-1.0</param>
+        <param name="max_torque">2.0</param>
+        <param name="lower_limit">0.0</param>
+        <param name="upper_limit">1.7</param>
+        <param name="default_kp">6.0</param>
+        <param name="default_kd">0.1</param>
+        <command_interface name="position" />
+        <command_interface name="velocity" />
+        <command_interface name="effort" />
+        <command_interface name="mit_kp" />
+        <command_interface name="mit_kd" />
+        <command_interface name="ctrl_mode" />
+        <state_interface name="position" />
+        <state_interface name="velocity" />
+        <state_interface name="effort" />
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

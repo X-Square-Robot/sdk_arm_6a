@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/QpControllerUnitEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/QpControllerUnitEnum",
+      "hash_string": "RIHS01_3197e0f140c0ef93e01f9d5b2c15716d5c8362c8ec65e6710fc5e5f7e6f768fc"
+    }
+  ]
+}

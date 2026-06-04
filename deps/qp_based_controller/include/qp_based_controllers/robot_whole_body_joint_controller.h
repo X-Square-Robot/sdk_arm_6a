@@ -70,6 +70,7 @@ class RobotWholeBodyJointController : public controller_interface::ControllerInt
     // Basic controller parameters
     // ================================================
     // Robot configuration
+    std::string cmd_interface_prefix_;
     size_t robot_dof_;
     std::vector<std::string> waist_joint_names_;
     std::vector<std::string> arm_joint_names_;

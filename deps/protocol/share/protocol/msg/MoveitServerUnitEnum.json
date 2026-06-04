@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/MoveitServerUnitEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/MoveitServerUnitEnum",
+      "hash_string": "RIHS01_57839b29ce860e414048c4613c86af54f2186c079c8b9fe906694d4a9a586f89"
+    }
+  ]
+}

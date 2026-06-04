@@ -13,7 +13,7 @@ namespace x2robot_hardware_interface {
 
 class EncosMotor : public CanMotorBase {
  public:
-  EncosMotor(int motor_id);
+  EncosMotor(int motor_id, const std::string& name);
   ~EncosMotor() override = default;
 
   using EncosControlMode = enum { MIT = 0, POSITION, VELOCITY };
@@ -49,10 +49,7 @@ class EncosMotor : public CanMotorBase {
 
   std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateEnable() override;
 
-  std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateDisable() override {
-    reset_state();
-    return nullptr;
-  }
+  std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateDisable() override { return nullptr; }
 
   std::unique_ptr<x2robot_msgs::msg::CanFrame> SwitchControlMode(ControlMode mode);
 
@@ -60,12 +57,11 @@ class EncosMotor : public CanMotorBase {
 
   bool id_match(const std::unique_ptr<x2robot_msgs::msg::CanFrame>& frame_ptr) override;
 
-  std::string GetErrorDescription() const override;
+  ErrorType get_unified_error_type() const override;
 
   uint8_t motor_id;
-  bool is_initialized = false;
 };
 
 }  // namespace x2robot_hardware_interface
 
-#endif
+#endif  // ENCOS_MOTOR_H

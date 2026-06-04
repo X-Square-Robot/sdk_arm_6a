@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -96,10 +99,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -404,10 +405,10 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "reference_timeout");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "reference_timeout") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.reference_timeout = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "traction_joints_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "traction_joints_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = size_lt<std::string>(param, 5);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'traction_joints_names': {}", validation_result.error()));
@@ -422,7 +423,7 @@ template <typename T, size_t capacity>
       }
       updated_params.traction_joints_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "steering_joints_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "steering_joints_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = size_lt<std::string>(param, 5);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'steering_joints_names': {}", validation_result.error()));
@@ -437,7 +438,7 @@ template <typename T, size_t capacity>
       }
       updated_params.steering_joints_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "traction_joints_state_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "traction_joints_state_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = size_lt<std::string>(param, 5);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'traction_joints_state_names': {}", validation_result.error()));
@@ -448,7 +449,7 @@ template <typename T, size_t capacity>
       }
       updated_params.traction_joints_state_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "steering_joints_state_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "steering_joints_state_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = size_lt<std::string>(param, 5);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'steering_joints_state_names': {}", validation_result.error()));
@@ -459,31 +460,31 @@ template <typename T, size_t capacity>
       }
       updated_params.steering_joints_state_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "open_loop");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "open_loop") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.open_loop = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "reduce_wheel_speed_until_steering_reached");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "reduce_wheel_speed_until_steering_reached") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.reduce_wheel_speed_until_steering_reached = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "velocity_rolling_window_size");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "velocity_rolling_window_size") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.velocity_rolling_window_size = param.as_int();
       param = parameters_interface_->get_parameter(prefix_ + "base_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "base_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.base_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "odom_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "odom_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.odom_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "enable_odom_tf");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "enable_odom_tf") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.enable_odom_tf = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "twist_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "twist_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.twist_covariance_diagonal = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "pose_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "pose_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.pose_covariance_diagonal = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "position_feedback");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "position_feedback") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.position_feedback = param.as_bool();
 
 

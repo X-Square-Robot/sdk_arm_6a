@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/RightEndEffectorUnitEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/RightEndEffectorUnitEnum",
+      "hash_string": "RIHS01_1d05fb24cead29d2364ff07fa6cb3f0c6de00c0e78740156124efefd069c2984"
+    }
+  ]
+}

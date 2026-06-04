@@ -1,0 +1,26 @@
+[package]
+name = "control_msgs"
+version = "6.5.0"
+edition = "2021"
+
+[dependencies]
+rosidl_runtime_rs = "0.6"
+serde = { version = "1", optional = true, features = ["derive"] }
+serde-big-array = { version = "0.5.1", optional = true }
+
+# ROS Dependencies
+trajectory_msgs = "*"
+action_msgs = "*"
+std_msgs = "*"
+sensor_msgs = "*"
+service_msgs = "*"
+builtin_interfaces = "*"
+geometry_msgs = "*"
+diagnostic_msgs = "*"
+unique_identifier_msgs = "*"
+
+[features]
+serde = ['dep:serde', 'dep:serde-big-array', 'rosidl_runtime_rs/serde', 'trajectory_msgs/serde', 'action_msgs/serde', 'std_msgs/serde', 'sensor_msgs/serde', 'service_msgs/serde', 'builtin_interfaces/serde', 'geometry_msgs/serde', 'diagnostic_msgs/serde', 'unique_identifier_msgs/serde']
+
+[package.metadata.rclrs]
+reexport = true

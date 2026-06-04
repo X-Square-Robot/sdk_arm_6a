@@ -4,7 +4,7 @@ from pathlib import Path
 
 from launch import LaunchDescription
 import launch_ros.descriptions
-from launch.actions import DeclareLaunchArgument, RegisterEventHandler, ExecuteProcess
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, ExecuteProcess, OpaqueFunction
 from launch.conditions import IfCondition, UnlessCondition
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import (
@@ -37,14 +37,47 @@ def generate_launch_description():
         )
     )
 
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "arm_type",
+            default_value="hy",
+            description="Arm motor variant: hy (Huayi, default) or dm (DaMiao).",
+        )
+    )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "gripper_type",
+            default_value="g",
+            description="Gripper variant: g (g-gripper, default) or parallel (parallel gripper).",
+        )
+    )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "can_interface",
+            default_value="can0",
+            description="CAN interface name (default: can0).",
+        )
+    )
+
+    return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])
+
+
+def launch_setup(context, *args, **kwargs):
     # Initialize Arguments
     sim = LaunchConfiguration("sim")
     visual = LaunchConfiguration("visual")
+    arm_type = LaunchConfiguration("arm_type")
+    gripper_type = LaunchConfiguration("gripper_type")
+    # Resolve to a concrete string so it can be placed in a real Python list.
+    # The socketcan_bridge "interfaces" parameter must be a string_array; a list
+    # containing a LaunchConfiguration substitution gets flattened to a single
+    # string by launch, so resolve it here instead.
+    can_interface = LaunchConfiguration("can_interface").perform(context)
 
     can_param = {
-        "interfaces": [
-            "can0",
-        ]
+        "interfaces": [can_interface],
     }
 
     robot_description_content = Command(
@@ -61,6 +94,15 @@ def generate_launch_description():
             " ",
             "mock_robot:=",
             sim,
+            " ",
+            "arm_type:=",
+            arm_type,
+            " ",
+            "gripper_type:=",
+            gripper_type,
+            " ",
+            "can_interface:=",
+            can_interface,
         ]
     )
     robot_description = {
@@ -187,4 +229,4 @@ def generate_launch_description():
         camera_node
     ]
 
-    return LaunchDescription(declared_arguments + nodes)
+    return nodes

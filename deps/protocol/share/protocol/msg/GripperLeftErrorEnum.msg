@@ -1,0 +1,17 @@
+# Unit: GRIPPER_LEFT
+# 心跳超时
+uint32 HEARTBEAT_TIMEOUT = 0x01
+# 编码器数据解析异常
+uint32 GRIPPER_ENCODER_FAIL = 0x11
+# 指示灯配置异常
+uint32 GRIPPER_LED_FAIL = 0x12
+# 按键配置异常
+uint32 GRIPPER_BUTTON_FAIL = 0x13
+# IMU配置异常
+uint32 GRIPPER_IMU_FAIL = 0x14
+# 补光灯配置异常
+uint32 GRIPPER_FILL_LIGHT_FAIL = 0x15
+# 电池电量配置异常
+uint32 GRIPPER_BATTERY_FAIL = 0x16
+# 触觉传感器异常
+uint32 GRIPPER_TACTILE_FAIL = 0x17

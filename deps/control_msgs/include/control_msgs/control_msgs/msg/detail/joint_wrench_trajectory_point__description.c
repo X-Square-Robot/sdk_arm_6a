@@ -23,11 +23,11 @@ control_msgs__msg__JointWrenchTrajectoryPoint__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "control_msgs/msg/detail/wrench_framed__functions.h"
+#include "trajectory_msgs/msg/detail/joint_trajectory_point__functions.h"
 #include "geometry_msgs/msg/detail/wrench__functions.h"
 #include "builtin_interfaces/msg/detail/duration__functions.h"
 #include "geometry_msgs/msg/detail/vector3__functions.h"
-#include "trajectory_msgs/msg/detail/joint_trajectory_point__functions.h"
+#include "control_msgs/msg/detail/wrench_framed__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

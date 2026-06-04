@@ -1,0 +1,12 @@
+uint8 SUCCESS = 0  # 规划与执行成功
+uint8 INVALID_TARGET = 1  # 目标无效
+uint8 INVALID_CURRENT_POS = 2  # 未成功获取当前位置
+uint8 PLANING_ACTION_NOT_READY = 3  # Moveit规划服务(/move_action)未就绪
+uint8 PLANING_ACTION_REJECTED = 4  # 规划请求被拒绝
+uint8 PLANING_TIMEOUT = 5  # 规划超时
+uint8 PLANING_FAILED = 6  # 规划失败
+uint8 EXECUTING_ACTION_NOT_READY = 7  # 执行轨迹服务(/whole_body_joint_trajectory_controller/follow_joint_trajectory)未就绪
+uint8 EXECUTING_ACTION_REJECTED = 8  # 轨迹执行请求被拒绝
+uint8 EXECUTING_TIMEOUT = 9  # 轨迹执行超时
+uint8 EXECUTING_FAILED = 10  # 轨迹执行失败
+uint8 EXCEPTION = 11  # 执行过程中出现异常

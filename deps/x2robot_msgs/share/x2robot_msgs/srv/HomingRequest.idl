@@ -1,0 +1,15 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from x2robot_msgs/srv/HomingRequest.srv
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module srv {
+    struct HomingRequest_Request {
+      uint8 structure_needs_at_least_one_member;
+    };
+    struct HomingRequest_Response {
+      boolean is_succ;
+    };
+  };
+};

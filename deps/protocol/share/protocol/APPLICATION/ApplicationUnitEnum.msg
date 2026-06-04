@@ -1,0 +1,2 @@
+uint8 TASK_MANAGER = 0x01
+uint8 RECORDER = 0x02

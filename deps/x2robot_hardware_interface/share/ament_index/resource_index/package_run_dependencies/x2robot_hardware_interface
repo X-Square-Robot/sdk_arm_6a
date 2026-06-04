@@ -1,1 +1,1 @@
-hardware_interface;pluginlib;rclcpp;rclcpp_lifecycle;diagnostic_updater;diagnostic_msgs;x2robot_msgs;tf2_eigen;ament_lint_auto;ament_lint_common
+hardware_interface;pluginlib;rclcpp;rclcpp_lifecycle;diagnostic_updater;diagnostic_msgs;x2robot_msgs;tf2_eigen;protocol;ament_lint_auto;ament_lint_common

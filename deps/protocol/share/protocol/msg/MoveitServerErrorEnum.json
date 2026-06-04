@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/MoveitServerErrorEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/MoveitServerErrorEnum",
+      "hash_string": "RIHS01_e12302b2e1a1bb73aaacca6f2aad46016dc70436391dc4d9dd6ff8da5d2deb40"
+    }
+  ]
+}

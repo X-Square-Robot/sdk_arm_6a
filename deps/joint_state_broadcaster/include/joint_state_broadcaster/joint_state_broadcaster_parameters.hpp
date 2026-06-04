@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -89,10 +92,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -298,31 +299,31 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "use_local_topics");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "use_local_topics") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.use_local_topics = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "extra_joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "extra_joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.extra_joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "map_interface_to_joint_state.position");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "map_interface_to_joint_state.position") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.map_interface_to_joint_state.position = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "map_interface_to_joint_state.velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "map_interface_to_joint_state.velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.map_interface_to_joint_state.velocity = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "map_interface_to_joint_state.effort");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "map_interface_to_joint_state.effort") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.map_interface_to_joint_state.effort = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "use_urdf_to_filter");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "use_urdf_to_filter") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.use_urdf_to_filter = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.frame_id = param.as_string();
 
 

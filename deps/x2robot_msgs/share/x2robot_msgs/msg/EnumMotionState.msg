@@ -1,0 +1,3 @@
+uint8 BAGGING = 1
+uint8 SLACKING_OFF = 2
+uint8 REPLAY_BAG = 3

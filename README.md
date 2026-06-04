@@ -24,7 +24,8 @@ sdk_arm_6a/
 ├── .devcontainer/           # VSCode/Cursor development container configuration
 │   ├── devcontainer.json
 │   ├── docker-compose.yml
-│   ├── Dockerfile.devcontainer
+│   ├── Dockerfile.base      # Base image: system + Python + ROS 2 (built once)
+│   ├── Dockerfile           # Dev image: user + deps/ + lib/ (rebuilt per release)
 │   ├── apt.list
 │   ├── ros2_apt.list
 │   └── pip.list
@@ -131,8 +132,24 @@ docker info | grep -A 5 "Registry Mirrors"
 | Alibaba Cloud | `https://<your_id>.mirror.aliyuncs.com` | Requires registration [Container Image Service](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) to get personal acceleration address |
 
 #### Build Image manually
+
+The image is built in two layers to avoid re-running `apt-get update` (which can pull
+new ROS 2 package versions whose ABI no longer matches the pre-compiled artifacts
+under `deps/`) every time `deps/` changes:
+
+| Image | Dockerfile | When to rebuild |
+|---|---|---|
+| `zbl_arm_6a_sdk:base_latest` | `.devcontainer/Dockerfile.base` | Only when `apt.list` / `ros2_apt.list` / `pip.list` / `Dockerfile.base` change (~10 min) |
+| `zbl_arm_6a_sdk_image:v0.1.0` | `.devcontainer/Dockerfile` | Every time `deps/` or `lib/` is updated (~30 s) |
+
 ```bash
-cd ~/sdk_arm_6a/.devcontainer
+cd ~/sdk_arm_6a
+
+# First time on this machine: build the base image (~10 min, only needed once)
+docker build -f .devcontainer/Dockerfile.base -t zbl_arm_6a_sdk:base_latest .
+
+# Day-to-day: rebuild dev image on top of existing base (~30 s)
+cd .devcontainer
 docker compose build
 docker compose up -d
 ```
@@ -144,6 +161,30 @@ Expected output:
  +] Running 1/1
  ✔ Container zbl_arm_6a_sdk  Started
 ```
+
+> [!NOTE]
+> Only rebuild the base image when `apt.list` / `ros2_apt.list` / `pip.list` /
+> `Dockerfile.base` change.
+>
+> ROS 2 packages installed into the base image are pinned to a snapshot of
+> [`snapshots.ros.org`](http://snapshots.ros.org/jazzy/) (see `ROS2_SNAPSHOT_DATE`
+> at the top of `Dockerfile.base`). This guarantees that every rebuild of the base
+> image installs the **exact same** ROS 2 package versions, so the binaries shipped
+> in `deps/` stay ABI-compatible with the runtime in the container. To upgrade,
+> bump `ROS2_SNAPSHOT_DATE` to a newer date listed at the snapshot index.
+>
+> `snapshots.ros.org` is hosted by OSRF; downloads can be slower than the Tsinghua
+> mirror but the URL is fixed by design and reaches users worldwide.
+
+> [!IMPORTANT]
+> **ABI compatibility check.** The dev image build (`docker compose build`) compares
+> `deps/SNAPSHOT_DATE` (stamped by the arm_sdk CI that compiled `deps/`) against
+> `/opt/xr/BASE_SNAPSHOT_DATE` (stamped into the base image by `Dockerfile.base`).
+> If the two snapshot dates differ, the build fails with explicit instructions —
+> this catches the case where you bump `ROS2_SNAPSHOT_DATE` in `Dockerfile.base`
+> but forget to pull a new `deps/` release built against the same snapshot. If
+> either file is missing (older `deps/` predating this check), the build only
+> prints a warning and continues.
 
 #### Automatically build image using VS Code Dev Container (Optional)
 
@@ -175,7 +216,7 @@ ros2 launch zbl_arm_6a_description test_single_arm.launch.py &
 ```
 
 > [!NOTE]
-> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the Dockerfile.devcontainer settings and rebuild the image.
+> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the `Dockerfile` settings and rebuild the dev image.
 
 Execute in container:
 
@@ -185,7 +226,7 @@ ros2 launch zbl_arm_6a_description test_single_arm.launch.py &
 
 
 > [!NOTE]
-> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the Dockerfile.devcontainer settings and rebuild the image.
+> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the `Dockerfile` settings and rebuild the dev image.
 
 
 ## Run Examples
@@ -300,7 +341,7 @@ ros2 launch zbl_arm_6a_description test_single_arm.launch.py &
 ```
 
 > [!NOTE]
-> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the Dockerfile.devcontainer settings and rebuild the image.
+> ROS_DOMAIN_ID defaults to 134. If you need to modify it, set environment variables before running the above command, or modify the `Dockerfile` settings and rebuild the dev image.
 
 ## API Reference Documentation
 
@@ -381,7 +422,7 @@ Welcome to submit Issues and Pull Requests!
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+[To be determined]
 
 ## Contact Information
 

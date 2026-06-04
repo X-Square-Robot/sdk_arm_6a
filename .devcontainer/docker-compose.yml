@@ -1,10 +1,12 @@
 services:
   devcontainer:
     container_name: zbl_arm_6a_sdk
-    image: zbl_arm_6a_sdk_image:v0.1.0
+    image: zbl_arm_6a_sdk_image:v0.1.1
     build:
       context: ..
-      dockerfile: .devcontainer/Dockerfile.devcontainer
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        BASE_IMAGE: zbl_arm_6a_sdk:base_latest
     
     privileged: true
     network_mode: "host"

@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from x2robot_msgs/msg/Joystick.msg
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module msg {
+    @verbatim (language="comment", text=
+      "摇杆x轴 [-1, 1]")
+    struct Joystick {
+      double joystick_x;
+
+      @verbatim (language="comment", text=
+        "摇杆y轴 [-1, 1]")
+      double joystick_y;
+
+      @verbatim (language="comment", text=
+        "扳机 [0, 1]")
+      double trigger;
+
+      @verbatim (language="comment", text=
+        "按钮 True为按下")
+      boolean joy_button;
+
+      boolean sw1;
+
+      boolean sw2;
+
+      boolean sw3;
+
+      boolean sw4;
+    };
+  };
+};

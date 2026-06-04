@@ -1,0 +1,7 @@
+<library path="suction_gripper_interface">
+  <class name="x2robot_hardware_interface/SuctionGripperInterface" type="x2robot_hardware_interface::SuctionGripperInterface" base_class_type="hardware_interface::SystemInterface">
+    <description>
+    The ros2_control x2robot gripper system interface
+    </description>
+  </class>
+</library>

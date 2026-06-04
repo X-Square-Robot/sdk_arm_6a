@@ -1,0 +1,7 @@
+uint8 target_mode
+bool request_for_homing
+bool try_recover
+uint8 target_motion_state
+uint8 data_collection_mode
+---
+bool ok

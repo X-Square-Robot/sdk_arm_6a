@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from x2robot_msgs/msg/RobotArmState.msg
+// generated code does not contain a copyright notice
+
+#include "builtin_interfaces/msg/Time.idl"
+
+module x2robot_msgs {
+  module msg {
+    module RobotArmState_Constants {
+      const uint8 NO_ERROR = 0;
+      const uint8 READY = 1;
+      const uint8 EMCY_STOPPED = 2;
+      const uint8 POWER_OFF = 3;
+      const uint8 NOT_ENABLED = 4;
+      const uint8 MOTOR_ERROR = 5;
+      const uint8 COMM_BUS_ERROR = 6;
+      const uint8 CYCLIC_POSITION_MODE = 8;
+      const uint8 FORCE_MODE_TORQUE_SENSOR = 15;
+    };
+    struct RobotArmState {
+      builtin_interfaces::msg::Time stamp;
+
+      uint8 robot_state;
+
+      uint8 current_control_mode;
+
+      string error_msg;
+    };
+  };
+};

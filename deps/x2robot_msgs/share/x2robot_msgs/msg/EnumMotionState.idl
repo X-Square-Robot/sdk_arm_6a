@@ -1,0 +1,17 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from x2robot_msgs/msg/EnumMotionState.msg
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module msg {
+    module EnumMotionState_Constants {
+      const uint8 BAGGING = 1;
+      const uint8 SLACKING_OFF = 2;
+      const uint8 REPLAY_BAG = 3;
+    };
+    struct EnumMotionState {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

@@ -68,8 +68,8 @@ controller_manager_msgs__srv__ListHardwareInterfaces_Event__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "controller_manager_msgs/msg/detail/hardware_interface__functions.h"
 #include "builtin_interfaces/msg/detail/time__functions.h"
+#include "controller_manager_msgs/msg/detail/hardware_interface__functions.h"
 #include "service_msgs/msg/detail/service_event_info__functions.h"
 
 // Hashes for external referenced types

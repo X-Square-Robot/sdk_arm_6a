@@ -1,0 +1,20 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/JointMotorStatus.msg
+// generated code does not contain a copyright notice
+
+#include "protocol/msg/MotorStatus.idl"
+
+module protocol {
+  module msg {
+    @verbatim (language="comment", text=
+      "joint_motor_status 索引规则" "\n"
+      "头部：没有特殊说明情况下，默认使用[pitch,yaw]的顺序。若三个自由度使用[roll,pitch,yaw]的顺序，严格按照rpy的顺序来。" "\n"
+      "机械臂：一定是从肩膀开始数从 0 ~ n" "\n"
+      "升降关节：只有一个电机")
+    struct JointMotorStatus {
+      sequence<protocol::msg::MotorStatus> joint_motor_status;
+
+      boolean all_joints_healthy;
+    };
+  };
+};

@@ -1,0 +1,10 @@
+<library path="rm003_hand_interface">
+  <class name="x2robot_hardware_interface/TridactylHandInterface"
+         type="x2robot_hardware_interface::TridactylHandInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      ros2_control interface for the Tridactyl dexterous hand over CAN FD.
+      Supports arbitrary numbers of finger-joint motors and touch sensors.
+    </description>
+  </class>
+</library>

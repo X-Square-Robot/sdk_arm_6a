@@ -1,0 +1,33 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/HAL/HeadMountUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module HeadMountUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "指示灯配置异常")
+      const uint32 HEAD_LED_FAIL = 17;
+      @verbatim (language="comment", text=
+        "按键配置异常")
+      const uint32 GRIPPER_BUTTON_FAIL = 18;
+      @verbatim (language="comment", text=
+        "IMU配置异常")
+      const uint32 GRIPPER_IMU_FAIL = 19;
+      @verbatim (language="comment", text=
+        "IMU配置异常")
+      const uint32 HEAD_IMU_FAIL = 21;
+      @verbatim (language="comment", text=
+        "电池配置异常")
+      const uint32 HEAD_BATTERY_FAIL = 20;
+    };
+    @verbatim (language="comment", text=
+      "Unit: HEAD_MOUNT" "\n"
+      "心跳超时")
+    struct HeadMountUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

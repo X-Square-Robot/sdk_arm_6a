@@ -1,0 +1,45 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MONITOR/NetMonitorUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module NetMonitorUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "没有任何网络连接")
+      const uint32 NO_NETWORK = 17;
+      @verbatim (language="comment", text=
+        "无法访问公网")
+      const uint32 NO_CONNECTIVITY = 18;
+      @verbatim (language="comment", text=
+        "路由配置错误")
+      const uint32 INVALID_DEFAULT_ROUTE = 20;
+      @verbatim (language="comment", text=
+        "没有WIFI可以连接")
+      const uint32 NO_WIFI_SSID = 33;
+      @verbatim (language="comment", text=
+        "连接WiFi失败")
+      const uint32 FAILED_WIFI_CONNECTION = 34;
+      @verbatim (language="comment", text=
+        "没有5G模块")
+      const uint32 NO_MODEM = 49;
+      @verbatim (language="comment", text=
+        "没有SIM卡")
+      const uint32 NO_SIM_CARD = 50;
+      @verbatim (language="comment", text=
+        "没有信号，检查射频信号")
+      const uint32 NO_MODEM_SIGNAL = 51;
+      @verbatim (language="comment", text=
+        "基站入网失败，联系ISP")
+      const uint32 FAILED_MODEM_REGISTRATION = 52;
+    };
+    @verbatim (language="comment", text=
+      "Unit: NET_MONITOR" "\n"
+      "网络监控节点获取状态超时")
+    struct NetMonitorUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};
