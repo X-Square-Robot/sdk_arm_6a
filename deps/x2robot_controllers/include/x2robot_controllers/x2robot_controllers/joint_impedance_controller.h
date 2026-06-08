@@ -16,8 +16,8 @@
 #include "pinocchio/algorithm/geometry.hpp"
 #include "pinocchio/parsers/urdf.hpp"
 #include "rclcpp_lifecycle/state.hpp"
-#include "utils/input_shaper.h"
-#include "utils/mean_filter.h"
+#include "xr_controller_utils/input_shaper.h"
+#include "xr_controller_utils/mean_filter.h"
 
 namespace x2robot_controllers {
 
@@ -67,6 +67,8 @@ class JointImpedanceController : public controller_interface::ControllerInterfac
     bool is_activated_;
 
     void joint_command_callback(const std_msgs::msg::Float64MultiArray::SharedPtr msg);
+
+    std::string cmd_interface_prefix_;
 };
 
 }  // namespace x2robot_controllers

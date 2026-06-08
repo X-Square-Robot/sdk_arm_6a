@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="parallel_gripper_ros2_control"
-               params="name prefix can_interface use_ipc:=1 mock_robot">
+               params="name prefix can_interface:=can0 use_ipc:=1 mock_robot domain:=0x04 unit:=0x00 auto_enable:=True">
 
     <ros2_control name="${name}"
                   type="system">
@@ -14,14 +14,21 @@
           <plugin>x2robot_hardware_interface/CustomMotorSystemInterface</plugin>
           <param name="can_interface">${can_interface}</param>
           <param name="use_ipc">${use_ipc}</param>
+          <param name="domain">${domain}</param>
+          <param name="unit">${unit}</param>
         </xacro:unless>
       </hardware>
       <joint name="${prefix}gripper">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">8</param>
         <param name="master_id">0</param>
         <param name="motor_type">dmmotor</param>
         <param name="motor_hw_type">DM4310</param>
         <param name="max_torque">2.0</param>
+        <param name="lower_limit">0.0</param>
+        <param name="upper_limit">5.0</param>
+        <param name="default_kp">6.0</param>
+        <param name="default_kd">0.1</param>
         <param name="default_mode">tor</param>
         <command_interface name="position" />
         <command_interface name="velocity" />

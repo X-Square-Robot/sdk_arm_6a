@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "protocol/msg/LeftTianjiArmErrorEnum",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "protocol/msg/LeftTianjiArmErrorEnum",
+      "hash_string": "RIHS01_1b805dc987a78015e78d6b0be1330f97f6588619c03e69515b0474455ca7d3e8"
+    }
+  ]
+}

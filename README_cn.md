@@ -22,7 +22,8 @@ sdk_arm_6a/
 ├── .devcontainer/           # VSCode/Cursor 开发容器配置
 │   ├── devcontainer.json
 │   ├── docker-compose.yml
-│   ├── Dockerfile.devcontainer
+│   ├── Dockerfile.base      # 基础镜像：系统 + Python + ROS 2（仅在依赖列表变更时重建）
+│   ├── Dockerfile           # 开发镜像：用户 + deps/ + lib/（每次发布更新时重建）
 │   ├── apt.list
 │   ├── ros2_apt.list
 │   └── pip.list
@@ -129,8 +130,24 @@ docker info | grep -A 5 "Registry Mirrors"
 
 
 #### 手动构建镜像
+
+镜像采用 **两层构建** 设计，避免每次 `deps/` 更新都重跑 `apt-get update`（重跑后
+上游 ROS 2 仓库里更新过的包会被装入容器，导致与 `deps/` 中预编译的二进制 ABI
+不匹配）：
+
+| 镜像 | Dockerfile | 何时需要重建 |
+|---|---|---|
+| `zbl_arm_6a_sdk:base_latest` | `.devcontainer/Dockerfile.base` | 仅当 `apt.list` / `ros2_apt.list` / `pip.list` / `Dockerfile.base` 变更时（约 10 分钟） |
+| `zbl_arm_6a_sdk_image:v0.1.0` | `.devcontainer/Dockerfile` | 每次 `deps/` 或 `lib/` 更新时（约 30 秒） |
+
 ```bash
-cd ~/sdk_arm_6a/.devcontainer
+cd ~/sdk_arm_6a
+
+# 新机器首次：构建基础镜像（约 10 分钟，只需执行一次）
+docker build -f .devcontainer/Dockerfile.base -t zbl_arm_6a_sdk:base_latest .
+
+# 日常工作流：在已有 base 之上重建开发镜像（约 30 秒）
+cd .devcontainer
 docker compose build
 docker compose up -d
 ```
@@ -142,6 +159,27 @@ docker compose up -d
  +] Running 1/1
  ✔ Container zbl_arm_6a_sdk  Started 
 ```
+
+> [!NOTE]
+> 仅当 `apt.list` / `ros2_apt.list` / `pip.list` / `Dockerfile.base` 变更时才重建
+> 基础镜像。
+>
+> 基础镜像中安装的 ROS 2 包已通过 [`snapshots.ros.org`](http://snapshots.ros.org/jazzy/)
+> 的日期快照锁定（见 `Dockerfile.base` 顶部的 `ROS2_SNAPSHOT_DATE`）。这保证了每次
+> 重建基础镜像安装的 ROS 2 包版本**完全一致**，从而 `deps/` 中的预编译二进制始终与
+> 容器内的运行时 ABI 兼容。如需升级 ROS 2 包版本，将 `ROS2_SNAPSHOT_DATE` 改为
+> 快照索引页上更新的日期即可。
+>
+> `snapshots.ros.org` 由 OSRF 托管，国内下载可能比清华镜像慢一些，但 URL 固定，
+> 全球任意位置均可复现同一份 base 镜像。
+
+> [!IMPORTANT]
+> **ABI 兼容性校验**：开发镜像构建（`docker compose build`）会自动比对
+> `deps/SNAPSHOT_DATE`（由 arm_sdk CI 在编译 `deps/` 时写入）与
+> `/opt/xr/BASE_SNAPSHOT_DATE`（由 `Dockerfile.base` 写入基础镜像）。两者不一致
+> 时构建会失败并给出明确的修复指引——这正是为了拦截"升级了 `Dockerfile.base`
+> 的 `ROS2_SNAPSHOT_DATE` 却忘了更新 `deps/`"这种隐性错误。若任一文件缺失
+> （旧版 `deps/` 还没有该机制），只会打印 warning 并继续构建。
 
 #### 通过VSCode和Dev Container自动构建(可选)
 
@@ -173,7 +211,7 @@ ros2 launch zbl_arm_6a_description test_single_arm.launch.py &
 ```
 
 > [!NOTE]
-> ROS_DOMAIN_ID 默认为 134。如需修改，可在运行上述命令前通过设置环境变量修改，或修改 Dockerfile.devcontainer 配置后重新构建镜像。
+> ROS_DOMAIN_ID 默认为 134。如需修改，可在运行上述命令前通过设置环境变量修改，或修改 `Dockerfile` 配置后重新构建开发镜像。
 
 
 ### 运行示例
@@ -268,7 +306,7 @@ target_pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
 
 ## 许可证
 
-本项目采用 Apache License 2.0 许可证 - 详情请参阅 [LICENSE](LICENSE) 文件。
+[待定]
 
 ## 联系方式
 

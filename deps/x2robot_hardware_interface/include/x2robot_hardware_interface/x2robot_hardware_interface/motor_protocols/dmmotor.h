@@ -13,7 +13,7 @@ namespace x2robot_hardware_interface {
 
 class DmMotor : public CanMotorBase {
  public:
-  DmMotor(int motor_id, int master_id, int motor_type);
+  DmMotor(int motor_id, int master_id, int motor_type, const std::string& name);
   ~DmMotor() override = default;
 
   using DmControlMode = enum { UNKNOWN = 0, MIT = 1, POSITION = 2, VELOCITY = 3, PVT = 4 };
@@ -49,6 +49,8 @@ class DmMotor : public CanMotorBase {
 
   std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateReset() override;
 
+  std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateSetZero() override;
+
   std::unique_ptr<x2robot_msgs::msg::CanFrame> GenerateCtrlCmd() override;
 
   std::unique_ptr<x2robot_msgs::msg::CanFrame> GeneratePosCmd() override;
@@ -69,7 +71,7 @@ class DmMotor : public CanMotorBase {
 
   bool id_match(const std::unique_ptr<x2robot_msgs::msg::CanFrame>& frame_ptr) override;
 
-  std::string GetErrorDescription() const override;
+  ErrorType get_unified_error_type() const override;
 
   bool CheckRegType(int number) {
     if ((7 <= number && number <= 10) || (13 <= number && number <= 16) || (35 <= number && number <= 36)) return true;
@@ -81,15 +83,22 @@ class DmMotor : public CanMotorBase {
     if (it != mode_map.end()) {
       return it->second;
     } else {
-      return DmControlMode::MIT;  // Default to MIT if not found
+      return DmControlMode::MIT;  // Default to MIT if not found.
     }
   };
   uint8_t motor_id, master_id;
   DmMotorType motor_type;
   DmControlMode dm_control_mode_ = DmControlMode::UNKNOWN;
-  bool is_initialized = false;
+  DmControlMode pending_dm_mode_ = DmControlMode::UNKNOWN;
+
+  // True once the motor has been successfully enabled at least once since
+  // construction. Never reset to false — used to distinguish "never enabled"
+  // from "was enabled but then lost communication".
+  bool has_ever_been_enabled_ = false;
+
+  std::chrono::steady_clock::time_point dm_last_warn_time_{};
 };
 
 }  // namespace x2robot_hardware_interface
 
-#endif
+#endif  // DMMOTOR_H

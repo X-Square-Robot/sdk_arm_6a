@@ -23,8 +23,8 @@ control_msgs__msg__HardwareDiagnostics__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "diagnostic_msgs/msg/detail/key_value__functions.h"
 #include "std_msgs/msg/detail/header__functions.h"
+#include "diagnostic_msgs/msg/detail/key_value__functions.h"
 #include "control_msgs/msg/detail/hardware_device_diagnostics__functions.h"
 #include "builtin_interfaces/msg/detail/time__functions.h"
 

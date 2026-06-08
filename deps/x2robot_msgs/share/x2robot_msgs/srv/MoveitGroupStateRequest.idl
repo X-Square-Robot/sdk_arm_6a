@@ -1,0 +1,35 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from x2robot_msgs/srv/MoveitGroupStateRequest.srv
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module srv {
+    @verbatim (language="comment", text=
+      "请求")
+    struct MoveitGroupStateRequest_Request {
+      string group_state;
+
+      @default (value=1)
+      uint8 num_planning_attempts;
+
+      @default (value=1.0)
+      double allowed_planning_time;
+
+      @default (value=0.1)
+      double max_velocity_scaling_factor;
+
+      @default (value=0.2)
+      double max_acceleration_scaling_factor;
+    };
+    @verbatim (language="comment", text=
+      "响应")
+    struct MoveitGroupStateRequest_Response {
+      @verbatim (language="comment", text=
+        "查询x2robot_msgs.msg.EnumMoveitMoveResult")
+      uint8 moveit_move_result;
+
+      string message;
+    };
+  };
+};

@@ -1,0 +1,28 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/GlobalError.msg
+// generated code does not contain a copyright notice
+
+#include "std_msgs/msg/Header.idl"
+
+module protocol {
+  module msg {
+    @verbatim (language="comment", text=
+      "GlobalError.msg" "\n"
+      "系统评估处理后的错误")
+    struct GlobalError {
+      @verbatim (language="comment", text=
+        "填写status_code里面的时间戳。")
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "组成：[Domain 8bit] [Unit 8bit] [Error 16bit]")
+      uint32 error_code;
+
+      uint8 level;
+
+      @verbatim (language="comment", text=
+        "通常不建议塞入这里，字符串限制在25个字符以内。")
+      string exception;
+    };
+  };
+};

@@ -1,0 +1,54 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/MoveitServerErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module MoveitServerErrorEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "规划与执行成功")
+      const uint32 SUCCESS = 16;
+      @verbatim (language="comment", text=
+        "目标无效")
+      const uint32 INVALID_TARGET = 17;
+      @verbatim (language="comment", text=
+        "未成功获取当前位置")
+      const uint32 INVALID_CURRENT_POS = 18;
+      @verbatim (language="comment", text=
+        "Moveit规划服务(/move_action)未就绪")
+      const uint32 PLANING_ACTION_NOT_READY = 19;
+      @verbatim (language="comment", text=
+        "规划请求被拒绝")
+      const uint32 PLANING_ACTION_REJECTED = 20;
+      @verbatim (language="comment", text=
+        "规划超时")
+      const uint32 PLANING_TIMEOUT = 21;
+      @verbatim (language="comment", text=
+        "规划失败")
+      const uint32 PLANING_FAILED = 22;
+      @verbatim (language="comment", text=
+        "执行轨迹服务(/whole_body_joint_trajectory_controller/follow_joint_trajectory)未就绪")
+      const uint32 EXECUTING_ACTION_NOT_READY = 23;
+      @verbatim (language="comment", text=
+        "轨迹执行请求被拒绝")
+      const uint32 EXECUTING_ACTION_REJECTED = 24;
+      @verbatim (language="comment", text=
+        "轨迹执行超时")
+      const uint32 EXECUTING_TIMEOUT = 25;
+      @verbatim (language="comment", text=
+        "轨迹执行失败")
+      const uint32 EXECUTING_FAILED = 26;
+      @verbatim (language="comment", text=
+        "执行过程中出现异常")
+      const uint32 EXCEPTION = 27;
+    };
+    @verbatim (language="comment", text=
+      "Unit: MOVEIT_SERVER" "\n"
+      "moveit server获取状态超时")
+    struct MoveitServerErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

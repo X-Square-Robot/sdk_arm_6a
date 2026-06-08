@@ -3,11 +3,11 @@
 
 #include <atomic>
 #include <condition_variable>
-#include <functional>
-#include <future>
+#include <memory>
 #include <mutex>
 #include <queue>
 #include <thread>
+#include <type_traits>
 #include <vector>
 
 namespace x2robot_hardware_interface {
@@ -17,7 +17,7 @@ class TaskQueue {
     for (size_t i = 0; i < thread_num; ++i) {
       workers_.emplace_back([this] {
         while (true) {
-          std::function<void()> task;
+          std::unique_ptr<TaskBase> task;
           {
             std::unique_lock<std::mutex> lock(mutex_);
             cond_var_.wait(lock, [this] { return stop_flag_ || !tasks_.empty(); });
@@ -25,7 +25,7 @@ class TaskQueue {
             task = std::move(tasks_.front());
             tasks_.pop();
           }
-          task();
+          task->call();
         }
       });
     }
@@ -42,25 +42,49 @@ class TaskQueue {
     }
   }
 
-  // task enqueue
-  template <typename F, typename... Args>
-  void enqueue(F&& f, Args&&... args) {
+  // task enqueue — supports move-only callables (e.g. lambdas capturing unique_ptr)
+  // Returns the number of consecutive overruns (0 = queue was empty, normal).
+  template <typename F>
+  size_t enqueue(F&& f) {
+    size_t overruns = 0;
     {
       std::unique_lock<std::mutex> lock(mutex_);
       if (stop_flag_)
         // will not insert task on destruction
-        return;
-      tasks_.emplace(std::bind(std::forward<F>(f), std::forward<Args>(args)...));
+        return 0;
+      if (!tasks_.empty()) {
+        ++consecutive_overruns_;
+        // Only keep the latest task — discard the pending one
+        tasks_.pop();
+      } else {
+        consecutive_overruns_ = 0;
+      }
+      overruns = consecutive_overruns_;
+      tasks_.emplace(std::make_unique<TaskImpl<std::decay_t<F>>>(std::forward<F>(f)));
     }
     cond_var_.notify_one();
+    return overruns;
   }
 
  private:
+  struct TaskBase {
+    virtual ~TaskBase() = default;
+    virtual void call() = 0;
+  };
+
+  template <typename F>
+  struct TaskImpl : TaskBase {
+    F func;
+    explicit TaskImpl(F&& f) : func(std::forward<F>(f)) {}
+    void call() override { func(); }
+  };
+
   std::vector<std::thread> workers_;
-  std::queue<std::function<void()>> tasks_;
+  std::queue<std::unique_ptr<TaskBase>> tasks_;
   std::mutex mutex_;
   std::condition_variable cond_var_;
   std::atomic<bool> stop_flag_;
+  size_t consecutive_overruns_ = 0;  // protected by mutex_
 };
 }  // namespace x2robot_hardware_interface
 #endif  // X2ROBOT_HARDWARE_INTERFACE_TASK_QUEUE_H

@@ -1,0 +1,21 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/HAL/BodyUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module BodyUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "身体板imu断连")
+      const uint32 IMU_CONN_FAIL = 17;
+    };
+    @verbatim (language="comment", text=
+      "Unit: BODY" "\n"
+      "身体板获取状态超时")
+    struct BodyUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

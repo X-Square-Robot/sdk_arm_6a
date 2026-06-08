@@ -1,0 +1,1 @@
+uint8 X2ROBOT_CLIENT = 0x01

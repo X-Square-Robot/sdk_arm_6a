@@ -1,0 +1,9 @@
+<library path="mecanum_base_interface">
+  <class name="x2robot_hardware_interface/MecanumBaseSystemInterface"
+         type="x2robot_hardware_interface::MecanumBaseSystemInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control x2robot mobile base interface
+    </description>
+  </class>
+</library>

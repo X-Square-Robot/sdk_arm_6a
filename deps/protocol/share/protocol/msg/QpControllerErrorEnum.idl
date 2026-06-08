@@ -1,0 +1,183 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/QpControllerErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module QpControllerErrorEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "配置加载正常")
+      const uint32 CONFIG_OK = 16;
+      @verbatim (language="comment", text=
+        "必需参数缺失")
+      const uint32 PARAM_MISSING = 17;
+      @verbatim (language="comment", text=
+        "参数取值非法（范围/类型）")
+      const uint32 PARAM_INVALID = 18;
+      @verbatim (language="comment", text=
+        "URDF 解析失败")
+      const uint32 URDF_PARSE_FAILED = 19;
+      @verbatim (language="comment", text=
+        "Pinocchio model 构建失败")
+      const uint32 MODEL_BUILD_FAILED = 20;
+      @verbatim (language="comment", text=
+        "配置引用的 frame 在模型中不存在")
+      const uint32 FRAME_NOT_FOUND = 21;
+      @verbatim (language="comment", text=
+        "配置引用的 joint 在模型中不存在")
+      const uint32 JOINT_NOT_FOUND = 22;
+      @verbatim (language="comment", text=
+        "参数维度与模型不匹配")
+      const uint32 CONFIG_DIM_MISMATCH = 23;
+      @verbatim (language="comment", text=
+        "硬件接口正常")
+      const uint32 HW_INTERFACE_OK = 32;
+      @verbatim (language="comment", text=
+        "请求的 state interface 未被导出")
+      const uint32 STATE_INTERFACE_MISSING = 33;
+      @verbatim (language="comment", text=
+        "请求的 command interface 未被导出")
+      const uint32 COMMAND_INTERFACE_MISSING = 34;
+      @verbatim (language="comment", text=
+        "读取到 NaN/Inf 的关节状态")
+      const uint32 STATE_READ_NAN = 35;
+      @verbatim (language="comment", text=
+        "状态值长时间未更新")
+      const uint32 STATE_STALE = 36;
+      @verbatim (language="comment", text=
+        "向 command interface 写入失败")
+      const uint32 COMMAND_WRITE_FAILED = 37;
+      @verbatim (language="comment", text=
+        "运动学/动力学计算正常")
+      const uint32 KINEMATICS_OK = 48;
+      @verbatim (language="comment", text=
+        "正运动学计算失败")
+      const uint32 FK_FAILED = 49;
+      @verbatim (language="comment", text=
+        "Jacobian 计算失败")
+      const uint32 JACOBIAN_FAILED = 50;
+      @verbatim (language="comment", text=
+        "Jacobian 接近奇异（条件数过大）")
+      const uint32 JACOBIAN_SINGULAR = 51;
+      @verbatim (language="comment", text=
+        "CRBA/RNEA 等动力学计算失败")
+      const uint32 DYNAMICS_FAILED = 52;
+      @verbatim (language="comment", text=
+        "运动学/动力学输出含 NaN/Inf")
+      const uint32 NON_FINITE_MODEL_OUTPUT = 53;
+      @verbatim (language="comment", text=
+        "QP 求解正常")
+      const uint32 QP_OK = 64;
+      @verbatim (language="comment", text=
+        "QP 问题构建失败")
+      const uint32 QP_SETUP_FAILED = 65;
+      @verbatim (language="comment", text=
+        "QP 不可行（约束冲突）")
+      const uint32 QP_INFEASIBLE = 66;
+      @verbatim (language="comment", text=
+        "QP 无界")
+      const uint32 QP_UNBOUNDED = 67;
+      @verbatim (language="comment", text=
+        "达到最大迭代次数但未收敛")
+      const uint32 QP_MAX_ITER = 68;
+      @verbatim (language="comment", text=
+        "数值问题（Hessian 非正定等）")
+      const uint32 QP_NUMERICAL = 69;
+      @verbatim (language="comment", text=
+        "求解超过实时预算")
+      const uint32 QP_SOLVER_TIMEOUT = 70;
+      @verbatim (language="comment", text=
+        "求解结果包含 NaN/Inf")
+      const uint32 QP_SOLUTION_NAN = 71;
+      @verbatim (language="comment", text=
+        "任务/约束正常")
+      const uint32 TASK_OK = 80;
+      @verbatim (language="comment", text=
+        "引用了未注册的 task")
+      const uint32 TASK_NOT_REGISTERED = 81;
+      @verbatim (language="comment", text=
+        "task 输入/输出维度与模型不匹配")
+      const uint32 TASK_DIM_MISMATCH = 82;
+      @verbatim (language="comment", text=
+        "task 更新阶段异常")
+      const uint32 TASK_UPDATE_FAILED = 83;
+      @verbatim (language="comment", text=
+        "软约束超限")
+      const uint32 CONSTRAINT_VIOLATED = 84;
+      @verbatim (language="comment", text=
+        "轮式 no-slip 约束偏差过大")
+      const uint32 ROLLING_CONSTRAINT_SLIP = 85;
+      @verbatim (language="comment", text=
+        "参考指令正常")
+      const uint32 REFERENCE_OK = 96;
+      @verbatim (language="comment", text=
+        "长时间未收到参考指令，已切换到 hold")
+      const uint32 REFERENCE_TIMEOUT = 97;
+      @verbatim (language="comment", text=
+        "参考指令含 NaN/Inf，已丢弃")
+      const uint32 REFERENCE_NAN = 98;
+      @verbatim (language="comment", text=
+        "参考指令维度错误")
+      const uint32 REFERENCE_DIM_MISMATCH = 99;
+      @verbatim (language="comment", text=
+        "参考指令跳变过大，已限幅")
+      const uint32 REFERENCE_JUMP = 100;
+      @verbatim (language="comment", text=
+        "参考位姿超出可达工作空间")
+      const uint32 REFERENCE_OUT_OF_WORKSPACE = 101;
+      @verbatim (language="comment", text=
+        "安全状态正常")
+      const uint32 SAFETY_OK = 112;
+      @verbatim (language="comment", text=
+        "关节位置触限")
+      const uint32 JOINT_POSITION_LIMIT = 113;
+      @verbatim (language="comment", text=
+        "关节速度触限（已饱和）")
+      const uint32 JOINT_VELOCITY_LIMIT = 114;
+      @verbatim (language="comment", text=
+        "关节力矩触限（已饱和）")
+      const uint32 JOINT_TORQUE_LIMIT = 115;
+      @verbatim (language="comment", text=
+        "末端速度触限")
+      const uint32 CARTESIAN_VELOCITY_LIMIT = 116;
+      @verbatim (language="comment", text=
+        "自碰撞即将发生")
+      const uint32 SELF_COLLISION_IMMINENT = 117;
+      @verbatim (language="comment", text=
+        "急停已触发")
+      const uint32 EMERGENCY_STOP = 118;
+      @verbatim (language="comment", text=
+        "里程计/滤波正常")
+      const uint32 ODOM_OK = 128;
+      @verbatim (language="comment", text=
+        "里程计/位姿跳变被检测到")
+      const uint32 ODOM_JUMP_DETECTED = 129;
+      @verbatim (language="comment", text=
+        "滤波器发散")
+      const uint32 FILTER_DIVERGED = 130;
+      @verbatim (language="comment", text=
+        "滤波器输入含 NaN/Inf")
+      const uint32 FILTER_INPUT_NAN = 131;
+      @verbatim (language="comment", text=
+        "实时性正常")
+      const uint32 TIMING_OK = 144;
+      @verbatim (language="comment", text=
+        "单次 update 超出控制周期")
+      const uint32 CONTROL_LOOP_OVERRUN = 145;
+      @verbatim (language="comment", text=
+        "update 传入的 period 非法")
+      const uint32 PERIOD_INVALID = 146;
+      @verbatim (language="comment", text=
+        "时间戳回退或跳变")
+      const uint32 CLOCK_JUMP = 147;
+    };
+    @verbatim (language="comment", text=
+      "Unit: QP_CONTROLLER" "\n"
+      "控制器状态上报超时")
+    struct QpControllerErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

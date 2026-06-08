@@ -1,0 +1,19 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from x2robot_msgs/msg/EnumControllerMode.msg
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module msg {
+    module EnumControllerMode_Constants {
+      const uint8 IDLE = 1;
+      const uint8 SWITHCING = 255;
+      const uint8 DATA_COLLECT = 2;
+      const uint8 REPLAY = 3;
+      const uint8 INFERENCE = 4;
+    };
+    struct EnumControllerMode {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

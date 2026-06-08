@@ -1,0 +1,13 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from x2robot_msgs/msg/CanFrameBatch.msg
+// generated code does not contain a copyright notice
+
+#include "x2robot_msgs/msg/CanFrame.idl"
+
+module x2robot_msgs {
+  module msg {
+    struct CanFrameBatch {
+      sequence<x2robot_msgs::msg::CanFrame> frames;
+    };
+  };
+};

@@ -1,0 +1,15 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MEDIA/MediaUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module MediaUnitEnum_Constants {
+      const uint8 CAMERA = 1;
+    };
+    struct MediaUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

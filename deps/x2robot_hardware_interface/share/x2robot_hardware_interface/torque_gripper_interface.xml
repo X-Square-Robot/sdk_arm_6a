@@ -1,0 +1,10 @@
+<library path="torque_gripper_interface">
+  <class name="x2robot_hardware_interface/TorqueGripperInterface"
+         type="x2robot_hardware_interface::TorqueGripperInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+    The ros2_control x2robot torque gripper system interface (G protocol)
+    </description>
+  </class>
+</library>
+

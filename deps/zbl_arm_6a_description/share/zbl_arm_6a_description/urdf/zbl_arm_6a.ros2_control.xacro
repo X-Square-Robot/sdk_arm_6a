@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="zbl_arm_6a_ros2_control"
-               params="name prefix can_interface use_ipc:=1 mock_robot">
+               params="name prefix can_interface:=can0 use_ipc:=1 mock_robot domain:=0x04 unit:=0x00 auto_enable:=True">
 
     <ros2_control name="${name}"
                   type="system">
@@ -14,9 +14,12 @@
           <plugin>x2robot_hardware_interface/CustomMotorSystemInterface</plugin>
           <param name="can_interface">${can_interface}</param>
           <param name="use_ipc">${use_ipc}</param>
+          <param name="domain">${domain}</param>
+          <param name="unit">${unit}</param>
         </xacro:unless>
       </hardware>
       <joint name="${prefix}arm_joint1">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">1</param>
         <param name="master_id">17</param>
         <param name="motor_type">dmmotor</param>
@@ -34,6 +37,7 @@
         <state_interface name="effort" />
       </joint>
       <joint name="${prefix}arm_joint2">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">2</param>
         <param name="master_id">18</param>
         <param name="motor_type">dmmotor</param>
@@ -51,6 +55,7 @@
         <state_interface name="effort" />
       </joint>
       <joint name="${prefix}arm_joint3">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">3</param>
         <param name="master_id">19</param>
         <param name="motor_type">dmmotor</param>
@@ -69,6 +74,7 @@
         <state_interface name="effort" />
       </joint>
       <joint name="${prefix}arm_joint4">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">4</param>
         <param name="master_id">20</param>
         <param name="motor_type">dmmotor</param>
@@ -87,6 +93,7 @@
         <state_interface name="effort" />
       </joint>
       <joint name="${prefix}arm_joint5">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">5</param>
         <param name="master_id">21</param>
         <param name="motor_type">dmmotor</param>
@@ -105,6 +112,7 @@
         <state_interface name="effort" />
       </joint>
       <joint name="${prefix}arm_joint6">
+        <param name="auto_enable">${auto_enable}</param>
         <param name="motor_id">6</param>
         <param name="master_id">22</param>
         <param name="motor_type">dmmotor</param>

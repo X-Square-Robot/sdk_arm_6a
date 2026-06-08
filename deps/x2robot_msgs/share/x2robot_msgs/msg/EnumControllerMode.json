@@ -1,0 +1,26 @@
+{
+  "type_description_msg": {
+    "type_description": {
+      "type_name": "x2robot_msgs/msg/EnumControllerMode",
+      "fields": [
+        {
+          "name": "structure_needs_at_least_one_member",
+          "type": {
+            "type_id": 3,
+            "capacity": 0,
+            "string_capacity": 0,
+            "nested_type_name": ""
+          },
+          "default_value": ""
+        }
+      ]
+    },
+    "referenced_type_descriptions": []
+  },
+  "type_hashes": [
+    {
+      "type_name": "x2robot_msgs/msg/EnumControllerMode",
+      "hash_string": "RIHS01_90e24e1de8b62ea99750802a5c1d479a8eafdf3e8de861eb43ffc787c89c3464"
+    }
+  ]
+}

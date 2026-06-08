@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MONITOR/SystemMonitorUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module SystemMonitorUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "磁盘负载过高")
+      const uint32 ROM_HIGH_USAGE = 16;
+      @verbatim (language="comment", text=
+        "运存负载过高")
+      const uint32 RAM_HIGH_USAGE = 17;
+      @verbatim (language="comment", text=
+        "CPU过温")
+      const uint32 CPU_OVERHEAT = 18;
+      @verbatim (language="comment", text=
+        "GPU过温")
+      const uint32 GPU_OVERHEAT = 19;
+    };
+    @verbatim (language="comment", text=
+      "Unit: SYSTEM_MONITOR" "\n"
+      "系统资源监控节点获取状态超时")
+    struct SystemMonitorUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

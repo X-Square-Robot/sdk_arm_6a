@@ -1,0 +1,14 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/MotorStatus.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    struct MotorStatus {
+      uint8 state_code;
+
+      uint32 error_bit_code;
+    };
+  };
+};

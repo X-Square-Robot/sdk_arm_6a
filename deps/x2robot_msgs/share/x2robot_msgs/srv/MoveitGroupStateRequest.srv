@@ -1,0 +1,10 @@
+# 请求
+string group_state
+uint8 num_planning_attempts 1
+float64 allowed_planning_time 1.0
+float64 max_velocity_scaling_factor 0.1
+float64 max_acceleration_scaling_factor 0.2
+---
+# 响应
+uint8 moveit_move_result   # 查询x2robot_msgs.msg.EnumMoveitMoveResult
+string message

@@ -1,0 +1,93 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/EAI/X2robotClientErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module X2robotClientErrorEnum_Constants {
+      const uint32 MODEL_INFO_INVALID = 16;
+      @verbatim (language="comment", text=
+        "模型服务地址解析失败")
+      const uint32 MODEL_ADDRESS_RESOLVE_FAILED = 17;
+      @verbatim (language="comment", text=
+        "连接模型服务失败")
+      const uint32 MODEL_SERVER_CONNECT_FAILED = 18;
+      @verbatim (language="comment", text=
+        "等待模型服务元信息超时")
+      const uint32 MODEL_SERVER_METADATA_TIMEOUT = 19;
+      @verbatim (language="comment", text=
+        "模型服务元信息解析失败")
+      const uint32 MODEL_SERVER_METADATA_DECODE_FAILED = 20;
+      @verbatim (language="comment", text=
+        "机器人客户端初始化失败")
+      const uint32 ROBOT_CLIENT_INIT_FAILED = 21;
+      @verbatim (language="comment", text=
+        "机器人型号配置无效")
+      const uint32 ROBOT_MODEL_CONFIG_INVALID = 22;
+      @verbatim (language="comment", text=
+        "不支持的控制模式")
+      const uint32 UNSUPPORTED_CONTROL_MODE = 23;
+      @verbatim (language="comment", text=
+        "开始推理失败")
+      const uint32 INFERENCE_START_FAILED = 24;
+      @verbatim (language="comment", text=
+        "停止推理失败")
+      const uint32 INFERENCE_STOP_FAILED = 25;
+      @verbatim (language="comment", text=
+        "关闭推理服务失败")
+      const uint32 INFERENCE_CLOSE_FAILED = 26;
+      @verbatim (language="comment", text=
+        "机器人状态采集失败")
+      const uint32 SENSOR_DATA_COLLECT_FAILED = 27;
+      @verbatim (language="comment", text=
+        "模型请求序列化失败")
+      const uint32 MODEL_REQUEST_SERIALIZE_FAILED = 28;
+      @verbatim (language="comment", text=
+        "模型请求发送失败")
+      const uint32 MODEL_REQUEST_SEND_FAILED = 29;
+      @verbatim (language="comment", text=
+        "等待模型响应超时")
+      const uint32 MODEL_RESPONSE_TIMEOUT = 30;
+      @verbatim (language="comment", text=
+        "接收模型响应失败")
+      const uint32 MODEL_RESPONSE_RECEIVE_FAILED = 31;
+      @verbatim (language="comment", text=
+        "模型响应解析失败")
+      const uint32 MODEL_RESPONSE_DECODE_FAILED = 32;
+      @verbatim (language="comment", text=
+        "模型输出字段无效")
+      const uint32 MODEL_OUTPUT_INVALID = 33;
+      @verbatim (language="comment", text=
+        "动作下发失败")
+      const uint32 ACTION_EXECUTE_FAILED = 34;
+      @verbatim (language="comment", text=
+        "动作块遥测发布失败")
+      const uint32 ACTION_CHUNK_PUBLISH_FAILED = 35;
+      @verbatim (language="comment", text=
+        "模型文本输出发布失败")
+      const uint32 MODEL_OUTPUT_TEXT_PUBLISH_FAILED = 36;
+      @verbatim (language="comment", text=
+        "推理运行时异常")
+      const uint32 INFERENCE_RUNTIME_EXCEPTION = 37;
+      @verbatim (language="comment", text=
+        "接管状态切换失败")
+      const uint32 REMOTE_CONTROL_STATE_FAILED = 38;
+      @verbatim (language="comment", text=
+        "资源释放失败")
+      const uint32 RESOURCE_CLEANUP_FAILED = 39;
+      @verbatim (language="comment", text=
+        "异步推理线程异常")
+      const uint32 ASYNC_WORKER_EXCEPTION = 40;
+      @verbatim (language="comment", text=
+        "异步动作队列过期")
+      const uint32 ASYNC_ACTION_QUEUE_STALE = 41;
+    };
+    @verbatim (language="comment", text=
+      "Unit: X2ROBOT_CLIENT" "\n"
+      "模型初始化参数无效")
+    struct X2robotClientErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

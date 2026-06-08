@@ -1,0 +1,48 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/RealtimeControllerUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module RealtimeControllerUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "正常工作状态")
+      const uint32 IS_WORKING = 16;
+      @verbatim (language="comment", text=
+        "执行器控制模式切换中")
+      const uint32 IS_CONTROLMODECHANGED = 17;
+      @verbatim (language="comment", text=
+        "插值轨迹运行中")
+      const uint32 IS_TRAJRUNNING = 18;
+      @verbatim (language="comment", text=
+        "碰撞回退")
+      const uint32 IS_BACKOFF = 19;
+      @verbatim (language="comment", text=
+        "限位回退")
+      const uint32 IS_AVOIDLIMITS = 20;
+      @verbatim (language="comment", text=
+        "软急停，执行器下使能")
+      const uint32 IS_SOFTSTOP = 21;
+      @verbatim (language="comment", text=
+        "硬急停，执行器下电")
+      const uint32 IS_ESTOPPED = 22;
+      @verbatim (language="comment", text=
+        "执行器正常，等待启动")
+      const uint32 IS_READYFORRESETACK = 23;
+      @verbatim (language="comment", text=
+        "内部错误")
+      const uint32 IS_INTERNALERROR = 24;
+      @verbatim (language="comment", text=
+        "升降腰正在回零")
+      const uint32 IS_LIFTWAISTHOMING = 25;
+    };
+    @verbatim (language="comment", text=
+      "Unit: REALTIME_CONTROLLER" "\n"
+      "安全控制器状态获取超时")
+    struct RealtimeControllerUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

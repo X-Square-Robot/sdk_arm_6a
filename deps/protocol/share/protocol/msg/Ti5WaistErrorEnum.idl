@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/Ti5WaistErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module Ti5WaistErrorEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      const uint32 J1_MOTOR_NORMAL = 16;
+      const uint32 J1_MOTOR_ABNORMAL = 17;
+      const uint32 J2_MOTOR_NORMAL = 32;
+      const uint32 J2_MOTOR_ABNORMAL = 33;
+      const uint32 J3_MOTOR_NORMAL = 48;
+      const uint32 J3_MOTOR_ABNORMAL = 49;
+      const uint32 J4_MOTOR_NORMAL = 64;
+      const uint32 J4_MOTOR_ABNORMAL = 65;
+    };
+    @verbatim (language="comment", text=
+      "Unit: TI5_WAIST" "\n"
+      "钛虎腰部电机获取状态超时")
+    struct Ti5WaistErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

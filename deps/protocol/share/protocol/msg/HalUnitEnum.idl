@@ -1,0 +1,97 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/HAL/HalUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module HalUnitEnum_Constants {
+      const uint8 HAL = 1;
+      const uint8 CHASSIS = 2;
+      const uint8 BODY = 3;
+      const uint8 HEAD = 4;
+      const uint8 LIDAR = 5;
+      const uint8 GRIPPER_LEFT = 6;
+      const uint8 GRIPPER_RIGHT = 7;
+      const uint8 HEAD_MOUNT = 8;
+      @verbatim (language="comment", text=
+        "HAL获取状态超时")
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "底盘板断连")
+      const uint32 CHASSIS_CONN_FAIL = 17;
+      @verbatim (language="comment", text=
+        "身体板断连")
+      const uint32 BODY_CONN_FAIL = 18;
+      @verbatim (language="comment", text=
+        "头部板断连")
+      const uint32 HEAD_CONN_FAIL = 19;
+      @verbatim (language="comment", text=
+        "电源板断连")
+      const uint32 POWER_CONN_FAIL = 20;
+      @verbatim (language="comment", text=
+        "头部板版本信息解析失败")
+      const uint32 PARSE_HEAD_VERSION_FAIL = 32;
+      @verbatim (language="comment", text=
+        "头部板云台状态数据解析失败")
+      const uint32 PARSE_HEAD_JOINT_FAIL = 33;
+      @verbatim (language="comment", text=
+        "头部板IMU数据解析失败")
+      const uint32 PARSE_HEAD_IMU_FAIL = 34;
+      @verbatim (language="comment", text=
+        "头部板日志数据解析失败")
+      const uint32 PARSE_HEAD_LOG_FAIL = 35;
+      @verbatim (language="comment", text=
+        "头部板电源状态数据解析失败")
+      const uint32 PARSE_HEAD_POWER_FAIL = 36;
+      @verbatim (language="comment", text=
+        "身体板版本信息解析失败")
+      const uint32 PARSE_BODY_VERSION_FAIL = 37;
+      @verbatim (language="comment", text=
+        "身体板云台状态数据解析失败")
+      const uint32 PARSE_BODY_HEAD_JOINT_FAIL = 38;
+      @verbatim (language="comment", text=
+        "身体板IMU数据解析失败")
+      const uint32 PARSE_BODY_IMU_FAIL = 39;
+      @verbatim (language="comment", text=
+        "身体板日志数据解析失败")
+      const uint32 PARSE_BODY_LOG_FAIL = 40;
+      @verbatim (language="comment", text=
+        "身体板电源系统状态数据解析失败")
+      const uint32 PARSE_BODY_POWER_FAIL = 41;
+      @verbatim (language="comment", text=
+        "底盘板版本信息解析失败")
+      const uint32 PARSE_CHASSIS_VERSION_FAIL = 42;
+      @verbatim (language="comment", text=
+        "底盘板系统状态数据解析失败")
+      const uint32 PARSE_CHASSIS_POWER_FAIL = 43;
+      @verbatim (language="comment", text=
+        "底盘板TOF传感器数据解析失败")
+      const uint32 PARSE_CHASSIS_TOF_FAIL = 44;
+      @verbatim (language="comment", text=
+        "底盘板超声波传感器数据解析失败")
+      const uint32 PARSE_CHASSIS_ULTRASONIC_FAIL = 45;
+      @verbatim (language="comment", text=
+        "底盘板IMU数据解析失败")
+      const uint32 PARSE_CHASSIS_IMU_FAIL = 46;
+      @verbatim (language="comment", text=
+        "底盘板日志数据解析失败")
+      const uint32 PARSE_CHASSIS_LOG_FAIL = 47;
+      @verbatim (language="comment", text=
+        "底盘板充电桩数据解析失败")
+      const uint32 PARSE_CHASSIS_ROBOT_STATION_INFO_FAIL = 48;
+      @verbatim (language="comment", text=
+        "底盘板里程计Odom数据解析失败")
+      const uint32 PARSE_CHASSIS_ODOM_FAIL = 49;
+      @verbatim (language="comment", text=
+        "身体板TOF传感器数据解析失败")
+      const uint32 PARSE_BODY_TOF_FAIL = 50;
+      @verbatim (language="comment", text=
+        "身体板超声波传感器数据解析失败")
+      const uint32 PARSE_BODY_ULTRASONIC_FAIL = 51;
+    };
+    struct HalUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

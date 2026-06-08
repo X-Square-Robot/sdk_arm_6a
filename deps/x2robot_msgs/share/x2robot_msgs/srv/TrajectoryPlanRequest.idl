@@ -1,0 +1,46 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from x2robot_msgs/srv/TrajectoryPlanRequest.srv
+// generated code does not contain a copyright notice
+
+#include "trajectory_msgs/msg/JointTrajectory.idl"
+
+module x2robot_msgs {
+  module srv {
+    @verbatim (language="comment", text=
+      "请求")
+    struct TrajectoryPlanRequest_Request {
+      string group_name;
+
+      sequence<string> start_state_joint_names;
+
+      sequence<double> start_states;
+
+      sequence<string> goal_state_joint_names;
+
+      sequence<double> goal_states;
+
+      sequence<double> tolerance_above;
+
+      sequence<double> tolerance_below;
+
+      @default (value=1)
+      uint8 num_planning_attempts;
+
+      @default (value=1.0)
+      double allowed_planning_time;
+
+      @default (value=0.1)
+      double max_velocity_scaling_factor;
+
+      @default (value=0.2)
+      double max_acceleration_scaling_factor;
+    };
+    @verbatim (language="comment", text=
+      "响应")
+    struct TrajectoryPlanRequest_Response {
+      int32 error_code;
+
+      trajectory_msgs::msg::JointTrajectory trajectory;
+    };
+  };
+};

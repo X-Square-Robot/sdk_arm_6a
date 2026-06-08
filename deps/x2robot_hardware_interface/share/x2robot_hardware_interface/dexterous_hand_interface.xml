@@ -1,0 +1,9 @@
+<library path="dexterous_hand_interface">
+  <class name="x2robot_hardware_interface/DexterousHandInterface"
+         type="x2robot_hardware_interface::DexterousHandInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control x2robot dexterous hand interface
+    </description>
+  </class>
+</library>

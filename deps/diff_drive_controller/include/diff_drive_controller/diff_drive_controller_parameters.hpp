@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -158,10 +161,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -777,188 +778,188 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "left_wheel_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "left_wheel_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'left_wheel_names': {}", validation_result.error()));
       }
       updated_params.left_wheel_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "right_wheel_names");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "right_wheel_names") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'right_wheel_names': {}", validation_result.error()));
       }
       updated_params.right_wheel_names = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "wheel_separation");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "wheel_separation") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'wheel_separation': {}", validation_result.error()));
       }
       updated_params.wheel_separation = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "wheel_radius");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "wheel_radius") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'wheel_radius': {}", validation_result.error()));
       }
       updated_params.wheel_radius = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "wheel_separation_multiplier");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "wheel_separation_multiplier") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.wheel_separation_multiplier = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "left_wheel_radius_multiplier");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "left_wheel_radius_multiplier") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.left_wheel_radius_multiplier = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "right_wheel_radius_multiplier");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "right_wheel_radius_multiplier") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.right_wheel_radius_multiplier = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "tf_frame_prefix_enable");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "tf_frame_prefix_enable") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.tf_frame_prefix_enable = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "tf_frame_prefix");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "tf_frame_prefix") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.tf_frame_prefix = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "odom_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "odom_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.odom_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "base_frame_id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "base_frame_id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.base_frame_id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "pose_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "pose_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.pose_covariance_diagonal = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "twist_covariance_diagonal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "twist_covariance_diagonal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.twist_covariance_diagonal = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "open_loop");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "open_loop") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.open_loop = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "position_feedback");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "position_feedback") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.position_feedback = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "enable_odom_tf");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "enable_odom_tf") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.enable_odom_tf = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "cmd_vel_timeout");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "cmd_vel_timeout") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.cmd_vel_timeout = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "publish_limited_velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "publish_limited_velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.publish_limited_velocity = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "velocity_rolling_window_size");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "velocity_rolling_window_size") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.velocity_rolling_window_size = param.as_int();
       param = parameters_interface_->get_parameter(prefix_ + "publish_rate");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "publish_rate") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.publish_rate = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_velocity': {}", validation_result.error()));
       }
       updated_params.linear.x.max_velocity = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.min_velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.min_velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.min_velocity': {}", validation_result.error()));
       }
       updated_params.linear.x.min_velocity = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_acceleration");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_acceleration") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_acceleration': {}", validation_result.error()));
       }
       updated_params.linear.x.max_acceleration = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_deceleration");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_deceleration") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_deceleration': {}", validation_result.error()));
       }
       updated_params.linear.x.max_deceleration = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_acceleration_reverse");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_acceleration_reverse") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_acceleration_reverse': {}", validation_result.error()));
       }
       updated_params.linear.x.max_acceleration_reverse = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_deceleration_reverse");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_deceleration_reverse") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_deceleration_reverse': {}", validation_result.error()));
       }
       updated_params.linear.x.max_deceleration_reverse = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.max_jerk");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.max_jerk") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.max_jerk': {}", validation_result.error()));
       }
       updated_params.linear.x.max_jerk = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "linear.x.min_jerk");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "linear.x.min_jerk") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'linear.x.min_jerk': {}", validation_result.error()));
       }
       updated_params.linear.x.min_jerk = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_velocity': {}", validation_result.error()));
       }
       updated_params.angular.z.max_velocity = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.min_velocity");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.min_velocity") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.min_velocity': {}", validation_result.error()));
       }
       updated_params.angular.z.min_velocity = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_acceleration");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_acceleration") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_acceleration': {}", validation_result.error()));
       }
       updated_params.angular.z.max_acceleration = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_deceleration");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_deceleration") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_deceleration': {}", validation_result.error()));
       }
       updated_params.angular.z.max_deceleration = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_acceleration_reverse");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_acceleration_reverse") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_acceleration_reverse': {}", validation_result.error()));
       }
       updated_params.angular.z.max_acceleration_reverse = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_deceleration_reverse");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_deceleration_reverse") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_deceleration_reverse': {}", validation_result.error()));
       }
       updated_params.angular.z.max_deceleration_reverse = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.max_jerk");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.max_jerk") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::gt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.max_jerk': {}", validation_result.error()));
       }
       updated_params.angular.z.max_jerk = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "angular.z.min_jerk");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "angular.z.min_jerk") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = control_filters::lt_eq_or_nan<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'angular.z.min_jerk': {}", validation_result.error()));

@@ -1,0 +1,39 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/APPLICATION/TaskManagerErrorEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module TaskManagerErrorEnum_Constants {
+      const uint32 TASK_INIT_FAILED = 16;
+      @verbatim (language="comment", text=
+        "任务运行错误")
+      const uint32 TASK_RUNNING_ERROR = 17;
+      @verbatim (language="comment", text=
+        "任务暂停失败")
+      const uint32 TASK_PAUSED_FAILED = 18;
+      @verbatim (language="comment", text=
+        "任务继续失败")
+      const uint32 TASK_RESUME_FAILED = 19;
+      @verbatim (language="comment", text=
+        "任务终止失败")
+      const uint32 TASK_TERMINATE_FAILED = 20;
+      @verbatim (language="comment", text=
+        "任务挂起失败")
+      const uint32 TASK_SUSPEND_FAILED = 21;
+      @verbatim (language="comment", text=
+        "任务退出挂起失败")
+      const uint32 TASK_EXIT_SUSPEND_FAILED = 22;
+      @verbatim (language="comment", text=
+        "任务完成后清理失败")
+      const uint32 TASK_FINISH_FAILED = 23;
+    };
+    @verbatim (language="comment", text=
+      "Unit: TASK_MANAGER" "\n"
+      "任务初始化失败")
+    struct TaskManagerErrorEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

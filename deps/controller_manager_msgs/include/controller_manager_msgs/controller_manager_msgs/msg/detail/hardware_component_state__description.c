@@ -23,8 +23,8 @@ controller_manager_msgs__msg__HardwareComponentState__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "lifecycle_msgs/msg/detail/state__functions.h"
 #include "controller_manager_msgs/msg/detail/hardware_interface__functions.h"
+#include "lifecycle_msgs/msg/detail/state__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

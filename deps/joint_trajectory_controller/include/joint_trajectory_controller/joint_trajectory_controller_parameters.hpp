@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -119,10 +122,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -650,7 +651,7 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'joints': {}", validation_result.error()));
@@ -661,14 +662,14 @@ template <typename T, size_t capacity>
       }
       updated_params.joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "command_joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "command_joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'command_joints': {}", validation_result.error()));
       }
       updated_params.command_joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "command_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "command_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'command_interfaces': {}", validation_result.error()));
@@ -687,7 +688,7 @@ template <typename T, size_t capacity>
       }
       updated_params.command_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "state_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "state_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'state_interfaces': {}", validation_result.error()));
@@ -706,42 +707,42 @@ template <typename T, size_t capacity>
       }
       updated_params.state_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "allow_partial_joints_goal");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "allow_partial_joints_goal") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.allow_partial_joints_goal = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "interpolate_from_desired_state");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "interpolate_from_desired_state") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.interpolate_from_desired_state = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "allow_integration_in_goal_trajectories");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "allow_integration_in_goal_trajectories") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.allow_integration_in_goal_trajectories = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "set_last_command_interface_value_as_state_on_activation");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "set_last_command_interface_value_as_state_on_activation") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.set_last_command_interface_value_as_state_on_activation = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "action_monitor_rate");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "action_monitor_rate") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt_eq(param, 0.1);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'action_monitor_rate': {}", validation_result.error()));
       }
       updated_params.action_monitor_rate = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "interpolation_method");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "interpolation_method") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = one_of<std::string>(param, {"splines", "none"});
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'interpolation_method': {}", validation_result.error()));
       }
       updated_params.interpolation_method = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "allow_nonzero_velocity_at_trajectory_end");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "allow_nonzero_velocity_at_trajectory_end") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.allow_nonzero_velocity_at_trajectory_end = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "cmd_timeout");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "cmd_timeout") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.cmd_timeout = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "constraints.stopped_velocity_tolerance");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "constraints.stopped_velocity_tolerance") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.constraints.stopped_velocity_tolerance = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "constraints.goal_time");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "constraints.goal_time") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt_eq(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'constraints.goal_time': {}", validation_result.error()));

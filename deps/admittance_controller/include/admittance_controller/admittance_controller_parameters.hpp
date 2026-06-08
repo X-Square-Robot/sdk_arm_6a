@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -137,10 +140,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -555,72 +556,72 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "command_joints");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "command_joints") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.command_joints = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "command_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "command_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.command_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "state_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "state_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.state_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "chainable_command_interfaces");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "chainable_command_interfaces") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.chainable_command_interfaces = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.plugin_name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.plugin_name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.plugin_name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.plugin_package");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.plugin_package") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.plugin_package = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.base");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.base") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.base = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.tip");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.tip") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.tip = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "kinematics.alpha");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "kinematics.alpha") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.kinematics.alpha = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "ft_sensor.name");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "ft_sensor.name") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.ft_sensor.name = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "ft_sensor.frame.id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "ft_sensor.frame.id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.ft_sensor.frame.id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "ft_sensor.filter_coefficient");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "ft_sensor.filter_coefficient") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.ft_sensor.filter_coefficient = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "control.frame.id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "control.frame.id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.control.frame.id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "fixed_world_frame.frame.id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "fixed_world_frame.frame.id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.fixed_world_frame.frame.id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "gravity_compensation.frame.id");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "gravity_compensation.frame.id") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.gravity_compensation.frame.id = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "gravity_compensation.CoG.pos");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "gravity_compensation.CoG.pos") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = fixed_size<double>(param, 3);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'gravity_compensation.CoG.pos': {}", validation_result.error()));
       }
       updated_params.gravity_compensation.CoG.pos = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "gravity_compensation.CoG.force");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "gravity_compensation.CoG.force") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.gravity_compensation.CoG.force = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "admittance.selected_axes");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "admittance.selected_axes") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = fixed_size<bool>(param, 6);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'admittance.selected_axes': {}", validation_result.error()));
       }
       updated_params.admittance.selected_axes = param.as_bool_array();
       param = parameters_interface_->get_parameter(prefix_ + "admittance.mass");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "admittance.mass") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = fixed_size<double>(param, 6);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'admittance.mass': {}", validation_result.error()));
@@ -631,14 +632,14 @@ template <typename T, size_t capacity>
       }
       updated_params.admittance.mass = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "admittance.damping_ratio");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "admittance.damping_ratio") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = fixed_size<double>(param, 6);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'admittance.damping_ratio': {}", validation_result.error()));
       }
       updated_params.admittance.damping_ratio = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "admittance.stiffness");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "admittance.stiffness") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = fixed_size<double>(param, 6);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'admittance.stiffness': {}", validation_result.error()));
@@ -649,14 +650,14 @@ template <typename T, size_t capacity>
       }
       updated_params.admittance.stiffness = param.as_double_array();
       param = parameters_interface_->get_parameter(prefix_ + "admittance.joint_damping");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "admittance.joint_damping") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt_eq(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'admittance.joint_damping': {}", validation_result.error()));
       }
       updated_params.admittance.joint_damping = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "enable_parameter_update_without_reactivation");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "enable_parameter_update_without_reactivation") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.enable_parameter_update_without_reactivation = param.as_bool();
 
 

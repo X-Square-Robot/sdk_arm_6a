@@ -1,0 +1,5 @@
+uint8 IDLE = 1
+uint8 SWITHCING = 255
+uint8 DATA_COLLECT = 2
+uint8 REPLAY = 3
+uint8 INFERENCE = 4

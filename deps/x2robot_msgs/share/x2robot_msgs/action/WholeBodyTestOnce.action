@@ -1,0 +1,19 @@
+# Goal definition - 姿势从YAML文件读取
+float32 max_velocity_scaling_factor 0.1
+float32 max_acceleration_scaling_factor 0.2
+---
+
+# Result definition
+bool success
+string message
+string[] successful_poses
+string[] failed_poses
+---
+
+# Feedback definition
+string current_pose
+float32 progress
+string[] successful_poses
+string[] failed_poses
+int32 total_poses
+int32 current_index

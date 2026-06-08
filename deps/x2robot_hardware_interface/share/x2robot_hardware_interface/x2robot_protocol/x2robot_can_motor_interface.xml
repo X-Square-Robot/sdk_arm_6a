@@ -1,0 +1,9 @@
+<library path="x2robot_can_motor_interface">
+  <class name="x2robot_hardware_interface/X2RobotCanMotorInterface"
+         type="x2robot_hardware_interface::X2RobotCanMotorInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control X2Robot CAN motor interface
+    </description>
+  </class>
+</library>

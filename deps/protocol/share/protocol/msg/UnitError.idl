@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/UnitError.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    @verbatim (language="comment", text=
+      "UnitError.msg" "\n"
+      "某单元当前仍然存在的错误")
+    struct UnitError {
+      @verbatim (language="comment", text=
+        "单元定义的错误码（不含 domain/unit）")
+      uint8 error_code;
+
+      @verbatim (language="comment", text=
+        "0表示info 1表示warning,2表示error,3表示fatal")
+      uint8 level;
+
+      @verbatim (language="comment", text=
+        "一些额外的信息，通常不建议将信息塞入这里。字符串长度限制在25以内。")
+      string exception;
+    };
+  };
+};

@@ -1,0 +1,71 @@
+ARG BASE_IMAGE=ubuntu:24.04
+FROM ${BASE_IMAGE}
+
+# Build arguments
+ARG UBUNTU_DISTRO=noble
+ARG ROS2_DISTRO=jazzy
+# ROS 2 packages are pinned to a snapshot of http://snapshots.ros.org/<distro>/<date>/
+# to guarantee reproducible base images: rebuilding from the same Dockerfile.base
+# always installs the SAME ROS 2 package versions, so the binaries shipped in deps/
+# remain ABI-compatible with the runtime in the container.
+#
+# Available snapshots: http://snapshots.ros.org/jazzy/
+# To upgrade, set ROS2_SNAPSHOT_DATE to a newer date and rebuild the base image
+# (CI will pick it up automatically via the watch on Dockerfile.base).
+ARG ROS2_SNAPSHOT_DATE=2026-04-13
+
+# Environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS2_DISTRO=${ROS2_DISTRO}
+
+USER root
+
+# Install apt dependencies
+COPY .devcontainer/apt.list /tmp/apt.list
+RUN echo "-----Install APT dependencies-----" && \
+    apt-get update && xargs -a /tmp/apt.list apt-get install -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && rm /tmp/apt.list
+
+# Install Python dependencies (remove EXTERNALLY-MANAGED restriction for container)
+COPY .devcontainer/pip.list /tmp/pip.list
+RUN echo "-----Install Python dependencies-----" && \
+    rm -f /usr/lib/python*/EXTERNALLY-MANAGED && \
+    pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /tmp/pip.list && \
+    rm /tmp/pip.list
+
+# Setup ROS2 source (snapshots.ros.org, pinned date) and install ROS2 base.
+# snapshots.ros.org repos are signed by the "ROS Snapshot builder" GPG key
+# (AD19BAB3CBF125EA), which is *different* from the packages.ros.org key —
+# fetch it from keyserver.ubuntu.com (the canonical mirror for OpenPGP keys).
+RUN echo "-----Setup ROS2 source (snapshot ${ROS2_SNAPSHOT_DATE}) and install ROS2-----" && \
+    apt-get update && apt-get install -y --no-install-recommends curl gnupg2 ca-certificates && \
+    curl -sSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xAD19BAB3CBF125EA" \
+        | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://snapshots.ros.org/${ROS2_DISTRO}/${ROS2_SNAPSHOT_DATE}/ubuntu ${UBUNTU_DISTRO} main" \
+        | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
+    apt-get update && apt-get install -y --no-install-recommends \
+        ros-${ROS2_DISTRO}-ros-base \
+        python3-colcon-common-extensions \
+        python3-argcomplete \
+        python3-vcstool \
+        ros-${ROS2_DISTRO}-pinocchio && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install additional ROS2 packages
+COPY .devcontainer/ros2_apt.list /tmp/ros2_apt.list
+RUN apt-get update && \
+    sed -i "s/\${ROS2_DISTRO}/${ROS2_DISTRO}/g" /tmp/ros2_apt.list && \
+    xargs -a /tmp/ros2_apt.list apt-get install -y && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    rm /tmp/ros2_apt.list
+
+# git + ssh client for example workflows (no SSH config baked in for public users)
+RUN apt-get update && apt-get install -y --no-install-recommends openssh-client git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Stamp the image with the ROS 2 snapshot date. The dev layer (Dockerfile)
+# compares this against deps/SNAPSHOT_DATE shipped from arm_sdk CI to verify
+# ABI compatibility — see Dockerfile for the actual check.
+RUN mkdir -p /opt/xr && echo "${ROS2_SNAPSHOT_DATE}" > /opt/xr/BASE_SNAPSHOT_DATE
+
+RUN echo "-----Base image setup is complete!-----"

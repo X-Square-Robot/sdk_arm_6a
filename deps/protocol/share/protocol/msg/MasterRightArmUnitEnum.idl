@@ -1,0 +1,162 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/MOTION/MasterRightArmUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module MasterRightArmUnitEnum_Constants {
+      const uint32 HEARTBEAT_TIMEOUT = 1;
+      @verbatim (language="comment", text=
+        "右主臂J1电机正常")
+      const uint32 J1_MOTOR_NORMAL = 16;
+      @verbatim (language="comment", text=
+        "右主臂J1轴过压")
+      const uint32 J1_OVER_VOLTAGE = 17;
+      @verbatim (language="comment", text=
+        "右主臂J1轴欠压")
+      const uint32 J1_UNDER_VOLTAGE = 18;
+      @verbatim (language="comment", text=
+        "右主臂J1过流")
+      const uint32 J1_OVER_CURRENT = 19;
+      @verbatim (language="comment", text=
+        "右主臂J1 MOS过热")
+      const uint32 J1_MOS_OVER_TEMP = 20;
+      @verbatim (language="comment", text=
+        "右主臂J1电机过热")
+      const uint32 J1_MOTOR_OVER_HEAT = 21;
+      @verbatim (language="comment", text=
+        "右主臂J1通讯丢失")
+      const uint32 J1_COMMUNICATION_LOST = 22;
+      @verbatim (language="comment", text=
+        "右主臂J1过载")
+      const uint32 J1_OVERLOAD = 23;
+      @verbatim (language="comment", text=
+        "右主臂J2电机正常")
+      const uint32 J2_MOTOR_NORMAL = 32;
+      @verbatim (language="comment", text=
+        "右主臂J2轴过压")
+      const uint32 J2_OVER_VOLTAGE = 33;
+      @verbatim (language="comment", text=
+        "右主臂J2轴欠压")
+      const uint32 J2_UNDER_VOLTAGE = 34;
+      @verbatim (language="comment", text=
+        "右主臂J2过流")
+      const uint32 J2_OVER_CURRENT = 35;
+      @verbatim (language="comment", text=
+        "右主臂J2 MOS过热")
+      const uint32 J2_MOS_OVER_TEMP = 36;
+      @verbatim (language="comment", text=
+        "右主臂J2电机过热")
+      const uint32 J2_MOTOR_OVER_HEAT = 37;
+      @verbatim (language="comment", text=
+        "右主臂J2通讯丢失")
+      const uint32 J2_COMMUNICATION_LOST = 38;
+      @verbatim (language="comment", text=
+        "右主臂J2过载")
+      const uint32 J2_OVERLOAD = 39;
+      @verbatim (language="comment", text=
+        "右主臂J3电机正常")
+      const uint32 J3_MOTOR_NORMAL = 48;
+      @verbatim (language="comment", text=
+        "右主臂J3轴过压")
+      const uint32 J3_OVER_VOLTAGE = 49;
+      @verbatim (language="comment", text=
+        "右主臂J3轴欠压")
+      const uint32 J3_UNDER_VOLTAGE = 50;
+      @verbatim (language="comment", text=
+        "右主臂J3过流")
+      const uint32 J3_OVER_CURRENT = 51;
+      @verbatim (language="comment", text=
+        "右主臂J3 MOS过热")
+      const uint32 J3_MOS_OVER_TEMP = 52;
+      @verbatim (language="comment", text=
+        "右主臂J3电机过热")
+      const uint32 J3_MOTOR_OVER_HEAT = 53;
+      @verbatim (language="comment", text=
+        "右主臂J3通讯丢失")
+      const uint32 J3_COMMUNICATION_LOST = 54;
+      @verbatim (language="comment", text=
+        "右主臂J3过载")
+      const uint32 J3_OVERLOAD = 55;
+      @verbatim (language="comment", text=
+        "右主臂J4电机正常")
+      const uint32 J4_MOTOR_NORMAL = 64;
+      @verbatim (language="comment", text=
+        "右主臂J4轴过压")
+      const uint32 J4_OVER_VOLTAGE = 65;
+      @verbatim (language="comment", text=
+        "右主臂J4轴欠压")
+      const uint32 J4_UNDER_VOLTAGE = 66;
+      @verbatim (language="comment", text=
+        "右主臂J4过流")
+      const uint32 J4_OVER_CURRENT = 67;
+      @verbatim (language="comment", text=
+        "右主臂J4 MOS过热")
+      const uint32 J4_MOS_OVER_TEMP = 68;
+      @verbatim (language="comment", text=
+        "右主臂J4电机过热")
+      const uint32 J4_MOTOR_OVER_HEAT = 69;
+      @verbatim (language="comment", text=
+        "右主臂J4通讯丢失")
+      const uint32 J4_COMMUNICATION_LOST = 70;
+      @verbatim (language="comment", text=
+        "右主臂J4过载")
+      const uint32 J4_OVERLOAD = 71;
+      @verbatim (language="comment", text=
+        "右主臂J5电机正常")
+      const uint32 J5_MOTOR_NORMAL = 80;
+      @verbatim (language="comment", text=
+        "右主臂J5轴过压")
+      const uint32 J5_OVER_VOLTAGE = 81;
+      @verbatim (language="comment", text=
+        "右主臂J5轴欠压")
+      const uint32 J5_UNDER_VOLTAGE = 82;
+      @verbatim (language="comment", text=
+        "右主臂J5过流")
+      const uint32 J5_OVER_CURRENT = 83;
+      @verbatim (language="comment", text=
+        "右主臂J5 MOS过热")
+      const uint32 J5_MOS_OVER_TEMP = 84;
+      @verbatim (language="comment", text=
+        "右主臂J5电机过热")
+      const uint32 J5_MOTOR_OVER_HEAT = 85;
+      @verbatim (language="comment", text=
+        "右主臂J5通讯丢失")
+      const uint32 J5_COMMUNICATION_LOST = 86;
+      @verbatim (language="comment", text=
+        "右主臂J5过载")
+      const uint32 J5_OVERLOAD = 87;
+      @verbatim (language="comment", text=
+        "右主臂J6电机正常")
+      const uint32 J6_MOTOR_NORMAL = 96;
+      @verbatim (language="comment", text=
+        "右主臂J6轴过压")
+      const uint32 J6_OVER_VOLTAGE = 97;
+      @verbatim (language="comment", text=
+        "右主臂J6轴欠压")
+      const uint32 J6_UNDER_VOLTAGE = 98;
+      @verbatim (language="comment", text=
+        "右主臂J6过流")
+      const uint32 J6_OVER_CURRENT = 99;
+      @verbatim (language="comment", text=
+        "右主臂J6 MOS过热")
+      const uint32 J6_MOS_OVER_TEMP = 100;
+      @verbatim (language="comment", text=
+        "右主臂J6电机过热")
+      const uint32 J6_MOTOR_OVER_HEAT = 101;
+      @verbatim (language="comment", text=
+        "右主臂J6通讯丢失")
+      const uint32 J6_COMMUNICATION_LOST = 102;
+      @verbatim (language="comment", text=
+        "右主臂J6过载")
+      const uint32 J6_OVERLOAD = 103;
+    };
+    @verbatim (language="comment", text=
+      "Unit: MASTER_RIGHT_ARM" "\n"
+      "右主臂获取状态超时")
+    struct MasterRightArmUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

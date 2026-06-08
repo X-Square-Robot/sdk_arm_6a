@@ -14,5 +14,4 @@ ros-${ROS2_DISTRO}-ruckig
 ros-${ROS2_DISTRO}-angles
 ros-${ROS2_DISTRO}-kinematics-interface
 ros-${ROS2_DISTRO}-kinematics-interface-kdl
-ros-${ROS2_DISTRO}-ackermann-msgs
 ros-${ROS2_DISTRO}-usb-cam

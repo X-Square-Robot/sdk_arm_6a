@@ -1,0 +1,44 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from x2robot_msgs/action/WholeBodyTestOnce.action
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module action {
+    @verbatim (language="comment", text=
+      "Goal definition - 姿势从YAML文件读取")
+    struct WholeBodyTestOnce_Goal {
+      @default (value=0.1)
+      float max_velocity_scaling_factor;
+
+      @default (value=0.2)
+      float max_acceleration_scaling_factor;
+    };
+    struct WholeBodyTestOnce_Result {
+      @verbatim (language="comment", text=
+        "Result definition")
+      boolean success;
+
+      string message;
+
+      sequence<string> successful_poses;
+
+      sequence<string> failed_poses;
+    };
+    struct WholeBodyTestOnce_Feedback {
+      @verbatim (language="comment", text=
+        "Feedback definition")
+      string current_pose;
+
+      float progress;
+
+      sequence<string> successful_poses;
+
+      sequence<string> failed_poses;
+
+      int32 total_poses;
+
+      int32 current_index;
+    };
+  };
+};

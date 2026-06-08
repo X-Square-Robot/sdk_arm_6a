@@ -1,0 +1,36 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from protocol/msg/status_code/enum/APPLICATION/RecorderUnitEnum.msg
+// generated code does not contain a copyright notice
+
+
+module protocol {
+  module msg {
+    module RecorderUnitEnum_Constants {
+      const uint32 TOPIC_FREQ_LOW = 1;
+      @verbatim (language="comment", text=
+        "完全无数据")
+      const uint32 TOPIC_NO_DATA = 2;
+      @verbatim (language="comment", text=
+        "无法开始录制：正在打包")
+      const uint32 RECORD_BLOCKED_COMPRESSING = 3;
+      @verbatim (language="comment", text=
+        "无法开始录制：正在上传")
+      const uint32 RECORD_BLOCKED_UPLOADING = 4;
+      @verbatim (language="comment", text=
+        "录制时间过长")
+      const uint32 RECORDING_TIME_TOO_LONG = 5;
+      @verbatim (language="comment", text=
+        "磁盘空间不足")
+      const uint32 DISK_SPACE_LOW_WARNING = 6;
+      @verbatim (language="comment", text=
+        "磁盘空间严重不足")
+      const uint32 DISK_SPACE_CRITICALLY_LOW = 7;
+    };
+    @verbatim (language="comment", text=
+      "Unit: RECORDER" "\n"
+      "topic频率过低")
+    struct RecorderUnitEnum {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

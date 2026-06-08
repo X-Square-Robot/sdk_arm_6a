@@ -1,0 +1,23 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from x2robot_msgs/srv/SwitchRobotControlMode.srv
+// generated code does not contain a copyright notice
+
+
+module x2robot_msgs {
+  module srv {
+    struct SwitchRobotControlMode_Request {
+      uint8 target_mode;
+
+      boolean request_for_homing;
+
+      boolean try_recover;
+
+      uint8 target_motion_state;
+
+      uint8 data_collection_mode;
+    };
+    struct SwitchRobotControlMode_Response {
+      boolean ok;
+    };
+  };
+};

@@ -1,4 +1,4 @@
 # generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
 
-set(x2robot_msgs_IDL_FILES "msg/CanFrame.idl")
-set(x2robot_msgs_INTERFACE_FILES "msg/CanFrame.msg")
+set(x2robot_msgs_IDL_FILES "srv/HomingRequest.idl;srv/MoveitGroupStateRequest.idl;srv/MoveitJointPositionRequest.idl;srv/SwitchRobotControlMode.idl;srv/TrajectoryPlanRequest.idl;msg/ArmPose.idl;msg/CanFrame.idl;msg/CanFrameBatch.idl;msg/EnumControllerMode.idl;msg/EnumDataCollectionMode.idl;msg/EnumMotionState.idl;msg/EnumMoveitMoveResult.idl;msg/Joystick.idl;msg/RobotArmState.idl;msg/SerialData.idl;msg/ServoDriveState.idl;msg/TashanTactileData.idl;action/WholeBodyTestOnce.idl")
+set(x2robot_msgs_INTERFACE_FILES "srv/HomingRequest.srv;srv/MoveitGroupStateRequest.srv;srv/MoveitJointPositionRequest.srv;srv/SwitchRobotControlMode.srv;srv/TrajectoryPlanRequest.srv;msg/ArmPose.msg;msg/CanFrame.msg;msg/CanFrameBatch.msg;msg/EnumControllerMode.msg;msg/EnumDataCollectionMode.msg;msg/EnumMotionState.msg;msg/EnumMoveitMoveResult.msg;msg/Joystick.msg;msg/RobotArmState.msg;msg/SerialData.msg;msg/ServoDriveState.msg;msg/TashanTactileData.msg;action/WholeBodyTestOnce.action")

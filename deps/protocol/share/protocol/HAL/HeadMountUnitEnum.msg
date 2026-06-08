@@ -1,0 +1,13 @@
+# Unit: HEAD_MOUNT
+# 心跳超时
+uint32 HEARTBEAT_TIMEOUT = 0x01
+# 指示灯配置异常
+uint32 HEAD_LED_FAIL = 0x11
+# 按键配置异常
+uint32 GRIPPER_BUTTON_FAIL = 0x12
+# IMU配置异常
+uint32 GRIPPER_IMU_FAIL = 0x13
+# IMU配置异常
+uint32 HEAD_IMU_FAIL = 0x15
+# 电池配置异常
+uint32 HEAD_BATTERY_FAIL = 0x14

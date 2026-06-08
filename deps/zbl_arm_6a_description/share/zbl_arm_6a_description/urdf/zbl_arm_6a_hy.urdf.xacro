@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:macro name="zbl_arm_6a"
+               params="prefix use_geometry_collision:=false">
+    <link name="${prefix}arm_base_link">
+      <inertial>
+        <origin xyz="0.00023797 0.00013245 0.034204"
+                rpy="0 0 0" />
+        <mass value="0.79593" />
+        <inertia ixx="0.00059304"
+                 ixy="-4.8702E-06"
+                 ixz="-5.4346E-06"
+                 iyy="0.00054559"
+                 iyz="-2.1103E-05"
+                 izz="0.00069653" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_base_link.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="cylinder_1">
+          <origin xyz="0.0 0.0005842527717613003 0.03425719437116158"
+                  rpy="-5.473822126268817e-48 0.0 0.0" />
+          <geometry>
+            <cylinder radius="0.04373752386131885"
+                      length="0.07321758702605682" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_base_link.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <link name="${prefix}arm_link1">
+      <inertial>
+        <origin xyz="0.007798 0.001101 0.024255"
+                rpy="0 0 0" />
+        <mass value="0.251032" />
+        <inertia ixx="0.00042635"
+                 ixy="1.025e-05"
+                 ixz="-5.981e-05"
+                 iyy="0.00026171"
+                 iyz="1.002e-05"
+                 izz="0.00041384" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link1.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_link1.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+
+    </link>
+    <joint name="${prefix}arm_joint1"
+           type="revolute">
+      <origin xyz="0 0 0.0613"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_base_link" />
+      <child link="${prefix}arm_link1" />
+      <axis xyz="0 0 1" />
+      <limit lower="-2.7925"
+             upper="2.7925"
+             effort="30"
+             velocity="4.188" />
+    </joint>
+    <link name="${prefix}arm_link2">
+      <inertial>
+        <origin xyz="-0.152134 -0.000225 0.001162"
+                rpy="0 0 0" />
+        <mass value="1.644756" />
+        <inertia ixx="0.00139134"
+                 ixy="8.696e-05"
+                 ixz="-5.745e-05"
+                 iyy="0.0381071"
+                 iyz="-2.454e-05"
+                 izz="0.03815596" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link2.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="cylinder_5">
+          <origin xyz="0.0005122393808503489 0.004647649606389625 4.786093203980324e-05"
+                  rpy="-1.5698199272480278 -1.6646541840281313e-16 -7.625974041075879e-17" />
+          <geometry>
+            <cylinder radius="0.03851750937176498"
+                      length="0.09644020628028574" />
+          </geometry>
+        </collision>
+        <collision name="box_6">
+          <origin xyz="-0.13432006980564512 0.0027168231773292083 -1.9949319973733282e-17"
+                  rpy="5.551115123125783e-17 2.7755575615628914e-17 -6.245004513516506e-17" />
+          <geometry>
+            <box size="0.27519759140832867 0.07252141251940834 0.05128917415294007" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_link2.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <joint name="${prefix}arm_joint2"
+           type="revolute">
+      <origin xyz="0.025 0 0.0542"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_link1" />
+      <child link="${prefix}arm_link2" />
+      <axis xyz="0 1 0" />
+      <limit lower="0"
+             upper="3.6652"
+             effort="30"
+             velocity="4.188" />
+    </joint>
+    <link name="${prefix}arm_link3">
+      <inertial>
+        <origin xyz="0.144455 0.001623 0.063605"
+                rpy="0 0 0" />
+        <mass value="0.729557" />
+        <inertia ixx="0.00157073"
+                 ixy="-8.218e-05"
+                 ixz="-0.00209657"
+                 iyy="0.0115247"
+                 iyz="-3.575e-05"
+                 izz="0.01124821" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link3.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="box_9">
+          <origin xyz="0.01659443903131884 0.004271604478736781 0.02296973643909006"
+                  rpy="-1.611473857245451e-16 0.6256333736498995 7.051557144382539e-17" />
+          <geometry>
+            <box size="0.07914214774540317 0.09608988426206916 0.12964735389376775" />
+          </geometry>
+        </collision>
+        <collision name="box_10">
+          <origin xyz="0.1457908208462566 0.005892651151810436 0.07316393072552935"
+                  rpy="-4.2022017248334086e-16 -0.010704504340429868 7.239147848851983e-16" />
+          <geometry>
+            <box size="0.26495069792126585 0.0839503602592928 0.05955255683976147" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_link3.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <joint name="${prefix}arm_joint3"
+           type="revolute">
+      <origin xyz="-0.26 0 0"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_link2" />
+      <child link="${prefix}arm_link3" />
+      <axis xyz="0 1 0" />
+      <limit lower="-2.7925"
+             upper="0"
+             effort="30"
+             velocity="4.188" />
+    </joint>
+    <link name="${prefix}arm_link4">
+      <inertial>
+        <origin xyz="0.042714 0.001361 0.028544"
+                rpy="0 0 0" />
+        <mass value="0.295137" />
+        <inertia ixx="0.00069997"
+                 ixy="6.88e-06"
+                 ixz="-0.00026423"
+                 iyy="0.00080155"
+                 iyz="1.126e-05"
+                 izz="0.0005044" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link4.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="cylinder_13">
+          <origin xyz="0.08091153230550119 0.002290024890909001 0.045684706343725456"
+                  rpy="0.0 0.0 1.232595164407831e-32" />
+          <geometry>
+            <cylinder radius="0.035556046583120775"
+                      length="0.10791917913313742" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_link4.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <joint name="${prefix}arm_joint4"
+           type="revolute">
+      <origin xyz="0.2315 0 0.075"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_link3" />
+      <child link="${prefix}arm_link4" />
+      <axis xyz="0 1 0" />
+      <limit lower="-1.5708"
+             upper="1.5708"
+             effort="9"
+             velocity="6.77" />
+    </joint>
+    <link name="${prefix}arm_link5">
+      <inertial>
+        <origin xyz="-0.005096 0.000536 -0.065848"
+                rpy="0 0 0" />
+        <mass value="0.962685" />
+        <inertia ixx="0.00127899"
+                 ixy="-9.6e-07"
+                 ixz="-0.00013861"
+                 iyy="0.00133583"
+                 iyz="-1.58e-06"
+                 izz="0.00045365" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link5.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+        </material>
+      </visual>
+      <xacro:if value="${use_geometry_collision}">
+        <collision name="cylinder_16">
+          <origin xyz="0.007957839409154316 2.6454533008646308e-17 -0.09175997694133126"
+                  rpy="3.1415926535897762 1.5608833670787814 3.1415926535897762" />
+          <geometry>
+            <cylinder radius="0.033926583939975094"
+                      length="0.062187937204102844" />
+          </geometry>
+        </collision>
+      </xacro:if>
+      <xacro:unless value="${use_geometry_collision}">
+        <collision>
+          <origin xyz="0 0 0"
+                  rpy="0 0 0" />
+          <geometry>
+            <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/collision/arm_link5.STL" />
+          </geometry>
+        </collision>
+      </xacro:unless>
+    </link>
+    <joint name="${prefix}arm_joint5"
+           type="revolute">
+      <origin xyz="0.0825 0 0.085"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_link4" />
+      <child link="${prefix}arm_link5" />
+      <axis xyz="0 0 1" />
+      <limit lower="-1.5708"
+             upper="1.5708"
+             effort="9"
+             velocity="6.77" />
+    </joint>
+    <link name="${prefix}arm_link6">
+      <inertial>
+        <origin xyz="-0.000963 1.0e-06 -0.0"
+                rpy="0 0 0" />
+        <mass value="0.001334" />
+        <inertia ixx="2.6e-07"
+                 ixy="-0.0"
+                 ixz="-0.0"
+                 iyy="1.3e-07"
+                 iyz="-0.0"
+                 izz="1.3e-07" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0"
+                rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://zbl_arm_6a_description/mesh/zbl_arm_6a_hy/arm_link6.STL" />
+        </geometry>
+        <material name="">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}arm_joint6"
+           type="revolute">
+      <origin xyz="0.0395 0 -0.0945"
+              rpy="0 0 0" />
+      <parent link="${prefix}arm_link5" />
+      <child link="${prefix}arm_link6" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.9199"
+             upper="1.9199"
+             effort="9"
+             velocity="6.77" />
+    </joint>
+  </xacro:macro>
+</robot>

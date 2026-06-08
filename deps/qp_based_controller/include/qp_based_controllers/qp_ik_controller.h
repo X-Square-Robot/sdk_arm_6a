@@ -1,6 +1,7 @@
 #ifndef QP_IK_CONTROLLER_H
 #define QP_IK_CONTROLLER_H
 
+#include <deque>
 #include <memory>
 #include <optional>
 #include <string>
@@ -28,6 +29,7 @@
 #include "rclcpp_lifecycle/state.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 #include "xr_controller_utils/input_shaper.h"
+#include "xr_controller_utils/se3_low_pass_filter.h"
 
 namespace x2robot_controllers {
 
@@ -52,8 +54,16 @@ class QPIKController : public controller_interface::ControllerInterface
 
     controller_interface::return_type update(const rclcpp::Time& time, const rclcpp::Duration& period) override;
 
-    pinocchio::SE3 calculate_absolute_target_pose(const Eigen::Isometry3d& delta_target_pose,
-                                                  const Eigen::Vector3d& source_position);
+    pinocchio::SE3 calculate_absolute_target_pose(const pinocchio::SE3& delta_target_pose,
+                                                  const pinocchio::SE3& source_pose);
+
+    void armEECallback(const geometry_msgs::msg::PoseStamped& detlta_target_pose);
+
+    bool detectJump(const std::deque<geometry_msgs::msg::PoseStamped>& pose_history,
+                    const geometry_msgs::msg::PoseStamped& new_pose);
+    void updateHistory(std::deque<geometry_msgs::msg::PoseStamped>& history,
+                       const geometry_msgs::msg::PoseStamped& new_data);
+    double smoothParameter(double current_value, double target_value, double recovery_rate);
 
    protected:
     const int POSITION_STATE_INDEX = 0, VELOCITY_STATE_INDEX = 1, TORQUE_STATE_INDEX = 2, JOINT_STATE_INDEX = 3;
@@ -61,6 +71,7 @@ class QPIKController : public controller_interface::ControllerInterface
               CTRL_MODE_INDEX = 5, JOINT_CMD_INDEX = 6;
 
     // controller parameter
+    std::string cmd_interface_prefix_;
     size_t robot_dof_;
     std::vector<std::string> joint_names_;
     std::vector<double> joint_damping_;
@@ -79,7 +90,7 @@ class QPIKController : public controller_interface::ControllerInterface
     bool is_activated_;
 
     std::mutex target_mutex_;
-    std::optional<pinocchio::SE3> arm_target_pose_;
+    std::optional<pinocchio::SE3> arm_delta_target_pose_;
     pinocchio::SE3 O_T_E_;
 
     std::shared_ptr<robot_qp_solver::Configuration> configuration_sptr_;
@@ -97,9 +108,25 @@ class QPIKController : public controller_interface::ControllerInterface
     double config_limit_gain_;                   // configuration limit gain
     double joint_limit_scale_;                   // joint limit scale
 
+    bool is_use_relative_pose_command_;
+
     // InputShaper related
     bool enable_input_shaper_;
     std::vector<std::shared_ptr<InputShaper>> joint_position_input_shaper_sptr_;
+
+    // SE3 low-pass filter on incoming EE pose command
+    double se3_filter_alpha_;
+    double current_arm_alpha_;
+    std::unique_ptr<SE3LowPassFilter> arm_ee_pose_filter_;
+
+    // Jump detection on incoming EE pose command
+    std::deque<geometry_msgs::msg::PoseStamped> arm_pose_history_;
+    double jump_time_threshold_;
+    double jump_position_threshold_;
+    double jump_rotation_threshold_;
+    size_t jump_history_size_;
+    double jump_recovery_rate_;
+    double jump_alpha_scale_;
 };
 
 }  // namespace x2robot_controllers

@@ -1,0 +1,16 @@
+# 请求
+string group_name
+string[] start_state_joint_names
+float64[] start_states
+string[] goal_state_joint_names
+float64[] goal_states
+float64[] tolerance_above
+float64[] tolerance_below
+uint8 num_planning_attempts 1
+float64 allowed_planning_time 1.0
+float64 max_velocity_scaling_factor 0.1
+float64 max_acceleration_scaling_factor 0.2
+---
+# 响应
+int32 error_code
+trajectory_msgs/JointTrajectory trajectory

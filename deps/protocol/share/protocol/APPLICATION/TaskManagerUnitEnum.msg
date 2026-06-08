@@ -1,0 +1,17 @@
+# Unit: TASK_MANAGER
+# 任务初始化失败
+uint32 TASK_INIT_FAILED = 0x10
+# 任务运行错误
+uint32 TASK_RUNNING_ERROR = 0x11
+# 任务暂停失败
+uint32 TASK_PAUSED_FAILED = 0x12
+# 任务继续失败
+uint32 TASK_RESUME_FAILED = 0x13
+# 任务终止失败
+uint32 TASK_TERMINATE_FAILED = 0x14
+# 任务挂起失败
+uint32 TASK_SUSPEND_FAILED = 0x15
+# 任务退出挂起失败
+uint32 TASK_EXIT_SUSPEND_FAILED = 0x16
+# 任务完成后清理失败
+uint32 TASK_FINISH_FAILED = 0x17

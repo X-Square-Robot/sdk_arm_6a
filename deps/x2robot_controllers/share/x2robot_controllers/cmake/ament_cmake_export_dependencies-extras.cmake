@@ -1,6 +1,6 @@
 # generated from ament_cmake_export_dependencies/cmake/ament_cmake_export_dependencies-extras.cmake.in
 
-set(_exported_dependencies "pluginlib;rclcpp;rclcpp_lifecycle;controller_interface;hardware_interface;realtime_tools;Eigen3;tf2_eigen;geometry_msgs;eigen3_cmake_module;pinocchio;ruckig;x2robot_msgs")
+set(_exported_dependencies "pluginlib;rclcpp;rclcpp_lifecycle;controller_interface;hardware_interface;realtime_tools;Eigen3;tf2_eigen;geometry_msgs;std_msgs;std_srvs;eigen3_cmake_module;pinocchio;x2robot_msgs;xr_controller_utils")
 
 find_package(ament_cmake_libraries QUIET REQUIRED)
 

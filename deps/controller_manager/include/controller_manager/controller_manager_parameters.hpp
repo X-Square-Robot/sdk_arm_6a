@@ -21,7 +21,10 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+// silence deprecation warnings for parameter_traits, needed for backwards compatibility
+#define SILENCE_DEPRECATION_WARNINGS
 #include <parameter_traits/parameter_traits.hpp>
+#undef SILENCE_DEPRECATION_WARNINGS
 
 #include <rsl/static_string.hpp>
 #include <rsl/static_vector.hpp>
@@ -213,10 +216,8 @@ template <typename T, size_t capacity>
   class ParamListener{
   public:
     // throws rclcpp::exceptions::InvalidParameterValueException on initialization if invalid parameter are loaded
-    ParamListener(rclcpp::Node::SharedPtr node, std::string const& prefix = "")
-    : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
-
-    ParamListener(rclcpp_lifecycle::LifecycleNode::SharedPtr node, std::string const& prefix = "")
+    template <typename NodeT>
+    ParamListener(NodeT node, std::string const& prefix = "")
     : ParamListener(node->get_node_parameters_interface(), node->get_logger(), prefix) {}
 
     ParamListener(const std::shared_ptr<rclcpp::node_interfaces::NodeParametersInterface>& parameters_interface,
@@ -786,30 +787,30 @@ template <typename T, size_t capacity>
       // get parameters and fill struct fields
       rclcpp::Parameter param;
       param = parameters_interface_->get_parameter(prefix_ + "update_rate");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "update_rate") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.update_rate = param.as_int();
       param = parameters_interface_->get_parameter(prefix_ + "enforce_command_limits");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "enforce_command_limits") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.enforce_command_limits = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "hardware_components_initial_state.unconfigured");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "hardware_components_initial_state.unconfigured") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'hardware_components_initial_state.unconfigured': {}", validation_result.error()));
       }
       updated_params.hardware_components_initial_state.unconfigured = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "hardware_components_initial_state.inactive");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "hardware_components_initial_state.inactive") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = unique<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'hardware_components_initial_state.inactive': {}", validation_result.error()));
       }
       updated_params.hardware_components_initial_state.inactive = param.as_string_array();
       param = parameters_interface_->get_parameter(prefix_ + "hardware_components_initial_state.shutdown_on_initial_state_failure");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "hardware_components_initial_state.shutdown_on_initial_state_failure") << ": " << param.get_type_name() << " = " << param.value_to_string());
       updated_params.hardware_components_initial_state.shutdown_on_initial_state_failure = param.as_bool();
       param = parameters_interface_->get_parameter(prefix_ + "defaults.switch_controller.strictness");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "defaults.switch_controller.strictness") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = not_empty<std::string>(param);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'defaults.switch_controller.strictness': {}", validation_result.error()));
@@ -820,140 +821,140 @@ template <typename T, size_t capacity>
       }
       updated_params.defaults.switch_controller.strictness = param.as_string();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controller_manager.periodicity.mean_error.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controller_manager.periodicity.mean_error.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controller_manager.periodicity.mean_error.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controller_manager.periodicity.mean_error.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controller_manager.periodicity.mean_error.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controller_manager.periodicity.mean_error.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controller_manager.periodicity.mean_error.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controller_manager.periodicity.mean_error.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controller_manager.periodicity.standard_deviation.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controller_manager.periodicity.standard_deviation.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controller_manager.periodicity.standard_deviation.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controller_manager.periodicity.standard_deviation.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controller_manager.periodicity.standard_deviation.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controller_manager.periodicity.standard_deviation.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controller_manager.periodicity.standard_deviation.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controller_manager.periodicity.standard_deviation.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.periodicity.mean_error.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.periodicity.mean_error.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.periodicity.mean_error.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.periodicity.mean_error.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.periodicity.mean_error.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.periodicity.mean_error.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.periodicity.mean_error.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.periodicity.mean_error.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.periodicity.standard_deviation.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.periodicity.standard_deviation.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.periodicity.standard_deviation.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.periodicity.standard_deviation.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.periodicity.standard_deviation.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.periodicity.standard_deviation.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.periodicity.standard_deviation.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.periodicity.standard_deviation.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.execution_time.mean_error.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.execution_time.mean_error.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.execution_time.mean_error.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.execution_time.mean_error.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.execution_time.mean_error.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.execution_time.mean_error.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.execution_time.mean_error.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.execution_time.mean_error.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.execution_time.standard_deviation.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.execution_time.standard_deviation.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.execution_time.standard_deviation.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.execution_time.standard_deviation.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.controllers.execution_time.standard_deviation.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.controllers.execution_time.standard_deviation.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.controllers.execution_time.standard_deviation.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.controllers.execution_time.standard_deviation.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.periodicity.mean_error.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.periodicity.mean_error.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.periodicity.mean_error.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.periodicity.mean_error.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.periodicity.mean_error.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.periodicity.mean_error.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.periodicity.mean_error.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.periodicity.mean_error.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.periodicity.standard_deviation.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.periodicity.standard_deviation.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.periodicity.standard_deviation.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.periodicity.standard_deviation.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.periodicity.standard_deviation.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.periodicity.standard_deviation.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.periodicity.standard_deviation.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.periodicity.standard_deviation.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.execution_time.mean_error.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.execution_time.mean_error.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.execution_time.mean_error.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.execution_time.mean_error.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.execution_time.mean_error.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.execution_time.mean_error.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.execution_time.mean_error.error': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.execution_time.mean_error.error = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.execution_time.standard_deviation.warn");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.execution_time.standard_deviation.warn") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.execution_time.standard_deviation.warn': {}", validation_result.error()));
       }
       updated_params.diagnostics.threshold.hardware_components.execution_time.standard_deviation.warn = param.as_double();
       param = parameters_interface_->get_parameter(prefix_ + "diagnostics.threshold.hardware_components.execution_time.standard_deviation.error");
-      RCLCPP_DEBUG_STREAM(logger_, param.get_name() << ": " << param.get_type_name() << " = " << param.value_to_string());
+      RCLCPP_DEBUG_STREAM(logger_, (prefix_ + "diagnostics.threshold.hardware_components.execution_time.standard_deviation.error") << ": " << param.get_type_name() << " = " << param.value_to_string());
       if(auto validation_result = gt<double>(param, 0.0);
         !validation_result) {
           throw rclcpp::exceptions::InvalidParameterValueException(fmt::format("Invalid value set during initialization for parameter 'diagnostics.threshold.hardware_components.execution_time.standard_deviation.error': {}", validation_result.error()));

@@ -23,22 +23,22 @@ control_msgs__msg__AdmittanceControllerState__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "sensor_msgs/msg/detail/joint_state__functions.h"
-#include "geometry_msgs/msg/detail/transform_stamped__functions.h"
-#include "std_msgs/msg/detail/multi_array_layout__functions.h"
+#include "geometry_msgs/msg/detail/twist__functions.h"
 #include "geometry_msgs/msg/detail/wrench_stamped__functions.h"
-#include "std_msgs/msg/detail/float64_multi_array__functions.h"
-#include "std_msgs/msg/detail/string__functions.h"
-#include "geometry_msgs/msg/detail/transform__functions.h"
-#include "geometry_msgs/msg/detail/twist_stamped__functions.h"
-#include "geometry_msgs/msg/detail/quaternion__functions.h"
+#include "std_msgs/msg/detail/multi_array_layout__functions.h"
 #include "geometry_msgs/msg/detail/wrench__functions.h"
-#include "std_msgs/msg/detail/int8_multi_array__functions.h"
+#include "sensor_msgs/msg/detail/joint_state__functions.h"
+#include "geometry_msgs/msg/detail/transform__functions.h"
+#include "builtin_interfaces/msg/detail/time__functions.h"
 #include "std_msgs/msg/detail/multi_array_dimension__functions.h"
 #include "std_msgs/msg/detail/header__functions.h"
+#include "geometry_msgs/msg/detail/twist_stamped__functions.h"
+#include "geometry_msgs/msg/detail/transform_stamped__functions.h"
 #include "geometry_msgs/msg/detail/vector3__functions.h"
-#include "geometry_msgs/msg/detail/twist__functions.h"
-#include "builtin_interfaces/msg/detail/time__functions.h"
+#include "geometry_msgs/msg/detail/quaternion__functions.h"
+#include "std_msgs/msg/detail/float64_multi_array__functions.h"
+#include "std_msgs/msg/detail/int8_multi_array__functions.h"
+#include "std_msgs/msg/detail/string__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

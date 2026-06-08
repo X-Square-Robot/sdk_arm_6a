@@ -11,8 +11,23 @@
   <xacro:arg name="mock_robot"
              default="True" />
 
-  <!-- Add arx r5 arm -->
-  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a.urdf.xacro" />
+  <!-- Arm motor variant: hy (Huayi, default) or dm (DaMiao) -->
+  <xacro:arg name="arm_type" default="hy" />
+  <xacro:property name="arm_type_prop" value="$(arg arm_type)" />
+
+  <!-- Gripper variant: g (zbl g-gripper, default) or parallel (fx001 parallel gripper) -->
+  <xacro:arg name="gripper_type" default="g" />
+  <xacro:property name="gripper_type_prop" value="$(arg gripper_type)" />
+
+  <xacro:arg name="can_interface" default="can0" />
+
+  <!-- Add arx r5 arm: select URDF by arm_type -->
+  <xacro:if value="${arm_type_prop == 'hy'}">
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a_hy.urdf.xacro" />
+  </xacro:if>
+  <xacro:if value="${arm_type_prop == 'dm'}">
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a.urdf.xacro" />
+  </xacro:if>
   <xacro:zbl_arm_6a prefix=""
                         use_geometry_collision="$(arg use_geometry_collision)" />
   <joint name="zbl_arm_6a_connector"
@@ -26,28 +41,47 @@
   <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_arm_6a.ros2_control.xacro" />
   <xacro:zbl_arm_6a_ros2_control name="arm_control"
                                      prefix=""
-                                     can_interface="can0"
+                                     can_interface="$(arg can_interface)"
                                      use_ipc="1"
                                      mock_robot="$(arg mock_robot)" />
 
-  <!-- gripper -->
-  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.urdf.xacro" />
-  <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.ros2_control.xacro" />
+  <!-- gripper: select by gripper_type -->
+  <xacro:if value="${gripper_type_prop == 'parallel'}">
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.urdf.xacro" />
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/parallel_gripper.ros2_control.xacro" />
+    <xacro:parallel_gripper prefix="arm_"
+                            use_geometry_collision="$(arg use_geometry_collision)" />
+    <joint name="gripper_connector"
+           type="fixed">
+      <parent link="arm_link6" />
+      <child link="arm_gripper_base_link" />
+      <origin xyz="0 0 0"
+              rpy="0 0 0" />
+    </joint>
+    <xacro:parallel_gripper_ros2_control name="arm_gripper"
+                                         prefix="arm_"
+                                         can_interface="$(arg can_interface)"
+                                         use_ipc="1"
+                                         mock_robot="$(arg mock_robot)" />
+  </xacro:if>
 
-  <xacro:parallel_gripper prefix="arm_"
-                                use_geometry_collision="$(arg use_geometry_collision)" />
-  <joint name="gripper_connector"
-         type="fixed">
-    <parent link="arm_link6" />
-    <child link="arm_gripper_base_link" />
-    <origin xyz="0 0 0"
-            rpy="0 0 0" />
-  </joint>
-
-  <xacro:parallel_gripper_ros2_control name="arm_gripper"
-                                             prefix="arm_"
-                                             can_interface="can0"
-                                             use_ipc="1"
-                                             mock_robot="$(arg mock_robot)" />
+  <xacro:if value="${gripper_type_prop == 'g'}">
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_g1_gripper_dvt1.urdf.xacro" />
+    <xacro:include filename="$(find zbl_arm_6a_description)/urdf/zbl_g_gripper.ros2_control.xacro" />
+    <xacro:zbl_g1_gripper prefix="arm_"
+                            use_geometry_collision="$(arg use_geometry_collision)" />
+    <joint name="gripper_connector"
+           type="fixed">
+      <parent link="arm_link6" />
+      <child link="arm_gripper_base_link" />
+      <origin xyz="0 0 0"
+              rpy="0 0 0" />
+    </joint>
+    <xacro:zbl_g_gripper_ros2_control name="arm_gripper"
+                                        prefix="arm_"
+                                        can_interface="$(arg can_interface)"
+                                        use_ipc="1"
+                                        mock_robot="$(arg mock_robot)" />
+  </xacro:if>
 
 </robot>
