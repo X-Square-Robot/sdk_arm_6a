@@ -118,6 +118,15 @@ ros2 topic pub /cart_pose_controller/pose_cmd geometry_msgs/msg/PoseStamped \
           orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
 ```
 
+#### 去激活所有控制器
+**去激活所有控制器不再接受任何控制指令，可以用此方式实现软急停功能**
+
+命令行示例:
+```bash
+ros2 control switch_controllers \
+     --deactivate zero_force_dragging_controller cart_pose_controller joint_position_controller
+```
+
 ### 3. 夹爪控制接口
 确认夹爪控制器属于active状态
 

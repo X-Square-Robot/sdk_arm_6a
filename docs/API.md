@@ -118,6 +118,14 @@ ros2 topic pub /cart_pose_controller/pose_cmd geometry_msgs/msg/PoseStamped \
            orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
 ```
 
+#### Deactivate All Controllers
+**After all controllers are deactivated, no control commands will be accepted. This can be used as a software emergency stop.**
+Command line example:
+```bash
+ros2 control switch_controllers \
+     --deactivate zero_force_dragging_controller cart_pose_controller joint_position_controller
+```
+
 ### 3. Gripper Control Interface
 Confirm gripper controller is in active state.
 
