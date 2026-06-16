@@ -1,25 +1,25 @@
-# API 参考文档
+# API Reference Documentation
 
-本文档详细说明 X2Robot ARM 6A SDK 提供的所有 ROS 2 接口。
+This document provides detailed information about all ROS 2 interfaces provided by the X2Robot ARM 6A SDK.
 
-## 目录
+## Table of Contents
 
-- [控制接口](#控制接口)
-- [状态接口](#状态接口)
+- [Control Interfaces](#control-interfaces)
+- [Status Interfaces](#status-interfaces)
 
-## 控制接口
+## Control Interfaces
 
-### 1. 获取控制器列表:
-- **命令行接口**: `ros2 control list_controllers`
-- **ROS2 service名称**: `/controller_manager/list_controllers`
+### 1. Get Controller List:
+- **Command line interface**: `ros2 control list_controllers`
+- **ROS2 service name**: `/controller_manager/list_controllers`
 
-命令行示例：
+Command line example:
 
 ```bash
-ros2 control list_controllers --activate <需要激活的模式>  --deactivate <需要关闭的模式>
+ros2 control list_controllers --activate <controller_to_activate> --deactivate <controller_to_deactivate>
 ```
 
-期望输出：
+Expected output:
 
 ```
 gripper_controller             x2robot_controllers/JointImpedanceController     active
@@ -30,129 +30,136 @@ joint_position_controller      x2robot_controllers/JointImpedanceController     
 zero_force_dragging_controller x2robot_controllers/GravityCompensateController  inactive
 ```
 
-active表示激活状态, inactive表示未激活状态
+`active` means activated state, `inactive` means not activated.
 
-各个控制器解释:
-- gripper_controller: 夹爪控制器(默认激活)
-- endpose_broadcaster:末端位姿状态发布器(默认激活)
-- joint_state_broadcaster: 关节状态发布器(默认激活)
-- cart_pose_controller: 任务空间模式控制器, 和joint_position_controller以及zero_force_dragging_controller互斥关系, 不能同时激活
-- joint_position_controller: 关节位置模式控制器, 和cart_pose_controller以及zero_force_dragging_controller互斥关系, 不能同时激活
-- zero_force_dragging_controller: 零力拖动模式控制器, 和cart_pose_controller以及joint_position_controller互斥关系, 不能同时激活
+Controller explanations:
+- gripper_controller: Gripper controller (activated by default)
+- endpose_broadcaster: End pose status publisher (activated by default)
+- joint_state_broadcaster: Joint state publisher (activated by default)
+- cart_pose_controller: Task space mode controller, mutually exclusive with `joint_position_controller` and `zero_force_dragging_controller`
+- joint_position_controller: Joint position mode controller, mutually exclusive with `cart_pose_controller` and `zero_force_dragging_controller`
+- zero_force_dragging_controller: Zero force dragging mode controller, mutually exclusive with `cart_pose_controller` and `joint_position_controller`
 
-### 2. 切换控制模式:
-支持的控制模式有三种： 关节位置控制模式 ，零力拖动模式， 任务空间控制模式，三种模式互斥，每次有且只能有一个模式是激活状态，刚启动的时候是全部未激活的状态。
-- **ROS2 control 命令行**
+### 2. Switch Control Mode:
+The system supports three control modes: Joint position control mode, Zero force dragging mode, Task space control mode. These three modes are mutually exclusive, and only one mode can be active at a time. When first started, all are inactive.
+- **ROS2 control command line**
 ```bash
 ros2 control switch_controllers
 ```
-- **ROS2 service名称**: `/controller_manager/switch_controller`
+- **ROS2 service name**: `/controller_manager/switch_controller`
 - **ROS2 service msg type**: `controller_manager_msgs/srv/SwitchController`
 
-#### 进入零力拖动模式:
-切换至 zero_force_dragging_controller, 操作员可随意拖动，可作为主手臂使用。
-命令行示例:
+#### Enter Zero Force Dragging Mode:
+Switch to `zero_force_dragging_controller`. The operator can drag the arm freely for use as a main arm.
+Command line example:
 ```bash
 ros2 control switch_controllers \
      --activate zero_force_dragging_controller \
      --deactivate cart_pose_controller joint_position_controller
 ```
 
-#### 进入关节位置控制模式:
-**注意控制手臂运动时, 使用者需要远离机械臂, 以免手臂失控造成安全事故!!!**
-切换至 joint_position_controller
-命令行示例:
+#### Enter Joint Position Control Mode:
+**WARNING: When controlling arm movement, the user must stay away from the robotic arm to avoid safety accidents caused by arm loss of control!!!**
+Switch to `joint_position_controller`
+Command line example:
 ```bash
 ros2 control switch_controllers \
      --activate joint_position_controller \
      --deactivate zero_force_dragging_controller cart_pose_controller
 ```
-**控制方式**:
-- **Topic名称**: /joint_position_controller/commands
-- **Topic类型**: std_msgs::msg::Float64MultiArray
-- **参数解释**: size 为6的数组, 机械臂六轴 关节角度期望位置, 从1关节到6关节
+**Control method**:
+- **Topic name**: `/joint_position_controller/commands`
+- **Topic type**: `std_msgs::msg::Float64MultiArray`
+- **Description**: Array of size 6, joint angle desired positions for the 6-axis arm, from joint 1 to joint 6
 
-命令行示例：
+Command line example：
 ```bash
-# 检查topic信息
+# Check topic info
 ros2 topic info /joint_position_controller/commands
 
-# 发布测试命令（6个关节的目标位置，单位：弧度）
+# Publish test command (6 joint target positions, unit: radians)
 ros2 topic pub /joint_position_controller/commands std_msgs/msg/Float64MultiArray \
   "{data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}" --once
 
-# 持续发布命令, -r 10表示10hz的频率
+# Continuous publishing, -r 10 means 10Hz frequency
 ros2 topic pub /joint_position_controller/commands std_msgs/msg/Float64MultiArray \
   "{data: [0.5, 0.3, -0.2, 0.1, 0.0, 0.0]}" -r 10
 ```
 
-#### 进入任务空间控制模式
-**注意控制手臂运动时, 使用者需要远离机械臂, 以免手臂失控造成安全事故!!!**
-切换至 cart_pose_controller
-命令行示例:
+#### Enter Task Space Control Mode
+**WARNING: When controlling arm movement, the user must stay away from the robotic arm to avoid safety accidents caused by arm loss of control!!!**
+Switch to `cart_pose_controller`
+Command line example:
 ```bash
 ros2 control switch_controllers \
      --activate cart_pose_controller \
      --deactivate zero_force_dragging_controller joint_position_controller
 ```
-**控制方式**:
-- **Topic名称**: cart_pose_controller/pose_cmd
-- **Topic类型**: geometry_msgs::msg::PoseStamped
-- **参数解释**: 基坐标系为world frame 6D pose 期望位姿
+**Control method**:
+- **Topic name**: `cart_pose_controller/pose_cmd`
+- **Topic type**: `geometry_msgs::msg::PoseStamped`
+- **Description**: 6D pose desired position with world frame as base coordinate system
 
-命令行示例：
+Command line example：
 ```bash
-# 检查topic信息
+# Check topic info
 ros2 topic info /cart_pose_controller/pose_cmd
 
-# 发布测试命令（基坐标系为world frame）
+# Publish test command (base coordinate system is world frame)
 ros2 topic pub /cart_pose_controller/pose_cmd geometry_msgs/msg/PoseStamped \
   "{header: {frame_id: 'world'}, \
-   pose: {position: {x: 0.3, y: 0.0, z: 0.2}, \
-          orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" --once
+    pose: {position: {x: 0.3, y: 0.0, z: 0.2}, \
+           orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" --once
 
-# 持续发布命令
+# Continuous publishing
 ros2 topic pub /cart_pose_controller/pose_cmd geometry_msgs/msg/PoseStamped \
   "{header: {frame_id: 'world'}, \
-   pose: {position: {x: 0.3, y: 0.0, z: 0.2}, \
-          orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
+    pose: {position: {x: 0.3, y: 0.0, z: 0.2}, \
+           orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
 ```
 
-### 3. 夹爪控制接口
-确认夹爪控制器属于active状态
-
-- **Topic名称**:/gripper_controller/commands
-- **Topic类型**: std_msgs/msg/Float64MultiArray
-- **参数解释**: size为1的数组, 值表示夹爪电机的角度弧度, 范围[0-4.5]rad, 换算之后双边夹爪行程范围是[0-78.75]mm
-
-命令行示例：
+#### Deactivate All Controllers
+**After all controllers are deactivated, no control commands will be accepted. This can be used as a software emergency stop.**
+Command line example:
 ```bash
-# 检查topic信息
+ros2 control switch_controllers \
+     --deactivate zero_force_dragging_controller cart_pose_controller joint_position_controller
+```
+
+### 3. Gripper Control Interface
+Confirm gripper controller is in active state.
+
+- **Topic name**: `/gripper_controller/commands`
+- **Topic type**: `std_msgs/msg/Float64MultiArray`
+- **Description**: Array of size 1, value represents gripper motor angle in radians, range [0-4.5], after conversion the dual gripper stroke range is [0-78.75mm]
+
+Command line example：
+```bash
+# Check topic info
 ros2 topic info /gripper_controller/commands
 
-# 发布测试命令（关节电机的目标位置，单位：弧度）
+# Publish test command (target position of joint motor, unit: radians)
 ros2 topic pub /gripper_controller/commands std_msgs/msg/Float64MultiArray \
   "{data: [0.6]}" --once
 
-# 持续发布命令, -r 10表示10hz的频率
+# Continuous publishing, -r 10 means 10Hz frequency
 ros2 topic pub /gripper_controller/commands std_msgs/msg/Float64MultiArray \
   "{data: [1.2]}" -r 10
 ```
 
+## Status Interfaces
 
-## 状态接口
+### Get Current Robotic Arm Hardware Status: /diagnostics
+- **Topic name**: `/diagnostics`
+- **Topic type**: `diagnostic_msgs/msg/DiagnosticArray`
 
-### 获取当前机械臂硬件状态: /diagnostics
-- **Topic名称**: `/diagnostics`
-- **Topic类型**: `diagnostic_msgs/msg/DiagnosticArray`
-
-命令行示例：
+Command line example:
 
 ```bash
 ros2 topic echo /diagnostics
 ```
 
-输出示例：
+Output example:
 
 ```
 header:
@@ -173,14 +180,14 @@ header:
     nanosec: 531935431
   frame_id: ''
 status:
-- level: "\0" # 诊断级别/严重程度
-  name: 'arm_control: Motor Status' # 组件/节点的名称或标识符
-  message: All motors operating normally # 状态描述信息
-  hardware_id: arm_control # 硬件设备的唯一标识符
-  values: # 键值对数组，用于存储详细的诊断数据
-  - key: arm_joint5_temp # 关节电机温度
+- level: "\0" # Diagnostic level/severity
+  name: 'arm_control: Motor Status' # Component/node name or identifier
+  message: All motors operating normally # Human readable status description
+  hardware_id: arm_control # Hardware device unique identifier
+  values: # Key-value pairs array for storing detailed diagnostic data
+  - key: arm_joint5_temp # Joint motor temperature
     value: '27'
-  - key: arm_joint5_error_code # 关节电机错误码, 0表示正常
+  - key: arm_joint5_error_code # Joint motor error code, 0 means normal
     value: '0'
   - key: arm_joint4_temp
     value: '26'
@@ -204,47 +211,47 @@ status:
     value: '0'
   - key: Enabled Motors
     value: '6'
-  - key: Error Count # 有错误的关节数
+  - key: Error Count # Number of joints with errors
     value: '0'
   - key: Warning Count
     value: '0'
 ```
 
-**DiagnosticStatus level字段取值说明**
-- **含义**：诊断级别/严重程度
-- **可选值**：
-  - `0` - **OK**：正常运行
-  - `1` - **WARN**：警告，有问题但仍可运行
-  - `2` - **ERROR**：错误，功能异常
-  - `3` - **STALE**：数据过时，组件可能失联
+**DiagnosticStatus level field value explanation**
+- **Meaning**: Diagnostic level/severity
+- **Optional values**:
+  - `0` - **OK**: Operating normally
+  - `1` - **WARN**: Warning, can still operate but has issues
+  - `2` - **ERROR**: Error, functional abnormality
+  - `3` - **STALE**: Data stale, component may be disconnected
 
-如果Error Count为0表示没有异常。
+If Error Count is 0, it means no exceptions.
 
 
-### 关节状态
+### Joint State
 
-**Topic 名称:** `/joint_states`  
-**消息类型:** `sensor_msgs/msg/JointState`
+**Topic name:** `/joint_states`
+**Message type:** `sensor_msgs/msg/JointState`
 
-**消息内容:**
+**Message content:**
 ```python
 {
   "header": {...},
   "name": ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6"],
-  "position": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # 弧度
-  "velocity": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # 弧度/秒
-  "effort": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]     # 力矩(Nm)
+  "position": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # radians
+  "velocity": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # radians/second
+  "effort": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]     # torque (Nm)
 }
 ```
 
-**Python 订阅:**
+**Python subscription:**
 ```python
 from sensor_msgs.msg import JointState
 
 def joint_callback(msg):
-    print(f"关节位置: {msg.position}")
-    print(f"关节速度: {msg.velocity}")
-    print(f"关节力矩: {msg.effort}")
+    print(f"Joint positions: {msg.position}")
+    print(f"Joint velocities: {msg.velocity}")
+    print(f"Joint efforts: {msg.effort}")
 
 sub = node.create_subscription(
     JointState,
@@ -254,68 +261,68 @@ sub = node.create_subscription(
 )
 ```
 
-**命令行:**
+**Command line:**
 ```bash
 ros2 topic echo /joint_states
-ros2 topic hz /joint_states  # 查看频率
+ros2 topic hz /joint_states  # View frequency
 ```
 
-### 机器人末端位姿: /arm/end_pose
-- **Topic名称**: /arm/end_pose
-- **Topic类型**: geometry_msgs/msg/PoseStamped
+### Robot End Pose: /arm/end_pose
+- **Topic name**: `/arm/end_pose`
+- **Topic type**: `geometry_msgs/msg/PoseStamped`
 
 ```bash
 ros2 topic echo /arm/end_pose
 ```
 
-输出示例：
+Output example:
 
 ```
 header:
-  stamp: # 位姿的时间戳
+  stamp: # Pose timestamp
     sec: 1768795175
     nanosec: 25515724
-  frame_id: arm_base_link # 位姿所在的坐标系（如 "world", "base_link", "map" 等）
+  frame_id: arm_base_link # Coordinate system where pose is located
 pose:
-  position: # 三维空间中的位置坐标
-    x: -0.002596549437289958 # X 坐标（米）
-    y: -0.00015324293869546386 # Y 坐标（米）
-    z: -0.010949253138884674 # Z 坐标（米）
-  orientation: # 使用四元数表示的姿态/方向
-    x: 0.006782491231458055 # 四元数 x 分量
-    y: 0.0565191773795548 # 四元数 y 分量
-    z: 0.0038225097444711995 # 四元数 z 分量
-    w: 0.9983711578467634 # 四元数 w 分量 （实部）
+  position: # Position coordinates in 3D space
+    x: -0.002596549437289958 # X coordinate (meters)
+    y: -0.00015324293869546386 # Y coordinate (meters)
+    z: -0.010949253138884674 # Z coordinate (meters)
+  orientation: # Orientation/direction represented by quaternion
+    x: 0.006782491231458055 # Quaternion x component
+    y: 0.0565191773795548 # Quaternion y component
+    z: 0.0038225097444711995 # Quaternion z component
+    w: 0.9983711578467634 # Quaternion w component (real part)
 ```
 
-### 机器人坐标系信息: /tf
-- **Topic名称**: /tf
-- **Topic类型**: tf2_msgs/msg/TFMessage
+### Robot Coordinate System Information: /tf
+- **Topic name**: `/tf`
+- **Topic type**: `tf2_msgs/msg/TFMessage`
 
 ```bash
 ros2 topic echo /tf
 ```
 
-输出示例：
+Output example:
 
 ```
-transforms: # 坐标变换数组，每个元素描述一对坐标系之间的变换关系
+transforms: # Coordinate transformation array, each element describes transformation between coordinate systems
 - header:
     stamp:
       sec: 1768795447
       nanosec: 720627795
-    frame_id: arm_gripper_base_link # 父坐标系的名称（变换的起始坐标系）
-  child_frame_id: arm_gripper_motor_link # 子坐标系的名称（变换的目标坐标系）,描述从 frame_id 到 child_frame_id 的变换
-  transform: # 空间变换，包含平移和旋转
+    frame_id: arm_gripper_base_link # Parent coordinate system name
+  child_frame_id: arm_gripper_motor_link # Child coordinate system name, describes transformation from frame_id to child_frame_id
+  transform: # Spatial transformation containing translation and rotation
     translation:
-      x: 0.0  # X 方向平移（米）
-      y: 0.0  # Y 方向平移（米）
-      z: 0.0  # Z 方向平移（米）
+      x: 0.0  # X direction translation (meters)
+      y: 0.0  # Y direction translation (meters)
+      z: 0.0  # Z direction translation (meters)
     rotation:
-      x: 0.06261636609424351 # 四元数 x 分量
-      y: 0.0 # 四元数 Y 分量
-      z: 0.0 # 四元数 Z 分量
-      w: 0.9980376699790202 # 四元数 w 分量（实部）
+      x: 0.06261636609424351 # Quaternion x component
+      y: 0.0 # Quaternion y component
+      z: 0.0 # Quaternion z component
+      w: 0.9980376699790202 # Quaternion w component
 - header:
     stamp:
       sec: 1768795447
@@ -334,61 +341,59 @@ transforms: # 坐标变换数组，每个元素描述一对坐标系之间的变
       w: 1.0
 ```
 
-### 相机接口
-- **Topic名称**: /eye_in_hand/eye_in_hand/image_raw/image_compressed
-- **Topic类型**: sensor_msgs/msg/CompressedImage
+### Camera Interface
+- **Topic name**: `/eye_in_hand/eye_in_hand/image_raw/image_compressed`
+- **Topic type**: `sensor_msgs/msg/CompressedImage`
 
 ```bash
 ros2 topic echo /eye_in_hand/eye_in_hand/image_raw/image_compressed
 ```
 
-#### 修改相机设备配置文件以正确连接相机设备
+#### Modify Camera Device Configuration File to Correctly Connect Camera Device
 
-需要将video_device修改成对应机械臂的设备, 可以通过以下方式确认相机设备号
+The camera device needs to be modified to match the robotic arm's device. The camera device number can be confirmed as follows:
 
-1. 插上相机usb线之前确认当前有哪些设备
+1. Before plugging in the camera USB cable, check what devices are currently available:
 ```bash
 ls /dev/video
 ```
 
-2. 插上相机usb线之后, 再次查看, 有新增的设备则为相机的设备, eg: 新增了/dev/video4
+2. After plugging in the camera USB cable, check again, the newly added device is the camera, e.g., newly added `/dev/video4`
 
-要获取相机数据, 需要修改以下配置文件
+To get camera data, modify the following configuration file:
 ```bash
 sudo vim /opt/xr/core/install/zbl_arm_6a_description/share/zbl_arm_6a_description/config/camera.yaml
 ```
-Eg: 修改为/dev/video4
+Example: Modify to `/dev/video4`
 
-修改完成之后需要退出并重新启动zbl_arm_6a_description 进程才会生效
+After modification, exit and restart the zbl_arm_6a_description process.
 
-## 常用命令总结
+## Common Commands Summary
 
 ```bash
-# 查看所有 topic
+# View all topics
 ros2 topic list
 
-# 查看 topic 详情
+# View topic details
 ros2 topic info /joint_states
 
-# 查看消息定义
+# View message definition
 ros2 interface show sensor_msgs/msg/JointState
 
-# 查看节点
+# View nodes
 ros2 node list
 
-# 查看节点信息
+# View node information
 ros2 node info /controller_manager
 
-# 录制数据
+# Record data
 ros2 bag record -a
 
-# 回放数据
+# Replay data
 ros2 bag play <bag_file>
 ```
 
-
-## 更多资源
-- [ROS 2 文档](https://docs.ros.org/en/jazzy/)
-- [ros2_control 文档](https://control.ros.org/)
-- [示例代码](../examples/)
-
+## More Resources
+- [ROS 2 Documentation](https://docs.ros.org/en/jazzy/)
+- [ros2_control Documentation](https://control.ros.org/)
+- [Example Code](../examples/)
