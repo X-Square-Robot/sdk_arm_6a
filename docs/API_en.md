@@ -72,6 +72,14 @@ ros2 control switch_controllers \
 - **Topic type**: `std_msgs::msg::Float64MultiArray`
 - **Description**: Array of size 6, joint angle desired positions for the 6-axis arm, from joint 1 to joint 6
 
+#### Deactivate All Controllers
+**After all controllers are deactivated, no control commands will be accepted. This can be used as a software emergency stop.**
+Command line example:
+```bash
+ros2 control switch_controllers \
+     --deactivate zero_force_dragging_controller cart_pose_controller joint_position_controller
+```
+
 Command line example：
 ```bash
 # Check topic info

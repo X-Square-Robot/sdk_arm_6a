@@ -72,6 +72,14 @@ ros2 control switch_controllers \
 - **Topic类型**: std_msgs::msg::Float64MultiArray
 - **参数解释**: size 为6的数组, 机械臂六轴 关节角度期望位置, 从1关节到6关节
 
+#### 去激活所有控制器
+**去激活所有控制器不再接受任何控制指令，可以用此方式实现软急停功能**
+命令行示例:
+```bash
+ros2 control switch_controllers \
+     --deactivate zero_force_dragging_controller cart_pose_controller joint_position_controller
+```
+
 命令行示例：
 ```bash
 # 检查topic信息
