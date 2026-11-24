@@ -119,19 +119,19 @@ TOPIC(LeftGripperState, "/gripper/state/left", std_msgs::msg::Float32, QoS::Syst
 // 右夹爪状态反馈topic
 TOPIC(RightGripperState, "/gripper/state/right", std_msgs::msg::Float32, QoS::SystemDefaultQoS());
 
-// zbl_g_gripper左夹爪控制topic
+// rm001_g_gripper左夹爪控制topic
 TOPIC(LeftGGripperControl,
       "/left_g_gripper_controller/commands",
       std_msgs::msg::Float64MultiArray,
       QoS::SystemDefaultQoS());
-// zbl_g_gripper右夹爪控制topic
+// rm001_g_gripper右夹爪控制topic
 TOPIC(RightGGripperControl,
       "/right_g_gripper_controller/commands",
       std_msgs::msg::Float64MultiArray,
       QoS::SystemDefaultQoS());
-// zbl_g_gripper左夹爪状态反馈topic
+// rm001_g_gripper左夹爪状态反馈topic
 TOPIC(LeftGGripperState, "/left_g_gripper_states/joint_states", sensor_msgs::msg::JointState, QoS::SystemDefaultQoS());
-// zbl_g_gripper右夹爪状态反馈topic
+// rm001_g_gripper右夹爪状态反馈topic
 TOPIC(RightGGripperState,
       "/right_g_gripper_states/joint_states",
       sensor_msgs::msg::JointState,

@@ -23,8 +23,8 @@ x2robot_msgs__msg__CanFrameBatch__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "x2robot_msgs/msg/detail/can_frame__functions.h"
 #include "builtin_interfaces/msg/detail/time__functions.h"
+#include "x2robot_msgs/msg/detail/can_frame__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG

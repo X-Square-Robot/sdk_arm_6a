@@ -70,6 +70,10 @@ class QPIKController : public controller_interface::ControllerInterface
     const int POSITION_CMD_INDEX = 0, VELOCITY_CMD_INDEX = 1, TORQUE_CMD_INDEX = 2, KP_CMD_INDEX = 3, KD_CMD_INDEX = 4,
               CTRL_MODE_INDEX = 5, JOINT_CMD_INDEX = 6;
 
+    // Control mode values written to the ctrl_mode command interface
+    static constexpr double MIT_CTRL_MODE = 1.0;
+    static constexpr double POSITION_CTRL_MODE = 2.0;
+
     // controller parameter
     std::string cmd_interface_prefix_;
     size_t robot_dof_;
@@ -88,6 +92,7 @@ class QPIKController : public controller_interface::ControllerInterface
     pinocchio::Data robot_data_;
 
     bool is_activated_;
+    double arm_ctrl_mode_;  // MIT_CTRL_MODE or POSITION_CTRL_MODE, selected via "arm_ctrl_mode" parameter
 
     std::mutex target_mutex_;
     std::optional<pinocchio::SE3> arm_delta_target_pose_;

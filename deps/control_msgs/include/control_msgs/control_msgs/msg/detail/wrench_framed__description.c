@@ -23,8 +23,8 @@ control_msgs__msg__WrenchFramed__get_type_hash(
 #include <string.h>
 
 // Include directives for referenced types
-#include "geometry_msgs/msg/detail/wrench__functions.h"
 #include "geometry_msgs/msg/detail/vector3__functions.h"
+#include "geometry_msgs/msg/detail/wrench__functions.h"
 
 // Hashes for external referenced types
 #ifndef NDEBUG
