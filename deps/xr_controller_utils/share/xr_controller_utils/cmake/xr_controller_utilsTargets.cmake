@@ -19,7 +19,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_cmake_targets_defined "")
 set(_cmake_targets_not_defined "")
 set(_cmake_expected_targets "")
-foreach(_cmake_expected_target IN ITEMS MeanFilter JointLimitProtection RobotTypeUtils InputShaper SE3LowPassFilter AdaptiveSE3Filter GeneralizedMomentumObserver xr_controller_utils)
+foreach(_cmake_expected_target IN ITEMS MeanFilter JointLimitProtection RobotTypeUtils InputShaper SE3LowPassFilter AdaptiveSE3Filter GeneralizedMomentumObserver PoseExtrapolator xr_controller_utils)
   list(APPEND _cmake_expected_targets "${_cmake_expected_target}")
   if(TARGET "${_cmake_expected_target}")
     list(APPEND _cmake_targets_defined "${_cmake_expected_target}")
@@ -111,12 +111,20 @@ set_target_properties(GeneralizedMomentumObserver PROPERTIES
   INTERFACE_LINK_LIBRARIES "pinocchio::pinocchio"
 )
 
+# Create imported target PoseExtrapolator
+add_library(PoseExtrapolator INTERFACE IMPORTED)
+
+set_target_properties(PoseExtrapolator PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include;${_IMPORT_PREFIX}/include"
+  INTERFACE_LINK_LIBRARIES "rclcpp::rclcpp;pinocchio::pinocchio;Eigen3::Eigen"
+)
+
 # Create imported target xr_controller_utils
 add_library(xr_controller_utils INTERFACE IMPORTED)
 
 set_target_properties(xr_controller_utils PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "MeanFilter;JointLimitProtection;RobotTypeUtils;InputShaper;SE3LowPassFilter;AdaptiveSE3Filter;GeneralizedMomentumObserver"
+  INTERFACE_LINK_LIBRARIES "MeanFilter;JointLimitProtection;RobotTypeUtils;InputShaper;SE3LowPassFilter;AdaptiveSE3Filter;GeneralizedMomentumObserver;PoseExtrapolator"
 )
 
 if(CMAKE_VERSION VERSION_LESS 3.0.0)

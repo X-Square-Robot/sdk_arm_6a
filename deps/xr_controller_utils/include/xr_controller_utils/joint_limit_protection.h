@@ -82,6 +82,18 @@ class JointLimitProtection
      */
     void setJointParams(int joint_idx, const Params& p);
 
+    /**
+     * @brief 判断指定关节当前是否处于安全范围内（未进入缓冲/限位区）
+     *
+     * 安全范围为 [q_min * buffer_zone_ratio, q_max * buffer_zone_ratio]。
+     * 用于实现"激活时若已超出安全范围则暂不启用软限位，待回到安全范围后再启用"的锁存逻辑。
+     *
+     * @param joint_idx 关节索引（从0开始）
+     * @param q 当前关节位置，单位：rad
+     * @return true 表示在安全范围内；索引非法时返回 true（视为安全，不抑制）
+     */
+    bool isInSafeZone(int joint_idx, double q) const;
+
    private:
     int dof_;                     ///< 关节自由度数量
     Eigen::VectorXd q_min_;       ///< 各关节最小位置限制，单位：rad

@@ -19,7 +19,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_cmake_targets_defined "")
 set(_cmake_targets_not_defined "")
 set(_cmake_expected_targets "")
-foreach(_cmake_expected_target IN ITEMS xr_controller_utils::MeanFilter xr_controller_utils::JointLimitProtection xr_controller_utils::RobotTypeUtils xr_controller_utils::InputShaper xr_controller_utils::SE3LowPassFilter xr_controller_utils::AdaptiveSE3Filter xr_controller_utils::GeneralizedMomentumObserver xr_controller_utils::xr_controller_utils)
+foreach(_cmake_expected_target IN ITEMS xr_controller_utils::MeanFilter xr_controller_utils::JointLimitProtection xr_controller_utils::RobotTypeUtils xr_controller_utils::InputShaper xr_controller_utils::SE3LowPassFilter xr_controller_utils::AdaptiveSE3Filter xr_controller_utils::GeneralizedMomentumObserver xr_controller_utils::PoseExtrapolator xr_controller_utils::xr_controller_utils)
   list(APPEND _cmake_expected_targets "${_cmake_expected_target}")
   if(TARGET "${_cmake_expected_target}")
     list(APPEND _cmake_targets_defined "${_cmake_expected_target}")
@@ -111,12 +111,20 @@ set_target_properties(xr_controller_utils::GeneralizedMomentumObserver PROPERTIE
   INTERFACE_LINK_LIBRARIES "pinocchio::pinocchio"
 )
 
+# Create imported target xr_controller_utils::PoseExtrapolator
+add_library(xr_controller_utils::PoseExtrapolator INTERFACE IMPORTED)
+
+set_target_properties(xr_controller_utils::PoseExtrapolator PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include;${_IMPORT_PREFIX}/include"
+  INTERFACE_LINK_LIBRARIES "rclcpp::rclcpp;pinocchio::pinocchio;Eigen3::Eigen"
+)
+
 # Create imported target xr_controller_utils::xr_controller_utils
 add_library(xr_controller_utils::xr_controller_utils INTERFACE IMPORTED)
 
 set_target_properties(xr_controller_utils::xr_controller_utils PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "xr_controller_utils::MeanFilter;xr_controller_utils::JointLimitProtection;xr_controller_utils::RobotTypeUtils;xr_controller_utils::InputShaper;xr_controller_utils::SE3LowPassFilter;xr_controller_utils::AdaptiveSE3Filter;xr_controller_utils::GeneralizedMomentumObserver"
+  INTERFACE_LINK_LIBRARIES "xr_controller_utils::MeanFilter;xr_controller_utils::JointLimitProtection;xr_controller_utils::RobotTypeUtils;xr_controller_utils::InputShaper;xr_controller_utils::SE3LowPassFilter;xr_controller_utils::AdaptiveSE3Filter;xr_controller_utils::GeneralizedMomentumObserver;xr_controller_utils::PoseExtrapolator"
 )
 
 if(CMAKE_VERSION VERSION_LESS 3.0.0)

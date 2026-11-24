@@ -66,6 +66,10 @@ class RobotWholeBodyJointController : public controller_interface::ControllerInt
     const int POSITION_CMD_INDEX = 0, VELOCITY_CMD_INDEX = 1, TORQUE_CMD_INDEX = 2, JOINT_CMD_INDEX = 3,
               KP_CMD_INDEX = 0, KD_CMD_INDEX = 1, CTRL_MODE_INDEX = 2;
 
+    // Control mode values written to the ctrl_mode command interface
+    static constexpr double MIT_CTRL_MODE = 1.0;
+    static constexpr double POSITION_CTRL_MODE = 2.0;
+
     // ================================================
     // Basic controller parameters
     // ================================================
@@ -89,6 +93,7 @@ class RobotWholeBodyJointController : public controller_interface::ControllerInt
     // Control state
     bool is_debug_;
     bool is_activated_;
+    double arm_ctrl_mode_;  // MIT_CTRL_MODE or POSITION_CTRL_MODE, selected via "arm_ctrl_mode" parameter
 
     // ================================================
     // ROS 2 Publishers and Subscribers
